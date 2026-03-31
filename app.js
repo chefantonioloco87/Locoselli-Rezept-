@@ -5,11 +5,11 @@
 
 const CATEGORIES = [
   'Tutte','Agar & Gel','Biscotti & Frolle','Cannoli & Peperoni',
-  'Cioccolato & Tortini','Contorni Molecolari','Destrosio','Dolci Regionali',
-  'Ganache & Rollo','Gelburger & Gelcrem','Glice & Sucro','Inulina',
-  'Isomalto','Macaron','Maltodestrina','Neutral Glaze','Panettoni & Pandori',
-  'Panne Cotte','Sferificazione','Spume & Sifone','Texture','Trealosio',
-  'Vegano & Vegetale','Altre Ricette'
+  'Cioccolato','Destrosio','Gelburger & Gelcrem','Glice','Glice & Sucro',
+  'Inulina','Isomalto','Maltodestrina','Neutral Glaze',
+  'Panettoni & Pandori','Panne Cotte','Sferificazione',
+  'Spume & Sifone','Sucroesteri','Texture','Tortini Salati',
+  'Trealosio','Vegano','Altre Ricette'
 ];
 
 let allRecipes = [];
