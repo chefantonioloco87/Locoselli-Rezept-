@@ -5,9 +5,9 @@
 
 const CATEGORIES = [
   'Tutte','Agar & Gel','Biscotti & Frolle','Cannoli & Peperoni',
-  'Cioccolato','Destrosio','Gelburger & Gelcrem','Glice','Glice & Sucro',
-  'Inulina','Isomalto','Maltodestrina','Neutral Glaze',
-  'Panettoni & Pandori','Panne Cotte','Sferificazione',
+  'Cioccolato','Cottura Controllata','Destrosio','Gelburger & Gelcrem',
+  'Glice','Glice & Sucro','Inulina','Isomalto','Maltodestrina',
+  'Neutral Glaze','Panettoni & Pandori','Panne Cotte','Sferificazione',
   'Spume & Sifone','Sucroesteri','Texture','Tortini Salati',
   'Trealosio','Vegano','Altre Ricette'
 ];
