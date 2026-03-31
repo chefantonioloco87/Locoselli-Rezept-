@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0D0D0D">
+  <title>Locoselli-R</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="icon" type="image/png" href="icon-192.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <img src="logo.png" alt="Locoselli" class="header-logo">
+      <span class="header-title">Locoselli-R</span>
+      <div class="header-actions">
+        <button class="btn-icon" id="btnAdd" title="Aggiungi ricetta">＋</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- SEARCH -->
+  <div class="search-wrap">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Cerca per ingrediente, nome, tecnica..." autocomplete="off" autocapitalize="none">
+      <button class="search-clear" id="searchClear">✕</button>
+      <span class="search-icon">⌕</span>
+    </div>
+    <div class="search-stats" id="searchStats"></div>
+  </div>
+
+  <!-- CATEGORIES -->
+  <div class="categories-wrap">
+    <div class="categories-scroll" id="categories"></div>
+  </div>
+
+  <!-- RECIPE LIST -->
+  <div class="recipes-container" id="recipeList"></div>
+
+  <!-- RECIPE DETAIL MODAL -->
+  <div class="modal-overlay" id="modalOverlay"></div>
+  <div class="modal" id="recipeModal">
+    <div class="modal-header">
+      <button class="modal-back" id="modalBack">←</button>
+      <div class="modal-title" id="modalTitle"></div>
+      <button class="modal-delete hidden" id="modalDelete" title="Elimina">🗑</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-category" id="modalCategory"></div>
+      <h1 class="modal-recipe-title" id="modalRecipeTitle"></h1>
+      <div class="modal-content" id="modalContent"></div>
+    </div>
+  </div>
+
+  <!-- ADD RECIPE MODAL -->
+  <div class="modal" id="addModal">
+    <div class="modal-header">
+      <button class="modal-back" id="addBack">←</button>
+      <div class="modal-title">Nuova Ricetta</div>
+    </div>
+    <div class="add-form">
+      <h2>Aggiungi Ricetta</h2>
+
+      <div class="form-group">
+        <label>Titolo</label>
+        <input type="text" id="addTitle" placeholder="Nome della ricetta">
+      </div>
+
+      <div class="form-group">
+        <label>Categoria</label>
+        <select id="addCategory"></select>
+      </div>
+
+      <div class="form-group">
+        <label>Ricetta</label>
+        <textarea id="addBody" placeholder="Ingredienti, procedimento, note..."></textarea>
+      </div>
+
+      <button class="btn-save" id="btnSave">Salva Ricetta</button>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <!-- SCRIPTS -->
+  <script src="app_data.js"></script>
+  <script src="app.js"></script>
+  <script>
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    }
+  </script>
+
+</body>
+</html>
