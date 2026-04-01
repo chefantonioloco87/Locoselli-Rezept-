@@ -1,4 +1,56 @@
-/* ── Locoselli Ricette App ── */
+/* ── Locoselli-R App ── */
+
+// ── LOGIN ──
+const ACCESS_CODE = 'Loco0106R';
+
+function checkLogin() {
+  // Already authenticated this session?
+  if (sessionStorage.getItem('locoselli_auth') === '1') {
+    showApp();
+    return;
+  }
+  // Show login screen
+  document.getElementById('loginScreen').classList.remove('hidden');
+
+  const input = document.getElementById('loginCode');
+  const btn = document.getElementById('loginBtn');
+  const error = document.getElementById('loginError');
+  const box = document.querySelector('.login-box');
+
+  function tryLogin() {
+    const code = input.value.trim();
+    if (code === ACCESS_CODE) {
+      sessionStorage.setItem('locoselli_auth', '1');
+      document.getElementById('loginScreen').style.opacity = '0';
+      document.getElementById('loginScreen').style.transition = 'opacity 0.3s';
+      setTimeout(showApp, 300);
+    } else {
+      error.textContent = 'Codice non valido';
+      box.classList.remove('shake');
+      void box.offsetWidth; // force reflow
+      box.classList.add('shake');
+      input.value = '';
+      input.focus();
+    }
+  }
+
+  btn.addEventListener('click', tryLogin);
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') tryLogin();
+    error.textContent = '';
+  });
+  input.focus();
+}
+
+function showApp() {
+  document.getElementById('loginScreen').classList.add('hidden');
+  document.getElementById('appContainer').style.display = '';
+  init();
+}
+
+document.addEventListener('DOMContentLoaded', checkLogin);
+
+// ── RECIPE APP ──
 
 // R is loaded from app_data.js: array of [id, title, category, body]
 // Custom recipes stored in localStorage
@@ -346,5 +398,4 @@ function bindEvents() {
   });
 }
 
-// ── Start ──
-document.addEventListener('DOMContentLoaded', init);
+// init() is called from showApp() after login

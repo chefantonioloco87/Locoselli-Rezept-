@@ -1,4 +1,4 @@
-const CACHE_NAME = 'locoselli-r-v3';
+const CACHE_NAME = 'locoselli-r-v4';
 const ASSETS = [
   './',
   './index.html',

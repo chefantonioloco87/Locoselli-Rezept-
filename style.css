@@ -37,6 +37,118 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* ── LOGIN SCREEN ── */
+.login-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-screen.hidden {
+  display: none;
+}
+
+.login-box {
+  text-align: center;
+  padding: 40px 32px;
+  max-width: 340px;
+  width: 100%;
+  animation: fadeIn 0.6s ease;
+}
+
+.login-logo {
+  width: 90px;
+  height: auto;
+  margin-bottom: 20px;
+  opacity: 0.9;
+}
+
+.login-title {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 300;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+
+.login-subtitle {
+  font-size: 0.78rem;
+  color: var(--text3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 36px;
+}
+
+.login-input-wrap {
+  margin-bottom: 16px;
+}
+
+.login-input-wrap input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(201,168,76,0.2);
+  background: var(--bg2);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 300;
+  text-align: center;
+  letter-spacing: 0.15em;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.login-input-wrap input::placeholder {
+  color: var(--text3);
+  letter-spacing: 0.05em;
+}
+
+.login-input-wrap input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px var(--gold-glow);
+}
+
+.login-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: var(--radius);
+  border: none;
+  background: var(--gold);
+  color: var(--bg);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.login-btn:hover { background: var(--gold-light); }
+.login-btn:active { transform: scale(0.98); }
+
+.login-error {
+  margin-top: 14px;
+  font-size: 0.82rem;
+  color: var(--danger);
+  min-height: 20px;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+
+.login-box.shake {
+  animation: shake 0.4s ease;
+}
+
 /* ── HEADER ── */
 .header {
   position: sticky;
