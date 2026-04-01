@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Tiramisù Locoselli Purciaro</title>
+  <meta name="theme-color" content="#0b0b0d">
+  <style>
+    :root {
+      --card:#16161b; --card2:#1d1d24; --text:#f5f5f7; --muted:#aaaab3;
+      --gold:#d7aa2b; --gold2:#f0d178; --line:rgba(255,255,255,.08);
+      --shadow:0 16px 40px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box;}
+    html,body{
+      margin:0;padding:0;color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      background:radial-gradient(circle at top left,rgba(215,170,43,.12),transparent 22%),
+        radial-gradient(circle at top right,rgba(215,170,43,.06),transparent 20%),
+        linear-gradient(180deg,#09090b,#0d0d11);
+    }
+    body{padding:16px 16px 40px;}
+    .wrap{max-width:760px;margin:0 auto;}
+    .back{display:inline-flex;align-items:center;gap:6px;color:var(--gold);text-decoration:none;font-size:14px;font-weight:700;margin-bottom:18px;}
+    .back:hover{color:var(--gold2);}
+    .page-card{
+      background:linear-gradient(180deg,rgba(24,24,28,.96),rgba(16,16,20,.98));
+      border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);
+      padding:28px 22px;position:relative;
+    }
+    .page-card:before{
+      content:"";position:absolute;inset:0 0 auto 0;height:1px;
+      background:linear-gradient(90deg,transparent,rgba(240,209,120,.32),transparent);
+    }
+    .badge{display:inline-block;border:1px solid var(--line);background:#111218;color:var(--muted);padding:6px 10px;border-radius:999px;font-size:12px;margin-bottom:14px;}
+    h1{margin:0 0 6px;font-size:30px;letter-spacing:-.04em;color:var(--gold);line-height:1.1;}
+    .subtitle{color:var(--muted);font-size:15px;margin-bottom:22px;}
+    h2{font-size:20px;color:var(--gold2);margin:28px 0 12px;letter-spacing:-.02em;}
+    h3{font-size:17px;color:var(--gold2);margin:22px 0 10px;}
+    p,li{color:var(--text);font-size:15px;line-height:1.65;}
+    ul{padding-left:20px;margin:0 0 10px;}
+    li{margin-bottom:6px;}
+    .highlight{color:var(--gold);font-weight:700;}
+    .note{background:rgba(215,170,43,.08);border:1px solid rgba(215,170,43,.15);border-radius:16px;padding:16px;margin-top:24px;color:var(--muted);font-size:14px;line-height:1.55;}
+    .footer{text-align:center;color:var(--muted);font-size:12px;margin-top:28px;}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="index.html">← Torna all'archivio</a>
+    <div class="page-card">
+      <span class="badge">Dolci</span>
+      <h1>Tiramisù Locoselli Purciaro</h1>
+      <p class="subtitle">Base classica + 20 varianti creative</p>
+
+      <h2>Base Locoselli</h2>
+      <ul>
+        <li><span class="highlight">4 uova medie</span> + <span class="highlight">200 g zucchero</span> — montare fino a massa chiara e stabile</li>
+        <li>Aggiungere <span class="highlight">2 kg mascarpone</span> e montare fino a crema liscia e strutturata</li>
+        <li>Completare con savoiardi, caffè e cacao</li>
+      </ul>
+
+      <h2>Varianti Locoselli</h2>
+
+      <h3>Classiche</h3>
+      <ul>
+        <li><strong>Cacao & fondente</strong> – ganache e cacao amaro</li>
+        <li><strong>Espresso intenso</strong> – caffè ridotto</li>
+        <li><strong>Caffè & whisky</strong> – aroma deciso</li>
+        <li><strong>Cappuccino</strong> – latte e cacao</li>
+        <li><strong>Mocha</strong> – caffè e cioccolato</li>
+      </ul>
+
+      <h3>Frutta</h3>
+      <ul>
+        <li><strong>Fragola</strong> – purea e savoiardi al limone</li>
+        <li><strong>Lampone</strong> – gel acido</li>
+        <li><strong>Mango</strong> – purea e lime</li>
+        <li><strong>Amarena</strong> – sciroppo e frutto</li>
+        <li><strong>Pera & cioccolato</strong> – pera cotta e fondente</li>
+        <li><strong>Limone</strong> – zest e limoncello</li>
+      </ul>
+
+      <h3>Frutta secca & speciali</h3>
+      <ul>
+        <li><strong>Nocciola</strong> – pasta nocciola e croccante</li>
+        <li><strong>Pistacchio</strong> – pasta pistacchio e granella</li>
+        <li><strong>Mandorla pugliese</strong> – latte di mandorla</li>
+        <li><strong>Cioccolato bianco</strong> – fuso e vaniglia</li>
+        <li><strong>Caramello salato</strong> – salsa caramello e sale</li>
+      </ul>
+
+      <h3>Avanzate</h3>
+      <ul>
+        <li><strong>Scomposto</strong> – crema, croccante, spuma</li>
+        <li><strong>Molecolare</strong> – caviale caffè, aria cacao</li>
+        <li><strong>Proteico</strong> – versione fit</li>
+        <li><strong>Affumicato</strong> – aroma leggero</li>
+      </ul>
+
+      <div class="note">
+        <strong>Metodo Locoselli</strong> — identità prima della tecnica.
+      </div>
+    </div>
+    <div class="footer">Premium by Locoselli • uso riservato</div>
+  </div>
+</body>
+</html>

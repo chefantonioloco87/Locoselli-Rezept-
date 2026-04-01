@@ -3,120 +3,105 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <base href="/app-ricette-Loco/">
+  <title>Locoselli Ricettario Premium</title>
+  <meta name="theme-color" content="#0b0b0d">
+  <link rel="manifest" href="manifest.json">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="theme-color" content="#0D0D0D">
-  <title>Locoselli-R</title>
-  <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="icon" type="image/png" href="icon-192.png">
+  <meta name="apple-mobile-web-app-title" content="Locoselli">
+  <link rel="apple-touch-icon" href="logo-apple.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="wrap">
 
-  <!-- LOGIN SCREEN -->
-  <div class="login-screen" id="loginScreen">
-    <div class="login-box">
-      <img src="logo.png" alt="Locoselli" class="login-logo">
-      <h1 class="login-title">Locoselli-R</h1>
-      <p class="login-subtitle">Ricettario Professionale</p>
-      <div class="login-input-wrap">
-        <input type="password" id="loginCode" placeholder="Codice di accesso" autocomplete="off">
+    <!-- ═══ GATE ═══ -->
+    <section class="gate" id="gate">
+      <div class="gate-card fade-up">
+        <img src="logo.PNG" class="gate-logo" alt="Locoselli">
+        <h1>Locoselli</h1>
+        <p>Ricettario premium riservato. Inserisci il codice per entrare.</p>
+        <div class="codebox">
+          <span>🔐</span>
+          <input id="codeInput" type="password" placeholder="Codice ingresso" autocomplete="off">
+        </div>
+        <button class="enter-btn" id="enterBtn">Entra</button>
+        <div class="error" id="errorMsg"></div>
+        <div class="hint">Premium • ricerca nel contenuto • offline</div>
       </div>
-      <button class="login-btn" id="loginBtn">Entra</button>
-      <p class="login-error" id="loginError"></p>
+    </section>
+
+    <!-- ═══ APP ═══ -->
+    <div class="app" id="app">
+
+      <!-- Sticky header -->
+      <div class="hero">
+        <div class="hero-card">
+          <div class="brand">
+            <img src="logo.PNG" class="logo" alt="Locoselli">
+            <div>
+              <h2 class="brand-title">Locoselli</h2>
+              <div class="sub">Ricettario Premium • ricerca • offline</div>
+            </div>
+          </div>
+          <div class="searchbox">
+            <span>🔎</span>
+            <input id="searchInput" type="text" placeholder="Cerca: agar, whisky, pluma, caviale...">
+          </div>
+          <div class="chips" id="chips"></div>
+          <div class="topline">
+            <div class="stats" id="counter">0 ricette</div>
+            <div style="display:flex;gap:8px;">
+              <button class="small-btn" id="favFilterBtn" title="Mostra preferiti">★ Preferiti</button>
+              <button class="small-btn" id="logoutBtn">Esci</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Banner -->
+      <section class="banner fade-up">
+        <h2>Archivio Locoselli</h2>
+        <p>Ricerca per parola chiave nel contenuto, preferiti, categorie e funziona anche offline.</p>
+        <div class="banner-tags">
+          <span class="banner-tag">Ricerca nel testo</span>
+          <span class="banner-tag">Preferiti ★</span>
+          <span class="banner-tag">Offline</span>
+          <span class="banner-tag">Premium design</span>
+        </div>
+      </section>
+
+      <!-- Featured -->
+      <section class="section">
+        <h3>In evidenza</h3>
+        <div class="featured-grid" id="featuredGrid"></div>
+      </section>
+
+      <!-- Categories -->
+      <section class="section">
+        <h3>Categorie</h3>
+        <div class="cat-grid" id="catGrid"></div>
+      </section>
+
+      <!-- All recipes -->
+      <section class="section">
+        <h3>Tutte le ricette</h3>
+        <div id="loadingMsg" class="loading-msg">Caricamento ricette...</div>
+        <div class="grid" id="grid"></div>
+        <div class="empty" id="empty">Nessun risultato trovato.</div>
+      </section>
+
+      <div class="footer-note">Premium by Locoselli • uso riservato</div>
     </div>
   </div>
 
-  <!-- APP (hidden until login) -->
-  <div class="app-container" id="appContainer" style="display:none">
+  <!-- Scroll-to-top FAB -->
+  <button class="scroll-fab" id="scrollFab" aria-label="Torna su">↑</button>
 
-  <!-- HEADER -->
-  <header class="header">
-    <div class="header-inner">
-      <img src="logo.png" alt="Locoselli" class="header-logo">
-      <span class="header-title">Locoselli-R</span>
-      <div class="header-actions">
-        <button class="btn-icon" id="btnAdd" title="Aggiungi ricetta">＋</button>
-      </div>
-    </div>
-  </header>
-
-  <!-- SEARCH -->
-  <div class="search-wrap">
-    <div class="search-box">
-      <input type="text" id="searchInput" placeholder="Cerca per ingrediente, nome, tecnica..." autocomplete="off" autocapitalize="none">
-      <button class="search-clear" id="searchClear">✕</button>
-      <span class="search-icon">⌕</span>
-    </div>
-    <div class="search-stats" id="searchStats"></div>
-  </div>
-
-  <!-- CATEGORIES -->
-  <div class="categories-wrap">
-    <div class="categories-scroll" id="categories"></div>
-  </div>
-
-  <!-- RECIPE LIST -->
-  <div class="recipes-container" id="recipeList"></div>
-
-  <!-- RECIPE DETAIL MODAL -->
-  <div class="modal-overlay" id="modalOverlay"></div>
-  <div class="modal" id="recipeModal">
-    <div class="modal-header">
-      <button class="modal-back" id="modalBack">←</button>
-      <div class="modal-title" id="modalTitle"></div>
-      <button class="modal-delete hidden" id="modalDelete" title="Elimina">🗑</button>
-    </div>
-    <div class="modal-body">
-      <div class="modal-category" id="modalCategory"></div>
-      <h1 class="modal-recipe-title" id="modalRecipeTitle"></h1>
-      <div class="modal-content" id="modalContent"></div>
-    </div>
-  </div>
-
-  <!-- ADD RECIPE MODAL -->
-  <div class="modal" id="addModal">
-    <div class="modal-header">
-      <button class="modal-back" id="addBack">←</button>
-      <div class="modal-title">Nuova Ricetta</div>
-    </div>
-    <div class="add-form">
-      <h2>Aggiungi Ricetta</h2>
-
-      <div class="form-group">
-        <label>Titolo</label>
-        <input type="text" id="addTitle" placeholder="Nome della ricetta">
-      </div>
-
-      <div class="form-group">
-        <label>Categoria</label>
-        <select id="addCategory"></select>
-      </div>
-
-      <div class="form-group">
-        <label>Ricetta</label>
-        <textarea id="addBody" placeholder="Ingredienti, procedimento, note..."></textarea>
-      </div>
-
-      <button class="btn-save" id="btnSave">Salva Ricetta</button>
-    </div>
-  </div>
-
-  <!-- TOAST -->
-  <div class="toast" id="toast"></div>
-
-  </div><!-- /app-container -->
-
-  <!-- SCRIPTS -->
-  <script src="app_data.js"></script>
   <script src="app.js"></script>
-  <script>
-    // Register Service Worker
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js').catch(() => {});
-    }
-  </script>
-
 </body>
 </html>
