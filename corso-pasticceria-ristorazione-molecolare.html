@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <base href="/app-ricette-Loco/">
+  <title>Pasticceria da Ristorazione Molecolare – Locoselli</title>
+  <meta name="theme-color" content="#0b0b0d">
+  <style>
+    :root {
+      --card:#16161b;--text:#f5f5f7;--muted:#aaaab3;
+      --gold:#d7aa2b;--gold2:#f0d178;--line:rgba(255,255,255,.08);
+      --shadow:0 16px 40px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box;}
+    html,body{
+      margin:0;padding:0;color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      background:radial-gradient(circle at top left,rgba(215,170,43,.12),transparent 22%),
+        radial-gradient(circle at top right,rgba(215,170,43,.06),transparent 20%),
+        linear-gradient(180deg,#09090b,#0d0d11);
+    }
+    body{padding:16px 16px 40px;}
+    .wrap{max-width:760px;margin:0 auto;}
+    .back{display:inline-flex;align-items:center;gap:6px;color:var(--gold);text-decoration:none;font-size:14px;font-weight:700;margin-bottom:18px;}
+    .page-card{
+      background:linear-gradient(180deg,rgba(24,24,28,.96),rgba(16,16,20,.98));
+      border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);
+      padding:28px 22px;position:relative;
+    }
+    .page-card:before{content:"";position:absolute;inset:0 0 auto 0;height:1px;background:linear-gradient(90deg,transparent,rgba(240,209,120,.32),transparent);}
+    .badge{display:inline-block;border:1px solid var(--line);background:#111218;color:var(--muted);padding:6px 10px;border-radius:999px;font-size:12px;margin-bottom:14px;}
+    h1{margin:0 0 16px;font-size:28px;letter-spacing:-.04em;color:var(--gold);line-height:1.1;}
+    h2{font-size:20px;color:var(--gold2);margin:28px 0 12px;letter-spacing:-.02em;border-bottom:1px solid var(--line);padding-bottom:8px;}
+    h3{font-size:17px;color:var(--gold2);margin:22px 0 10px;}
+    p{color:var(--text);font-size:15px;line-height:1.65;margin:8px 0;}
+    ul{padding-left:20px;margin:8px 0;}
+    li{color:var(--text);font-size:15px;line-height:1.65;margin-bottom:4px;}
+    .footer{text-align:center;color:var(--muted);font-size:12px;margin-top:28px;}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="index.html">← Torna all'archivio</a>
+    <div class="page-card">
+      <span class="badge">Corsi Damiano</span>
+      <h1>Pasticceria da Ristorazione Molecolare</h1>
+      <p>Per cucina o gastronomia molecolare si intende</p>
+      <p>essenzialmente un fronte piuttosto avanzato</p>
+      <p>della ricerca culinaria che, sfruttando nuove</p>
+      <p>metodologie, attrezzature e ingredienti, tende a</p>
+      <p>realizzare piatti basati su nuovi accostamenti di</p>
+      <p>forme e di gusti, ottenuti mediante la modifica</p>
+      <p>della struttura e della consistenza degli</p>
+      <p>ingredienti.</p>
+      <p>Esistono</p>
+      <p>diverse</p>
+      <p>definizioni</p>
+      <p>di cucina</p>
+      <p>molecolare: &quot;cucina emozionale&quot;, &quot;cucina</p>
+      <p>modernistica”, &quot;fisica culinaria&quot; e &quot;cucina</p>
+      <p>sperimentale”.</p>
+      <p>Il filo conduttore di fatto è lo studio che si</p>
+      <p>sviluppa intorno al comportamento degli</p>
+      <p>ingredienti e alla loro modificazione a seguito di</p>
+      <p>diversi fattori ambientali (temperatura,</p>
+      <p>pressione, vuoto, interazione con altri</p>
+      <p>ingredienti), e all’utilizzo che lo chef di cucina</p>
+      <p>molecolare fa di queste nozioni e tecniche per</p>
+      <p>giungere ad esperienze di alimentazione del</p>
+      <p>tutto sorprendenti. Talvolta si legge che con la</p>
+      <p>gastronomia molecolare si assiste all&#x27;invasione</p>
+      <p>della scienza in cucina, ma questa affermazione</p>
+      <p>non tiene conto di importanti precedenti.</p>
+      <p>c</p>
+      <p>Corso di pasticceria</p>
+      <p>da ristorazione e</p>
+      <p>molecolare</p>
+      <p>Dalle molecole alla</p>
+      <p>tavola, non solo</p>
+      <p>tecniche ma anche</p>
+      <p>sapori, piatti e</p>
+      <p>concetti.</p>
+      <p>Infatti, gastronomia e scienza negli ultimi secoli</p>
+      <p>si sono spesso scambiati dei favori. L&#x27;intento</p>
+      <p>della cucina molecolare è quello di contribuire a</p>
+      <p>trasformare la cucina, da sapere empirico in</p>
+      <p>scienza, studiando i processi e le trasformazioni</p>
+      <p>fisiche e chimiche che intervengono durante la</p>
+      <p>preparazione dei cibi, per utilizzarle in modo più</p>
+      <p>consapevole controllato, per migliorare le</p>
+      <p>metodiche esistenti e inventarne di nuove. Si</p>
+      <p>arriva così alla destrutturazione delle tecniche di</p>
+      <p>preparazione, partendo dagli stessi ingredienti</p>
+      <p>per ottenere piatti modificati nelle consistenze</p>
+      <p>finali e nella presentazione, in grado di fornire</p>
+      <p>originali percezioni anche sul piano del gusto.</p>
+      <p>La cucina molecolare ha sperimentato il</p>
+      <p>congelamento mediante l&#x27;azoto liquido, la</p>
+      <p>frittura nello zucchero, l&#x27;uso del sifone per</p>
+      <p>ottenere spume di ogni genere; ha introdotto</p>
+      <p>additivi naturali (ma alcuni critici contestano</p>
+      <p>questo dato) per emulsionare, stabilizzare,</p>
+      <p>gelatinare, fino ad ottenere la Sferificazione dei</p>
+      <p>liquidi, che possono così essere immersi, sotto</p>
+      <p>forme di perle, in altri liquidi.</p>
+      <p>A me piace pensare che grazie a questa tecnica,</p>
+      <p>posso stupire il cliente facendogli percorre un</p>
+      <p>percorso culinario &quot;differente&quot;, senza fargli</p>
+      <p>perdere la qualità del cibo.</p>
+      <p>Davide Damiano, Lilli D’Urso</p>
+      <p>&amp; Dalì Formazione</p>
+      <h2>LA CUCINA O GASTRONOMIA MOLECOLARE</h2>
+      <h2>SAPORI IN GIRO PER IL MONDO:</h2>
+      <p>1) Cubo cremoso al lampone con cialda sesamo e zenzero</p>
+      <p>2) Panna cotta al lampone</p>
+      <p>3) Macarons al Big Babol con crema alla fragola</p>
+      <p>4) Pere, rhum e cioccolato soffice, roccia al pistacchio</p>
+      <p>5) Mochi al latte con ripieno di fragole e aceto balsamico e</p>
+      <p>cioccolato bollato, aria croccante alle fragole e martini royal</p>
+      <p>6) La valigia di fumo: albicocche secche al moscato, Mi&amp;TO con</p>
+      <p>velluto alle nocciole, Sassi al latte</p>
+      <p>7) Verticale d’arachide</p>
+      <p>8) Mousse ai frutti esotici con cuore morbido al cocco, crema di</p>
+      <p>pasta frolla al limone e crumble ai muesli</p>
+      <p>9) Il mondo cremoso</p>
+      <p>10) Bombolone al sifone con diplomatica al lime</p>
+      <p>11) Frozen mousse al pomodoro, zuppa di gazpacho, aria alla</p>
+      <p>wodka e aceto, cialda al carbone e spugna al pomodoro</p>
+      <p>12) Ricordo di tiramisù: waffle sifonato, caviale al caffè, spuma al</p>
+      <p>mascarpone, croccante al cacao</p>
+      <p>Cubo cremoso al lampone con cialda al sesamo e zenzero</p>
+      <p>Cubo cremoso al lampone</p>
+      <ul>
+        <li>90 gr. di polpa di lamponi</li>
+        <li>225 gr. di zucchero</li>
+        <li>120 gr. di zucchero invertito (I)</li>
+        <li>20 gr. di gelatina animale idratata</li>
+        <li>75 gr. di zucchero invertito (II)</li>
+      </ul>
+      <p>Idratare la gelatina, cuocere il primo sciroppo di zucchero invertito con la polpa di frutta e lo zucchero a</p>
+      <h2><span style="color:#d7aa2b;font-weight:700">110°C</span>.</h2>
+      <p>Preparare la planetaria con la gelatina idratata (non sciolta) e il secondo zucchero invertito.</p>
+      <p>Inserire lo sciroppo caldo e montare, dressare nello stampo e far cristallizzare.</p>
+      <p>Una volta pronto cospargere di zucchero semolato e tagliare con coltello caldo.</p>
+      <p>Cialda al sesamo e zenzero</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>90 gr. di semi di sesamo</p>
+      <p>5 gr. di zenzero in polvere</p>
+      <p>10 gr. di maltodestrine di tapioca</p>
+      <p>7gr. di acqua</p>
+      <p>10 gr. di zucchero a velo</p>
+      <p>Miscelare tutti gli ingredienti assieme, poi stenderli tra due tappetini di silicone allo spessore di 0.3 mm.</p>
+      <p>Segnare a forma di quadrato e infornare a <span style="color:#d7aa2b;font-weight:700">160°C</span>. per 15 minuti circa.</p>
+      <p>Servizio:</p>
+      <p>tagliare il cubo di frutta leggermente più piccolo della base di sesamo, e chiuderlo in mezzo alle due basi,</p>
+      <p>servirlo su apposito supporto.</p>
+      <p>Panna cotta al lampone…. A modo mio</p>
+      <p>Panna cotta</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>200 gr. di panna</p>
+      <p>50 gr. di latte</p>
+      <p>40 gr. di inulina</p>
+      <p>40 gr. zucchero</p>
+      <p>1 gr. di iota</p>
+      <p>0.5 gr. di carrube</p>
+      <p>Mescolare tutti gli ingredienti secchi, unire i liquidi e portare a ebollizione, dressare nello stampo a forma di</p>
+      <p>lingotto, abbattere in negativo e smodellare.</p>
+      <p>Pellicola idratata al lampone</p>
+      <ul>
+        <li>200 gr. di polpa di lampone</li>
+        <li>20 gr. di glucosio in polvere</li>
+      </ul>
+      <p>Frullare il tutto, disareare e stendere sul silpat, far essiccare a <span style="color:#d7aa2b;font-weight:700">75°C</span> per circa 3 ore, una volta pronta tagliare</p>
+      <p>e conservare.</p>
+      <p>Idratare con acqua e arrotolare sulla panna cotta, servire come pre-dessert.</p>
+      <p>Sferificazione al lampone</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>8 gr. di lattato di calcio o (gluco)</p>
+      <p>200 gr. di polpa di lampone</p>
+      <p>50 gr. di sciroppo di zucchero 1:1</p>
+      <p>2 gr. di sale</p>
+      <p>0,7 gr. di xantano</p>
+      <p>1,2 gr. di citrato di sodio</p>
+      <p>Miscelare tutti gli ingredienti assieme, fare il processo di diseareazione, ovvero togliere l’aria dalla soluzione</p>
+      <p>liquida senza confezionarla definitivamente, inserendo il contenitore nella macchina a campana praticando</p>
+      <p>2/3 cicli.</p>
+      <p>Colare il liquido all’interno dello stampo a forma di mini-sfere, poi abbattertele, smodellarle e cuocerle nel</p>
+      <p>bagno di cottura, lasciare agire 1 minuto circa, poi prenderle e metterle in uno stampo della forma desiderata,</p>
+      <p>lasciarle scongelare e riposare 30 minuti in frigorifero.</p>
+      <p>Bagno d’alginato da cottura</p>
+      <ul>
+        <li>500 gr. di acqua naturale</li>
+        <li>3 gr. di alginato di sodio</li>
+      </ul>
+      <p>Frullare e procedere con il processo di disaerazione, ovvero togliere l’aria dalla soluzione liquida senza</p>
+      <p>confezionarla definitivamente, inserendo il contenitore nella macchina a campana praticando 2/3 cicli.</p>
+      <p>Cialda di isomalto</p>
+      <ul>
+        <li>100 gr. di isomalto fine</li>
+      </ul>
+      <p>Servizio:</p>
+      <p>Posizionare la panna cotta nel supporto e decorare con la cialda.</p>
+      <p>Inserire sello stampo e cuocere in forno a <span style="color:#d7aa2b;font-weight:700">160°C</span> per 10 minuti.</p>
+      <p>Macarons al Big Babol con crema alla fragola</p>
+      <p>Macarons al big Babol</p>
+      <ul>
+        <li>500 gr. di TPT alle mandorle</li>
+        <li>85 gr. di polpa alla fragola (I)</li>
+        <li>8 gr. di proteine dell’albume (I)</li>
+        <li>250 gr. di zucchero semolato</li>
+        <li>110 gr. di acqua</li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>85 gr. di polpa di fragole (II)</p>
+      <p>8 gr. di proteine dell’albume (II)</p>
+      <p>Aroma big babol</p>
+      <p>15 gr. di barbabietola in polvere</p>
+      <p>Frizionare l’albumina con la polpa di frutta (I), mettere il TpT nella bacinella in planetaria, incorporare la</p>
+      <p>barbabietola e l’aroma, e spatolare per rendere cremoso il prodotto.</p>
+      <p>Nel mentre miscelare la polpa di frutta (II) con l’albumina, e iniziare a montare in planetaria, cuocere lo</p>
+      <p>sciroppo di zucchero con l’acqua e lo zucchero semolato, portandolo a <span style="color:#d7aa2b;font-weight:700">118°C</span>.per realizzare la meringa</p>
+      <p>all’Italiana.</p>
+      <p>Una volta che la meringa sarà intorno ai <span style="color:#d7aa2b;font-weight:700">50 °C</span>, toglierla dalla macchina e mescolarla con la prima</p>
+      <p>preparazione, a mano, fino ad amalgamarla perfettamente. Dressare i macarons, sul tappetino e battere per</p>
+      <p>far uscire l&#x27;aria dalla pastella. Lasciare seccare a temperatura ambiente per 20 minuti circa in modo che si</p>
+      <p>asciughino internamente ed evitare che i gusci si crepino durante la cottura a causa dell&#x27;umidità. Saranno</p>
+      <p>pronte per essere infornate quando al tatto risulteranno secchi. Cuocere a <span style="color:#d7aa2b;font-weight:700">155 °C</span> con ventola al minimo e</p>
+      <p>valvola aperta, per circa 10 minuti.</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>150 gr. di polpa di fragole</p>
+      <p>25 gr. di succo di limone</p>
+      <p>150 gr. di acqua</p>
+      <p>70 gr. di zucchero</p>
+      <p>20 gr. di trealosio</p>
+      <p>8 gr. di pectina NH</p>
+      <p>5.7 gr. di fibre di lino</p>
+      <p>50 gr. di burro di cacao</p>
+      <p>15 gr. di inulina a caldo</p>
+      <p>Inserire i liquidi nel tegame e frullare con la fibra di lino. Miscelare i secchi assieme e unirli ai liquidi, portare</p>
+      <p>a bollore, togliere dal fuoco e far freddare a <span style="color:#d7aa2b;font-weight:700">60°C</span>. Aggiungere il burro di cacao e far stabilizzare per 3 ore in</p>
+      <p>frigorifero.</p>
+      <p>Servizio:</p>
+      <p>Farcire il macaron e posizionare sul supporto.</p>
+      <p>Crema alla fragola</p>
+      <p>Pere, rhum e cioccolato soffice, roccia al pistacchio</p>
+      <p>Gelè al cioccolato</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>200 gr. di latte</p>
+      <p>30 gr. di zucchero invertito</p>
+      <p>2,3 gr. di gomma di gellano</p>
+      <p>125 gr. di cioccolato fondente al 70%</p>
+      <p>Sciogliere il cioccolato nel microonde, nel mentre portare a bollore il resto degli ingredienti, amalgamare le</p>
+      <p>due preparazioni e dressare nello stampo in silicone a forma di “savarin”.</p>
+      <p>Gelè alla pera</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>100 gr. di succo alla pera</p>
+      <p>100 gr. rhum</p>
+      <p>30 gr. di zucchero invertito</p>
+      <p>4,5 gr. di gomma di gellan</p>
+      <p>25 gr. di inulina a caldo</p>
+      <p>Unire i secchi assieme e incorporarli nei liquidi, portare a bollore e dressare all’interno del buco del savarin.</p>
+      <p>Roccia al pistacchio</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>240 gr. di albume</p>
+      <p>40 gr. farina</p>
+      <p>100 gr. di pasta di pistacchio</p>
+      <p>20 gr. di zucchero</p>
+      <p>Frullare e setacciare tutti gli ingredienti, caricare il sifone con 2 cariche di N 2O, far riposare 5 minuti quindi</p>
+      <p>sifonare nell’apposito stampo e cuocere nel microonde alla massima potenza per circa 1 minuto.</p>
+      <p>Una volta pronte far seccare in forno.</p>
+      <p>Servizio:</p>
+      <p>posizionare dul supporto.</p>
+      <p>Mochi al latte con ripieno di fragole, aceto balsamico e cioccolato bollato, aria</p>
+      <p>croccante al mango e martini royal</p>
+      <p>Bagno d’alginato da cottura</p>
+      <ul>
+        <li>500 gr. di acqua naturale</li>
+        <li>3 gr. di alginato di sodio</li>
+      </ul>
+      <p>Frullare e procedere con il processo di disaerazione, ovvero togliere l’aria dalla soluzione liquida senza</p>
+      <p>confezionarla definitivamente, inserendo il contenitore nella macchina a campana praticando 2/3 cicli.</p>
+      <p>Mochi</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>180 gr. di latte condensato</p>
+      <p>120 gr. di panna</p>
+      <p>50 gr. di latte</p>
+      <p>8 gr. di lattato di calcio (gluco)</p>
+      <p>Frullare tutto assieme e inserire nel sifone con 2 cariche di N 2O, far stabilizzare e cuocere nel bagno</p>
+      <p>d’alginato.</p>
+      <p>Una volta pronto, sifonare su un cucchiaio, inserire all’interno un po’ di crema e coprire con altro preparato,</p>
+      <p>ora immergere nel bagno e cuocere per 2 minuti per lato, risciacquare e asciugare.</p>
+      <p>Crema alle fragole</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>80 gr. di polpa di fragole</p>
+      <p>20 gr. di sciroppo di zucchero</p>
+      <p>10 gr. di aceto balsamico</p>
+      <p>5 gr. di ultratex</p>
+      <p>Realizzare una crema densa.</p>
+      <p>Cioccolato bolle</p>
+      <ul>
+        <li>250 gr. di cioccolato fondente</li>
+        <li>100 gr. burro di cacao</li>
+      </ul>
+      <p>Fondere il cioccolato con il burro di cacao senza superare i <span style="color:#d7aa2b;font-weight:700">42°C</span>, quando arriva attorno ai <span style="color:#d7aa2b;font-weight:700">33°C</span> versare nel</p>
+      <p>sifone, caricare con 2 cariche e sifonare nel contenitore weck, mettere il vaso in un bagnomaria freddo con</p>
+      <p>molto ghiaccio e disareare nella macchina sottovuoto in vuoto.</p>
+      <p>Soft air al mango</p>
+      <ul>
+        <li>8 gr. metilcellulosa</li>
+      </ul>
+      <p>Portare a bollore i primi 3 ingredienti, quando arriva a <span style="color:#d7aa2b;font-weight:700">70°C</span> unire la metilcellulosa e frullare, trasferire in</p>
+      <p>planetaria e montare per 10 minuti, raccogliere la schiuma e far seccare in forno a <span style="color:#d7aa2b;font-weight:700">70°C</span>.</p>
+      <p>Martini Royal fluorescente</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>150 gr. di martini Bianco</p>
+      <p>150 gr. di prosecco</p>
+      <p>3,5 gr. di riboflavina</p>
+      <p>Succo di limone e menta fresca</p>
+      <p>Miscelare il martini con la riboflavina, poi realizzare il drink.</p>
+      <p>Servizio:</p>
+      <p>Adagiare i prodotti sul piatto nero, versare nella coppetta il Martini Royal ed illuminare con la torcia.</p>
+      <ul>
+        <li>250 gr. di polpa di mango</li>
+        <li>50 gr. di acqua</li>
+        <li>50 gr. di zucchero</li>
+      </ul>
+      <p>La valigia di fumo</p>
+      <p>Albicocche al moscato</p>
+      <p>Albicocche secche al moscato</p>
+      <p>Mi&amp;TO con velluto alle nocciole</p>
+      <p>Sassi al latte</p>
+      <ul>
+        <li>500 gr. di acqua naturale</li>
+        <li>3 gr. di alginato di sodio</li>
+      </ul>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>200 gr. di albicocche secche idratate</p>
+      <p>300 gr. di vino moscato</p>
+      <p>10 gr. di gluco (lattato di calcio)</p>
+      <p>1 gr. di xantano</p>
+      <p>100 gr. di mandorle intere con pelle</p>
+      <p>1 kg di zucchero</p>
+      <p>Inserire tutti gli ingredienti nella caraffa e frullare, procedere con il processo di disareazione e dressare nello</p>
+      <p>stampo a forma di quenelle, inserire all’interno la mandorla, abbattere e congelare.</p>
+      <p>Cuocere nel bagno d’alginato preriscaldato, lasciare a bagno per 6 minuti.</p>
+      <p>Togliere e asciugare con carta assorbente, versare uno strato di zucchero in un contenitore, adagiare sopra</p>
+      <p>le sfere e ricoprire con il restante zucchero, lasciar seccare per 4/5 ore, poi pulire e lavare, asciugare e servire.</p>
+      <p>Bagno d’alginato da cottura</p>
+      <p>Frullare e procedere con il processo di disaerazione, ovvero togliere l’aria dalla soluzione liquida senza</p>
+      <p>confezionarla definitivamente, inserendo il contenitore nella macchina a campana praticando 2/3 cicli.</p>
+      <p>Sassi al latte</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>20 gr. di latte in polvere</p>
+      <p>0,5 gr. di vaniglia pura</p>
+      <p>10 gr. di maltodestrine di tapioca</p>
+      <p>3gr. di olio di vinacciolo</p>
+      <p>10 gr. di zucchero a velo</p>
+      <p>Miscelare tutti gli ingredienti assieme e formare dei sassi, fiammarli leggermente.</p>
+      <p>“MI/TO” Milano Torino</p>
+      <p>4,5 cl vermut rosso</p>
+      <p>4,5 cl bitter</p>
+      <p>Fetta d’arancio</p>
+      <p>ghiaccio</p>
+      <p>Versare gli ingredienti nell’old fashioned pieno di ghiaccio, guarnire con fetta d’arancia e servire con velluto</p>
+      <p>alle nocciole.</p>
+      <p>Velluto</p>
+      <ul>
+        <li>100 gr. di vodka</li>
+        <li>1 gr. di sucresteri</li>
+        <li>Aroma alla nocciola</li>
+      </ul>
+      <p>Miscelare tutto assieme, montare con l’emulsionatore ad immersione sino ad ottenere un velluto montato e</p>
+      <p>denso, aromatizzare una volta messo sul bicchiere con lo spray alla nocciola.</p>
+      <p>Servizio:</p>
+      <p>Inserire tutti gli ingredienti nella valigia ed affumicare.</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>Verticale d’arachide</p>
+      <p>El polvorones alle arachidi</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>8 gr. maltodestrine esplose di tapioca</p>
+      <p>1 gr. cannella in polvere</p>
+      <p>10 gr. pasta di arachide</p>
+      <p>10 gr. di cioccolato bianco sciolto</p>
+      <p>Mescolare assieme gli ingredienti, poi fiammare con il cannello.</p>
+      <p>Finta arachide allo yogurt</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>60 gr. di latte</p>
+      <p>4 gr. di gelatina in polvere</p>
+      <p>150 gr. cioccolato bianco</p>
+      <p>25 gr. di pasta d’arachide</p>
+      <p>350 gr. di yogurt naturale</p>
+      <ul>
+        <li>100 gr burro di cacao</li>
+      </ul>
+      <p>Idratare la gelatina, portare a bollore il latte, versare sul cioccolato e unire la gelatina e la pasta d’arachide,</p>
+      <p>emulsionare, inserire lo yogurt e frizionare, dressare nello stampo a forma d’arachide e abbattere in negativo.</p>
+      <p>Una volta smodellati chablonare con il burro di cacao.</p>
+      <p>Chips alle arachidi caramellate</p>
+      <ul>
+        <li>50 gr. di arachidi in polvere</li>
+        <li>Fogli di obulato</li>
+        <li>90 gr. di zucchero fondant in pasta (se in polvere prima idratarlo) o glucosio in polvere con 30 gr di acqua</li>
+        <li>50 gr. di glucosio liquido</li>
+        <li>50 gr. di isomalto</li>
+      </ul>
+      <p>Miscelare i tre zuccheri e cuocere <span style="color:#d7aa2b;font-weight:700">155°C</span> togliere dal fuoco e inserire la polvere di arachidi, stendere sul</p>
+      <p>tappetino e far freddare. Una volta freddo frullare per ottenere una polvere. Adagiare i dischi di obulato sul</p>
+      <p>silpat e cospargere con la polvere caramellata, mettere in forno a <span style="color:#d7aa2b;font-weight:700">170°C</span>. per alcuni minuti, togliere e da caldi.</p>
+      <p>Sfera alle arachidi e cocco</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>50 gr. di latte di cocco</p>
+      <p>15 gr. di sciroppo di zucchero 1:1</p>
+      <p>0,5 gr. di guar</p>
+      <p>25 gr. inulina a freddo</p>
+      <ul>
+        <li>50 gr. di cocco rapè</li>
+        <li>Cioccolato bianco</li>
+      </ul>
+      <p>Frullare il guar, lo sciroppo, il latte di cocco e l’inulina, portare a bollore e versare sul cioccolato e la pasta di</p>
+      <p>arachide, frizionare, dressare nello stampo e abbattere in negativo. Smodellare e passare nel cioccolato</p>
+      <p>bianco e subito nelle scaglie di cocco.</p>
+      <p>Servizio</p>
+      <p>Posizionare la sfera sul fondo del piatto rosso, coprire con la chips, e posizionare su di essa le arachidi e il</p>
+      <p>polverones.</p>
+      <ul>
+        <li>170 gr. di cioccolato bianco</li>
+        <li>20 gr. di pasta d’arachidi</li>
+      </ul>
+      <p>Mousse ai frutti esotici con cuore morbido al cocco, crema di pasta frolla al limone</p>
+      <p>e crumble ai muesli</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>Frolla sablé</p>
+      <p>Crema alla frolla</p>
+      <p>55 gr. di farina w 160</p>
+      <p>10 gr. di fibra di bambù</p>
+      <p>100 gr. di burro</p>
+      <p>40 gr. di farina di mandorle</p>
+      <p>25 gr. di zucchero semolato</p>
+      <p>25 gr. di zucchero di canna</p>
+      <p>1,5 gr. di sale</p>
+      <p>0,7 gr. di xantano</p>
+      <p>Sabbiare nella planetaria con la foglia il burro con la vanillina, le farine, il baking e i caratterizzanti, una volta</p>
+      <p>che il composto sembra la sabbia del mare aggiungere lo zucchero, dopo alcuni minuti aggiungere le uova ed</p>
+      <p>il latte. Impastare fino a che l’impasto non sia omogeneo, lasciare riposare alcune ore in frigo o abbattere</p>
+      <p>prima di utilizzare.</p>
+      <p>Lavorare la frolla in planetaria con lo scudo in modo da renderla leggermente plastica quindi laminare alla</p>
+      <p>sfogliatrice sino a 5mm di spessore.</p>
+      <p>Cottura: <span style="color:#d7aa2b;font-weight:700">160°C</span> per dieci/dodici minuti circa.</p>
+      <ul>
+        <li>230 gr. di frolla cotta</li>
+        <li>50 gr. di miele</li>
+        <li>50 gr. di succo di limone</li>
+      </ul>
+      <p>Frullare tutti gli ingredienti assieme, meglio ancora utilizzando la raffinatrice, mettere in sacca.</p>
+      <p>Sfera di cocco</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>200 gr. di crema di cocco</p>
+      <p>100 gr. di panna</p>
+      <p>90 gr. di trealosio</p>
+      <p>100 gr. di sciroppo di zucchero</p>
+      <p>ultratex</p>
+      <p>Frullare tutto assieme e dressare nello stampo, poi abbattere.</p>
+      <p>Mousse</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>300 gr. di purea di mango</p>
+      <p>200 gr. di purea al frutto della passione</p>
+      <p>32 gr. di proteine dell’albume</p>
+      <p>2 gr. di xantano</p>
+      <p>24 gr. di gelatina in polvere (1:5)</p>
+      <p>50 gr. di zucchero</p>
+      <p>150 gr. di trealosio</p>
+      <p>200 gr. di panna semi montata</p>
+      <p>Frullare le proteine dell’uovo con le puree di frutta e lo xantano, far montare, quando risulta semi-stabile</p>
+      <p>incorporare gli zuccheri e finire la montata.</p>
+      <p>Sciogliere la gelatina al microonde, incorporare a mano con una frusta la gelatina e successivamente la panna</p>
+      <p>semi montata.</p>
+      <p>Dressare nello stampo e inserire al centro la sfera di cocco.</p>
+      <p>Glassa tropicale</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>225 gr. di polpa di frutti tropicali</p>
+      <p>80 gr. di acqua</p>
+      <p>20 gr. di succo di limone</p>
+      <p>70 gr. di zucchero</p>
+      <p>50 gr. di sciroppo di glucosio</p>
+      <p>8 gr. di pectina nh</p>
+      <p>2 gr. di agar agar</p>
+      <p>Unire i secchi, inserirli nei liquidi e portare a <span style="color:#d7aa2b;font-weight:700">106°C</span>.</p>
+      <p>Far riposare 6 ore e poi usare a <span style="color:#d7aa2b;font-weight:700">40°C</span>.</p>
+      <p>Granella di muesli</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>20 gr. di scaglie di cocco</p>
+      <p>20 gr. di semi di zucca</p>
+      <p>100 gr. di fiocchi d’avena</p>
+      <p>5 gr. di latte in polvere</p>
+      <p>2 gr. acido citrico</p>
+      <p>40 gr. di miele</p>
+      <p>25 gr. di burro di cacao</p>
+      <p>Miscelare i secchi assieme, unire il miele e tostare in forno a <span style="color:#d7aa2b;font-weight:700">150°C</span> senza far colorare troppo, poi</p>
+      <p>amalgamare al burro di cacao e sgranare.</p>
+      <p>Servizio:</p>
+      <p>posizionare il dolce al centro del piatto, decorare con granella di muesli e crema di frolla.</p>
+      <p>Il cremino, dal caffè al cioccolato con un po’ di limone</p>
+      <p>Instant mousse alla nocciola</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>300 gr. di latte</p>
+      <p>100 gr. di pasta di nocciola</p>
+      <p>50 gr. di inulina</p>
+      <p>50 gr. di destrosio</p>
+      <p>100 gr. di zucchero invertito</p>
+      <p>100 gr. di sciroppo di glucosio</p>
+      <p>10 gr. di gelatina idratata</p>
+      <p>35 gr. di ultratex</p>
+      <ul>
+        <li>300 gr. di panna montata</li>
+      </ul>
+      <p>Scaldare il latte e l’inulina a <span style="color:#d7aa2b;font-weight:700">70°C</span>, idratare la gelatina, versare sugli altri ingredienti ad eccezione della panna,</p>
+      <p>far tirare leggermente in abbattitore e poi incorporare alla panna montata.</p>
+      <p>Dressare nello stampo a sfera e abbattere.</p>
+      <p>Glassa alla nocciola e limone</p>
+      <ul>
+        <li>220 gr. di latte</li>
+        <li>300 gr. di acqua</li>
+        <li>90 gr. di trealosio</li>
+        <li>18 gr. di pectina NH</li>
+        <li>120 gr. di glucosio in polvere</li>
+        <li>1 gr. di vaniglia in purezza</li>
+        <li>80 gr. di pasta alla nocciola</li>
+        <li>80 gr. di cioccolato bianco</li>
+        <li>2 gr. di acido citrico idratato 1:1</li>
+      </ul>
+      <p>Miscelare gli zuccheri ed unirli alla pectina, inserire il composto nei liquidi e portare ad ebollizione per almeno</p>
+      <p>5 minuti. Togliere dal fuoco e frizionare sul cioccolato e sulla pasta, coprire con pellicola a contatto e far</p>
+      <p>stabilizzare, usare alla temperatura di <span style="color:#d7aa2b;font-weight:700">35°C</span>.</p>
+      <p>Crémeux al caffè</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>100 gr. di acqua</p>
+      <p>200 gr. di caffè della moka</p>
+      <p>50 gr. di inulina a caldo</p>
+      <p>35gr. di zucchero</p>
+      <p>15 gr. di trealosio</p>
+      <p>200 gr. di cioccolato fondente al 70%</p>
+      <p>3,5 gr. di fibra di lino</p>
+      <p>Miscelare i liquidi con l’inulina e gli zuccheri, scaldare a <span style="color:#d7aa2b;font-weight:700">70°C</span>. aggiungere la fibra e frizionare versare sul</p>
+      <p>cioccolato, far stabilizzare e poi mettere in sacca.</p>
+      <p>Ganache flexibile</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>250 gr. di panna</p>
+      <p>50 gr. di zucchero</p>
+      <p>30 gr. di inulina a caldo</p>
+      <p>60 gr. di cioccolato fondente al 70%</p>
+      <p>4,5 gr. di agar agar</p>
+      <p>Miscelare la panna con l’inulina lo zucchero e l’agar agar, portare a bollore, versare sul cioccolato e frizionare,</p>
+      <p>dressare nello stampo a forma di lingotto lungo ed abbattere.</p>
+      <p>Frolla sablé al cacao</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>150 gr. di zucchero a velo</p>
+      <p>90 gr. di trealosio</p>
+      <p>150 gr. di uova</p>
+      <p>75 gr. di farina di mandorla</p>
+      <p>450 gr. di burro</p>
+      <p>690 gr. di farina 160w</p>
+      <p>60 gr. di cacao</p>
+      <p>45 gr. di maltodestrine</p>
+      <p>Sabbiare nella planetaria con la foglia: il burro con la vanillina, le farine, il baking e i caratterizzanti, una volta</p>
+      <p>che il composto sembra la sabbia del mare aggiungere lo zucchero, dopo alcuni minuti aggiungere le uova ed</p>
+      <p>il latte. Impastare fino a che l’impasto non sia omogeneo, lasciare riposare alcune ore in frigo o abbattere</p>
+      <p>prima di utilizzare.</p>
+      <p>Lavorare la frolla in planetaria con lo scudo in modo da renderla leggermente plastica quindi laminare alla</p>
+      <p>sfogliatrice sino a 5mm di spessore. Ricavare dei rettangoli di dimensione simili alla ganache e posizionare su</p>
+      <p>tappetini microforati, congelare e poi cuocere a <span style="color:#d7aa2b;font-weight:700">155°C</span>: per 13 minuti circa.</p>
+      <p>Crema alla pera e lime</p>
+      <p>125 gr. di polpa di pere</p>
+      <p>25 gr. succo di lime</p>
+      <p>40 gr. di sciroppo di zucchero</p>
+      <p>2 gr. di guar</p>
+      <p>Miscelare tutto assieme e disareare.</p>
+      <p>Servizio:</p>
+      <p>posizionare la ganache nel piatto, decorare con il crémeux, posizionare le sfere, adagiare le gallette</p>
+      <p>lateralmente, decorare il piatto con la crema alla pera e lime.</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>Bombolone al sifone con diplomatica al lime</p>
+      <p>Bomboloni al sifone</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>170 gr. di uova</p>
+      <p>210 gr. di farina w 260</p>
+      <p>100 gr. di acqua</p>
+      <p>30 gr. di burro fuso</p>
+      <p>15 gr. di trealosio</p>
+      <p>20 gr. di zucchero</p>
+      <p>2 gr. di sale</p>
+      <p>4 gr. di baking</p>
+      <p>2 gr. di lievito secco</p>
+      <p>1 gr. di pasta di vaniglia</p>
+      <ul>
+        <li>1 l. di olio di arachidi</li>
+        <li>1 kg. di zucchero</li>
+      </ul>
+      <p>Frullare e setacciare tutti gli ingredienti, caricare il sifone con 2 cariche di N2O, far riposare 5 minuti, quindi</p>
+      <p>sifonare all’interno di un mestolo, (precedentemente lasciato a bagno in olio di semi caldo a <span style="color:#d7aa2b;font-weight:700">200°C</span>.)</p>
+      <p>Una volta colati rotolare nello zucchero semolato.</p>
+      <p>Crema diplomatica al lime</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>100 gr. di succo di lime</p>
+      <p>150 gr. di zucchero</p>
+      <p>150 gr. di uova</p>
+      <p>25 gr: di inulina a caldo</p>
+      <p>15 gr. di ultratex</p>
+      <ul>
+        <li>25 gr. di burro</li>
+        <li>100 gr. di panna</li>
+      </ul>
+      <p>Miscelare il primo gruppo d’ingredienti ed emulsionare bene, portare a <span style="color:#d7aa2b;font-weight:700">70°C</span> in microonde, poi unire il burro,</p>
+      <p>una volta fredda incorporare la panna semi montata.</p>
+      <p>Servizio:</p>
+      <p>adagiare i bomboloni farciti con la crema sul supporto.</p>
+      <p>Frozen mousse al pomodoro, zuppa di gazpacho, aria alla wodka e aceto, cialda al</p>
+      <p>carbone e spugna al pomodoro</p>
+      <p>Frozen mousse</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>350 gr. di succo di pomodoro</p>
+      <p>75 gr. destrosio</p>
+      <p>35 gr. zucchero</p>
+      <p>1.6 gr. di xantano</p>
+      <p>6 gr. di gelatina animale in polvere idratata</p>
+      <p>1 l. di olio di arachidi</p>
+      <p>1 kg. di zucchero</p>
+      <p>Inserire in abbattitore lo stampo in silicone (cilindrico). Frullare e setacciare tutti gli ingredienti, caricare il</p>
+      <p>sifone con 2 cariche di N2O, far riposare 5 minuti quindi sifonare all’interno del contenitore ghiacciato, porre</p>
+      <p>subito in abbattitore negativo.</p>
+      <p>Gazpacho</p>
+      <ul>
+        <li>200 gr. di pomodoro grappolo</li>
+        <li>60 gr. di cetriolo</li>
+        <li>60 gr. di peperone</li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>160 gr. di polpa di lampone</p>
+      <p>45 gr. trealosio</p>
+      <p>35 gr. zucchero</p>
+      <p>1.3 gr. di xantano</p>
+      <p>Passare il primo gruppo di ingredienti all’estrattore, poi unire il secondo gruppo, emulsionare e disareare.</p>
+      <p>Aria all’aceto</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>100 gr. di acqua</p>
+      <p>50 gr. di wodka</p>
+      <p>50 gr. di aceto di mele</p>
+      <p>3 gr. di lecitina di soia</p>
+      <p>Unire gli ingredienti ed attivare a <span style="color:#d7aa2b;font-weight:700">50°C</span>, poi far montare con l’apposito aeratore</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>25 gr. di fiocchi di patate</p>
+      <p>10 gr. di polvere di mandorle</p>
+      <p>25 gr. di burro fuso</p>
+      <p>80 gr. di albumi</p>
+      <p>20 gr. di zucchero a velo</p>
+      <p>3 gr. di carbone vegetale</p>
+      <p>Amalgamare il tutto e stendere sul tappetino di silicone a forma di lisca, cuocere nel microonde alla massima</p>
+      <p>potenza.</p>
+      <p>Spugna al pomodoro</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>200 gr. di uova</p>
+      <p>30 gr. farina</p>
+      <p>50 gr. di concentrato di pomodoro</p>
+      <p>30 gr. di zucchero</p>
+      <p>Frullare e setacciare tutti gli ingredienti, caricare il sifone con 2 cariche di N 2O, far riposare 5 minuti quindi</p>
+      <p>sifonare nell’apposito stampo e cuocere nel microonde alla massima potenza per circa 1 minuto.</p>
+      <p>Cialda al carbone</p>
+      <p>Ricordo di tiramisù</p>
+      <p>Waffle sifonato</p>
+      <p>Caviale al caffè</p>
+      <p>Spuma al mascarpone</p>
+      <p>Croccante al cacao</p>
+      <p>Cialda di isomalto al cacao</p>
+      <ul>
+        <li>100 gr. di isomalto fine</li>
+        <li>35 gr. di trealosio</li>
+        <li>70 gr. di cacao amaro</li>
+      </ul>
+      <p>Miscelare i due zuccheri e cospargere con un colino sopra di un Silpat e sciogliere in forno a <span style="color:#d7aa2b;font-weight:700">180°C</span>. Una volta</p>
+      <p>sciolto, cospargere un secondo strato e sciogliere nuovamente in forno, togliere dal forno e spolverare con il</p>
+      <p>cacao.</p>
+      <p>Wuffle al sifone</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>220 gr. di latte</p>
+      <p>180 gr. di farina w 220</p>
+      <p>10 gr. di olio di semi</p>
+      <p>110 gr. di uova</p>
+      <p>2 gr. di sale</p>
+      <p>30 gr. di trealosio</p>
+      <p>2 gr. di baking</p>
+      <p>1 gr. di pasta di vaniglia</p>
+      <p>Frullare e setacciare tutti gli ingredienti, caricare il sifone con 2 cariche di N 2O, far riposare 5 minuti quindi</p>
+      <p>sifonare all’interno dell’apposita piastra.</p>
+      <p>Spuma al mascarpone</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>250 gr. di mascarpone</p>
+      <p>100 gr. di panna</p>
+      <p>70 gr. di sciroppo di zucchero</p>
+      <p>5 gr. di gelatina in polvere idratata</p>
+      <p>70 gr. di tuorlo pastorizzato</p>
+      <ul>
+        <li>300 gr burro di cacao</li>
+      </ul>
+      <p>Idratare la gelatina e scioglierla nel microonde, unire tutti gli ingredienti ed emulsionare, quindi inserire nel</p>
+      <p>sifone con 2 cariche di N2O. Sifonare all’interno dello stampo di silicone pre-freddato, abbattere in negativo,</p>
+      <p>poi sformare e immergere nel burro di cacao.</p>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <p>100 gr. di acqua</p>
+      <p>100 gr. di caffè moka</p>
+      <p>50 gr. di sciroppo di zucchero 1:1</p>
+      <p>1 gr. di xantano</p>
+      <p>3 gr. di alginato di sodio</p>
+      <p>Emulsionare tutti gli ingredienti assieme e procedere con il processo di disaerazione, ovvero togliere l’aria</p>
+      <p>dalla soluzione liquida senza confezionarla definitivamente, inserendo il contenitore nella macchina a</p>
+      <p>campana, praticare 2/3 cicli.</p>
+      <p>Bagno di calcio</p>
+      <ul>
+        <li>450 gr di H2o</li>
+        <li>2.8 gr cloruro di calcio</li>
+      </ul>
+      <p>Miscelare tutto assieme e far riposare 10 minuti prima d’utilizzare.</p>
+      <p>Creare le sfere immergendo la soluzione al caffè all’interno della base di calcio e far rapprendere per pochi</p>
+      <p>istanti, poi sciacquare e servire.</p>
+      <p>Caviale al caffè</p>
+      <p>Da sempre nel DNA di Davide Damiano la formazione rappresenta un momento cruciale nel mondo</p>
+      <p>della ristorazione, assieme a Liliana D’Urso hanno fondato:</p>
+      <p>Dalì Formazione un network di professionisti in grado di prestare consulenze sulle più svariate</p>
+      <p>tematiche della cucina: dalla gastronomia tradizionale alla panificazione (o bakery) e la pasticceria,</p>
+      <p>dal mondo del senza glutine e dell’attenzione alla cucina senza allergeni; dalla gelateria alla</p>
+      <p>cioccolateria.</p>
+      <p>E’ l’interlocutore giusto per trovare soluzioni e appoggio nella creazione di menù innovativi, nella</p>
+      <p>razionalizzazione di processi di cottura, nell’elaborazione di piani imprenditoriali per l’apertura o il</p>
+      <p>rinnovamento di ristoranti ed attività Ho.Re.Ca con un occhio attento ed esperto all’organizzazione,</p>
+      <p>alla gestione del personale ed al food cost analitico.</p>
+    </div>
+    <div class="footer">Premium by Locoselli • uso riservato</div>
+  </div>
+</body>
+</html>
