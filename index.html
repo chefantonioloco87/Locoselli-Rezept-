@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Locoselli">
-  <link rel="apple-touch-icon" href="logo-apple.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <style>
     :root{--card:#16161b;--card2:#1d1d24;--text:#f5f5f7;--muted:#aaaab3;--gold:#d7aa2b;--gold2:#f0d178;--line:rgba(255,255,255,.08);--shadow:0 16px 40px rgba(0,0,0,.35)}
     *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -23,8 +23,7 @@
     .gate-logo{width:94px;height:94px;border-radius:24px;display:block;margin:0 auto 16px}
     .logo{width:62px;height:62px;border-radius:18px}
     .gate h1,.brand-title{margin:0;color:var(--gold);letter-spacing:-.04em}
-    .gate h1{font-size:35px}
-    .gate p,.sub,.hint,.stats,.footer-note{color:var(--muted)}
+    .gate h1{font-size:35px}.gate p,.sub,.hint,.stats,.footer-note{color:var(--muted)}
     .codebox,.searchbox{display:flex;align-items:center;gap:10px;background:#0f0f12;border:1px solid var(--line);border-radius:16px;padding:12px 14px;transition:border-color .2s}
     .codebox:focus-within,.searchbox:focus-within{border-color:rgba(215,170,43,.35)}
     .codebox input,.searchbox input{width:100%;background:transparent;border:none;outline:none;color:var(--text)}
@@ -40,8 +39,7 @@
     .hero{position:sticky;top:0;z-index:20;padding:6px 0 14px;background:linear-gradient(180deg,rgba(11,11,13,.97) 0%,rgba(11,11,13,.90) 82%,rgba(11,11,13,0) 100%);backdrop-filter:blur(12px)}
     .hero-card{padding:18px 16px 16px}
     .brand{display:flex;align-items:center;gap:14px;margin-bottom:14px}
-    .brand-title{font-size:31px;line-height:1}
-    .sub{margin-top:4px;font-size:14px}
+    .brand-title{font-size:31px;line-height:1}.sub{margin-top:4px;font-size:14px}
     .topline{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:12px}
     .small-btn{border:1px solid var(--line);background:#101116;color:var(--text);padding:10px 12px;border-radius:12px;font-size:13px;font-weight:700}
     .stats{font-size:13px}
@@ -50,8 +48,7 @@
     .banner p{margin:0;color:var(--muted);line-height:1.5}
     .banner-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
     .banner-tag,.badge,.chip{border:1px solid var(--line);background:#111218;color:var(--muted);padding:8px 11px;border-radius:999px;font-size:12px}
-    .chips{display:flex;gap:8px;overflow:auto;padding:12px 2px 2px;scrollbar-width:none}
-    .chips::-webkit-scrollbar{display:none}
+    .chips{display:flex;gap:8px;overflow:auto;padding:12px 2px 2px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
     .chip.active{background:rgba(215,170,43,.14);border-color:rgba(215,170,43,.28);color:#f0d178}
     .section{margin-top:18px}
     .section h3{margin:0 0 12px;color:var(--gold2);font-size:15px;letter-spacing:.03em;text-transform:uppercase}
@@ -62,8 +59,7 @@
     .card:before,.featured-card:before,.cat-card:before,.corso-card:before{content:"";position:absolute;inset:0 0 auto 0;height:1px;background:linear-gradient(90deg,transparent,rgba(240,209,120,.32),transparent)}
     .title{margin:0 0 8px;font-size:19px;line-height:1.18;letter-spacing:-.02em}
     .excerpt{margin-top:10px;color:var(--muted);font-size:13px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-    .meta{display:flex;gap:8px;flex-wrap:wrap}
-    .badge{padding:7px 10px}
+    .meta{display:flex;gap:8px;flex-wrap:wrap}.badge{padding:7px 10px}
     .badge.corso-badge{background:rgba(215,170,43,.12);border-color:rgba(215,170,43,.25);color:var(--gold2)}
     .actions{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
     .btn{text-decoration:none;display:inline-flex;align-items:center;justify-content:center;padding:11px 14px;border-radius:13px;font-size:14px;font-weight:800;border:1px solid var(--line)}
@@ -85,6 +81,7 @@
     .search-hl{color:var(--gold);font-weight:800}
     .scroll-fab{position:fixed;bottom:24px;right:20px;z-index:50;width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:rgba(22,22,27,.92);backdrop-filter:blur(10px);color:var(--gold);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(0,0,0,.4);opacity:0;transform:translateY(20px);transition:opacity .3s,transform .3s;pointer-events:none}
     .scroll-fab.visible{opacity:1;transform:translateY(0);pointer-events:auto}
+    .loading-msg{text-align:center;color:var(--muted);padding:30px 14px;font-size:15px}
     @media(min-width:760px){.featured-grid{grid-template-columns:1fr 1fr 1fr}.grid,.corsi-grid{grid-template-columns:1fr 1fr}}
     @media(min-width:1040px){.grid{grid-template-columns:1fr 1fr 1fr}.cat-grid{grid-template-columns:repeat(4,1fr)}}
   </style>
@@ -93,7 +90,7 @@
 <div class="wrap">
   <section class="gate" id="gate">
     <div class="gate-card">
-      <img src="logo.PNG" class="gate-logo" alt="Locoselli">
+      <img src="logo.png" class="gate-logo" alt="Locoselli">
       <h1>Locoselli</h1>
       <p>Ricettario premium riservato. Inserisci il codice per entrare.</p>
       <div class="codebox"><span>🔐</span><input id="codeInput" type="password" placeholder="Codice ingresso" autocomplete="off"></div>
@@ -105,10 +102,10 @@
 
   <div class="app" id="app">
     <div class="hero"><div class="hero-card">
-      <div class="brand"><img src="logo.PNG" class="logo" alt="Locoselli"><div><h2 class="brand-title">Locoselli</h2><div class="sub">Ricettario Premium • ricerca nelle ricette e nei corsi</div></div></div>
+      <div class="brand"><img src="logo.png" class="logo" alt="Locoselli"><div><h2 class="brand-title">Locoselli</h2><div class="sub">Ricettario Premium • ricerca nelle ricette e nei corsi</div></div></div>
       <div class="searchbox"><span>🔎</span><input id="searchInput" type="text" placeholder="Cerca: glassa, gambero, meringa, agar..."></div>
       <div class="chips" id="chips"></div>
-      <div class="topline"><div class="stats" id="counter">0 ricette</div><button class="small-btn" id="logoutBtn">Esci</button></div>
+      <div class="topline"><div class="stats" id="counter">Caricamento...</div><button class="small-btn" id="logoutBtn">Esci</button></div>
     </div></div>
 
     <section class="banner"><h2>Archivio Locoselli</h2><p>Cerca qualsiasi parola: la troverai nelle ricette e nei corsi di Damiano.</p>
@@ -118,7 +115,7 @@
     <section class="section"><h3>In evidenza</h3><div class="featured-grid" id="featuredGrid"></div></section>
     <section class="section"><h3>Categorie</h3><div class="cat-grid" id="catGrid"></div></section>
     <section class="section" id="corsiSection"><h3>📖 Corsi Damiano</h3><div class="corsi-grid" id="corsiGrid"></div></section>
-    <section class="section"><h3>Tutte le ricette</h3><div class="grid" id="grid"></div><div class="empty" id="empty">Nessun risultato trovato.</div></section>
+    <section class="section"><h3>Tutte le ricette</h3><div id="loadingMsg" class="loading-msg">Caricamento ricette...</div><div class="grid" id="grid"></div><div class="empty" id="empty">Nessun risultato trovato.</div></section>
     <div class="footer-note">Premium by Locoselli • uso riservato</div>
   </div>
 </div>
@@ -128,124 +125,61 @@
 const ACCESS_CODE="Loco0106R";
 if(localStorage.getItem("locoselli_access")==="ok") window.addEventListener("load",()=>enterApp());
 
-/* ══════════ LISTA RICETTE HARDCODED ══════════ */
-const ALL_FILES = [
-  "50-contorni-caldi-molecolari.html",
-  "agar-dessert-e-gel-dolci.html",
-  "agar-sezione-2.html",
-  "babac-2024.html",
-  "bigne-2.html",
-  "biscuit-al-cacao-arrotolare.html",
-  "biscuit-per-rollo-locoselli.html",
-  "brioches-2024.html",
-  "cannolo-croccante-di-peperone.html",
-  "cannolo-peperone-molecolare.html",
-  "cartellate-ricetta.html",
-  "combinazioni-agar-molecolare.html",
-  "corso-avanzato-lezione1-pate-a-choux.html",
-  "corso-avanzato-lezione2-biscuit-moderni.html",
-  "corso-avanzato-lezione3-mousse-bavaresi.html",
-  "corso-avanzato-lezione4-glasse-specchio.html",
-  "corso-avanzato-lezione5-cioccolato-avanzato.html",
-  "corso-avanzato-lezione6-zucchero-isomalto.html",
-  "corso-avanzato-lezione7-dessert-al-piatto.html",
-  "corso-avanzato-lezione8-signature-dessert.html",
-  "frolla-per-crostate.html",
-  "frollino-vaniglia.html",
-  "ganache-ciliegia-per-rollo-locoselli.html",
-  "glassa-ferrero-glice-lecitina.html",
-  "impasti-ravioli.html",
-  "maltodestrina-meringhe.html",
-  "maltodestrina.html",
-  "meringa-caramellata-locoselli.html",
-  "molecolare-avanzato-ver-07-ottobre-2023-2.html",
-  "molecolare-avanzato-ver-07-ottobre-2023.html",
-  "molecolare-settembre-2021-rev02.html",
-  "mousse-calde-sacapoche.html",
-  "pan-di-spagna-2.html",
-  "pan-di-spagna.html",
-  "pandoro-molecolare-glice-destrosio.html",
-  "panettone-canditi.html",
-  "panettone-diretto-lunga-conservazione-locoselli.html",
-  "panettone-glice-inulina.html",
-  "panettone-impasto-diretto-glice-inulina.html",
-  "panettone-lievito-madre-in-polvere-destrosio-glice.html",
-  "panettone-molecolare-glice-destrosio.html",
-  "panettone-pandoro-lievitomadre-altaidratazione-locoselli.html",
-  "panna-cotta-salata-termoresistente.html",
-  "panne-cotte-calde-molecolari.html",
-  "pasta-sfoglia.html",
-  "pasticceria-creativa-e-scenografica-aprile-ver01.html",
-  "pasticceria-mignon-basi.html",
-  "pasticerria-da-ristorazione-molecolare-ver03-2.html",
-  "pasticerria-da-ristorazione-molecolare-ver03.html",
-  "plumcake-agli-agrumi.html",
-  "prodotti-cucina-molecolare.html",
-  "ricetta-macaron.html",
-  "ricetta-pannacotta-provolone.html",
-  "ricettario-20-mousse-calde.html",
-  "ricettario-24-texture-calde.html",
-  "ricettario-bassa-temperatura-locoselli.html",
-  "ricettario-bistecche-vegetali.html",
-  "ricettario-damiano-25.html",
-  "ricettario-destrosio-30-ricette.html",
-  "ricettario-flexifiber-sosa-dettagliato.html",
-  "ricettario-gelatina-animale.html",
-  "ricettario-gelburger-gelcrem.html",
-  "ricettario-glice-sucro.html",
-  "ricettario-glice.html",
-  "ricettario-inulina.html",
-  "ricettario-isomalto.html",
-  "ricettario-konjac.html",
-  "ricettario-lezione1-pasta-frolla.html",
-  "ricettario-lezione2-pan-di-spagna-creme.html",
-  "ricettario-lezione3-bigne-pasticcini.html",
-  "ricettario-lezione4-biscotti-secchi.html",
-  "ricettario-lezione5-lievitati-dolci.html",
-  "ricettario-lezione6-classici-regionali.html",
-  "ricettario-molecolare-lecitina.html",
-  "ricettario-mono-digliceridi.html",
-  "ricettario-neutral-glaze-completo.html",
-  "ricettario-pectina.html",
-  "ricettario-sferificazione-abbinamenti.html",
-  "ricettario-sferificazione.html",
-  "ricettario-spume-sifone.html",
-  "ricettario-sucroesteri.html",
-  "ricettario-texture-vegane.html",
-  "ricettario-trealosio-completo.html",
-  "ricette-agar-molecolare.html",
-  "ricette-carragenina-iota.html",
-  "ricette-carragenina-kappa.html",
-  "risotti-locoselli.html",
-  "salse-internazionali.html",
-  "sassi-edibili-cucina-molecolare.html",
-  "tette-delle-monache-ricetta.html",
-  "tiramisu-locoselli-purciaro-coretto.html",
-  "tortini-al-cioccolato.html",
-  "tortini-caldi-molecolari-salati.html"
+/* ══════ RICETTE - lista file dal repo ══════ */
+const ALL_FILES=[
+"50-contorni-caldi-molecolari.html","agar-dessert-e-gel-dolci.html","agar-sezione-2.html","babac-2024.html",
+"bigne-2.html","biscuit-al-cacao-arrotolare.html","biscuit-per-rollo-locoselli.html","brioches-2024.html",
+"cannolo-croccante-di-peperone.html","cannolo-peperone-molecolare.html","cartellate-ricetta.html",
+"combinazioni-agar-molecolare.html","corso-avanzato-lezione1-pate-a-choux.html",
+"corso-avanzato-lezione2-biscuit-moderni.html","corso-avanzato-lezione3-mousse-bavaresi.html",
+"corso-avanzato-lezione4-glasse-specchio.html","corso-avanzato-lezione5-cioccolato-avanzato.html",
+"corso-avanzato-lezione6-zucchero-isomalto.html","corso-avanzato-lezione7-dessert-al-piatto.html",
+"corso-avanzato-lezione8-signature-dessert.html","frolla-per-crostate.html","frollino-vaniglia.html",
+"ganache-ciliegia-per-rollo-locoselli.html","glassa-ferrero-glice-lecitina.html","impasti-ravioli.html",
+"maltodestrina-meringhe.html","maltodestrina.html","meringa-caramellata-locoselli.html",
+"molecolare-avanzato-ver-07-ottobre-2023-2.html","molecolare-avanzato-ver-07-ottobre-2023.html",
+"molecolare-settembre-2021-rev02.html","mousse-calde-sacapoche.html","pan-di-spagna-2.html","pan-di-spagna.html",
+"pandoro-molecolare-glice-destrosio.html","panettone-canditi.html","panettone-diretto-lunga-conservazione-locoselli.html",
+"panettone-glice-inulina.html","panettone-impasto-diretto-glice-inulina.html",
+"panettone-lievito-madre-in-polvere-destrosio-glice.html","panettone-molecolare-glice-destrosio.html",
+"panettone-pandoro-lievitomadre-altaidratazione-locoselli.html","panna-cotta-salata-termoresistente.html",
+"panne-cotte-calde-molecolari.html","pasta-sfoglia.html","pasticceria-creativa-e-scenografica-aprile-ver01.html",
+"pasticceria-mignon-basi.html","pasticerria-da-ristorazione-molecolare-ver03-2.html",
+"pasticerria-da-ristorazione-molecolare-ver03.html","plumcake-agli-agrumi.html","prodotti-cucina-molecolare.html",
+"ricetta-macaron.html","ricetta-pannacotta-provolone.html","ricettario-20-mousse-calde.html",
+"ricettario-24-texture-calde.html","ricettario-bassa-temperatura-locoselli.html","ricettario-bistecche-vegetali.html",
+"ricettario-damiano-25.html","ricettario-destrosio-30-ricette.html","ricettario-flexifiber-sosa-dettagliato.html",
+"ricettario-gelatina-animale.html","ricettario-gelburger-gelcrem.html","ricettario-glice-sucro.html",
+"ricettario-glice.html","ricettario-inulina.html","ricettario-isomalto.html","ricettario-konjac.html",
+"ricettario-lezione1-pasta-frolla.html","ricettario-lezione2-pan-di-spagna-creme.html",
+"ricettario-lezione3-bigne-pasticcini.html","ricettario-lezione4-biscotti-secchi.html",
+"ricettario-lezione5-lievitati-dolci.html","ricettario-lezione6-classici-regionali.html",
+"ricettario-molecolare-lecitina.html","ricettario-mono-digliceridi.html","ricettario-neutral-glaze-completo.html",
+"ricettario-pectina.html","ricettario-sferificazione-abbinamenti.html","ricettario-sferificazione.html",
+"ricettario-spume-sifone.html","ricettario-sucroesteri.html","ricettario-texture-vegane.html",
+"ricettario-trealosio-completo.html","ricette-agar-molecolare.html","ricette-carragenina-iota.html",
+"ricette-carragenina-kappa.html","risotti-locoselli.html","salse-internazionali.html",
+"sassi-edibili-cucina-molecolare.html","tette-delle-monache-ricetta.html","tiramisu-locoselli-purciaro-coretto.html",
+"tortini-al-cioccolato.html","tortini-caldi-molecolari-salati.html"
 ];
 
-/* ══════════ CORSI DAMIANO HARDCODED ══════════ */
-const CORSI = [
-  {file:"corso-damiano-ricettario-25.html", title:"Ricettario Damiano 25 – Cottura Controllata", desc:"Nuove tecniche conservazione, cottura controllata, ready to eat & cook, brining, sale bilanciato, vasocottura"},
-  {file:"corso-molecolare-base-ifa-2024-2025.html", title:"Corso Molecolare Base IFA 2024-2025", desc:"Sferificazione, agar, gelificazione, spume, lecitina, maltodestrina, glassa"},
-  {file:"corso-molecolare-avanzato-2023.html", title:"Corso Molecolare Avanzato 2023", desc:"Transglutaminasi, iota, kappa, glasse, gel caldi, meringa, gambero"},
-  {file:"corso-molecolare-settembre-2021.html", title:"Manuale Gastronomia Molecolare 2021", desc:"Sferificazione, agar, gellan, lecitina, spume sifone, meringa gambero"},
-  {file:"corso-germania.html", title:"Corso Germania", desc:"Cucina molecolare applicata, tecniche e ricette, glassa, meringa"},
-  {file:"corso-pasticceria-creativa-scenografica.html", title:"Pasticceria Creativa e Scenografica", desc:"Tecniche creative, scenografia, presentazione, glassa specchio"},
-  {file:"corso-pasticceria-ristorazione-molecolare.html", title:"Pasticceria da Ristorazione Molecolare", desc:"Pasticceria molecolare per ristorazione, dessert al piatto"}
+/* ══════ CORSI DAMIANO ══════ */
+const CORSI=[
+{file:"corso-damiano-ricettario-25.html",title:"Ricettario Damiano 25 – Cottura Controllata",desc:"Nuove tecniche conservazione, cottura controllata, ready to eat & cook, brining, sale bilanciato"},
+{file:"corso-molecolare-base-ifa-2024-2025.html",title:"Corso Molecolare Base IFA 2024-2025",desc:"Sferificazione, agar, gelificazione, spume, lecitina, maltodestrina, glassa"},
+{file:"corso-molecolare-avanzato-2023.html",title:"Corso Molecolare Avanzato 2023",desc:"Transglutaminasi, iota, kappa, glasse, gel caldi, meringa, gambero"},
+{file:"corso-molecolare-settembre-2021.html",title:"Manuale Gastronomia Molecolare 2021",desc:"Sferificazione, agar, gellan, lecitina, spume sifone, meringa gambero"},
+{file:"corso-germania.html",title:"Corso Germania",desc:"Cucina molecolare applicata, tecniche e ricette, glassa, meringa"},
+{file:"corso-pasticceria-creativa-scenografica.html",title:"Pasticceria Creativa e Scenografica",desc:"Tecniche creative, scenografia, presentazione, glassa specchio"},
+{file:"corso-pasticceria-ristorazione-molecolare.html",title:"Pasticceria da Ristorazione Molecolare",desc:"Pasticceria molecolare per ristorazione, dessert al piatto"}
 ];
 
-let files=[], corsiWithText=[], activeCategory="Tutte";
+let files=[],corsiData=[],activeCategory="Tutte";
 const categories=["Tutte","Bassa temperatura","Dolci","Lievitati","Molecolare","Salato","Tecniche","Basi"];
 const featuredNames=["tiramisu","risotti","bassa-temperatura","inulina","isomalto","agar"];
 const catIcons={"Bassa temperatura":"🌡️","Dolci":"🍰","Lievitati":"🥐","Molecolare":"🧪","Salato":"🍽️","Tecniche":"📖","Basi":"📋"};
 
 const $=id=>document.getElementById(id);
-const gate=$("gate"),app=$("app"),codeInput=$("codeInput"),errorMsg=$("errorMsg"),enterBtn=$("enterBtn");
-const grid=$("grid"),empty=$("empty"),counter=$("counter"),chips=$("chips"),input=$("searchInput");
-const logoutBtn=$("logoutBtn"),featuredGrid=$("featuredGrid"),catGrid=$("catGrid");
-const corsiGrid=$("corsiGrid"),corsiSection=$("corsiSection"),scrollFab=$("scrollFab");
 
 function detectCategory(n){
   n=n.toLowerCase();
@@ -257,93 +191,83 @@ function detectCategory(n){
   if(/(corso|lezione|prodotti|damiano|tecniche)/.test(n))return"Tecniche";
   return"Basi";
 }
-function escapeRE(s){return s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")}
-function hl(t,q){if(!q||!t)return t||"";return t.replace(new RegExp("("+escapeRE(q)+")","gi"),"<span class='search-hl'>$1</span>")}
+function esc(s){return s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")}
+function hl(t,q){if(!q||!t)return t||"";return t.replace(new RegExp("("+esc(q)+")","gi"),"<span class='search-hl'>$1</span>")}
 
 function renderFeatured(){
-  const f=[];featuredNames.forEach(k=>{const found=files.find(x=>x.file.toLowerCase().includes(k));if(found&&!f.some(x=>x.file===found.file))f.push(found)});
-  featuredGrid.innerHTML=f.slice(0,3).map(i=>`<article class="featured-card"><div class="featured-kicker">${i.category}</div><h4>${i.title}</h4><p>${i.excerpt||"Apri questa ricetta premium."}</p><div class="actions"><a class="btn primary" href="${i.file}">Apri</a></div></article>`).join("");
+  const f=[];featuredNames.forEach(k=>{const x=files.find(r=>r.file.toLowerCase().includes(k));if(x&&!f.some(y=>y.file===x.file))f.push(x)});
+  $("featuredGrid").innerHTML=f.slice(0,3).map(i=>`<article class="featured-card"><div class="featured-kicker">${i.category}</div><h4>${i.title}</h4><p>${i.excerpt||"Apri questa ricetta premium."}</p><div class="actions"><a class="btn primary" href="${i.file}">Apri</a></div></article>`).join("");
 }
 function renderCategories(){
-  catGrid.innerHTML=categories.filter(c=>c!=="Tutte").map(cat=>`<a class="cat-card" href="#" onclick="setCat('${cat.replace(/'/g,"\\'")}');return false"><span class="cat-icon">${catIcons[cat]||"📄"}</span><strong>${cat}</strong><span>${files.filter(f=>f.category===cat).length} ricette</span></a>`).join("");
+  $("catGrid").innerHTML=categories.filter(c=>c!=="Tutte").map(c=>`<a class="cat-card" href="#" onclick="setCat('${c.replace(/'/g,"\\'")}');return false"><span class="cat-icon">${catIcons[c]||"📄"}</span><strong>${c}</strong><span>${files.filter(f=>f.category===c).length} ricette</span></a>`).join("");
 }
 function setCat(c){activeCategory=c;renderChips();render();window.scrollTo({top:0,behavior:"smooth"})}
 function renderChips(){
-  chips.innerHTML=categories.map(c=>`<button class="chip ${c===activeCategory?"active":""}" data-cat="${c}">${c}</button>`).join("");
-  chips.querySelectorAll(".chip").forEach(b=>b.addEventListener("click",()=>{activeCategory=b.dataset.cat;renderChips();render()}));
+  $("chips").innerHTML=categories.map(c=>`<button class="chip ${c===activeCategory?"active":""}" data-cat="${c}">${c}</button>`).join("");
+  $("chips").querySelectorAll(".chip").forEach(b=>b.onclick=()=>{activeCategory=b.dataset.cat;renderChips();render()});
 }
 
 function render(){
-  const q=input.value.trim().toLowerCase();
+  const q=($("searchInput").value||"").trim().toLowerCase();
   const filtered=files.filter(i=>{
     const catOk=activeCategory==="Tutte"||i.category===activeCategory;
     const sOk=!q||i.keywords.includes(q)||(i.text&&i.text.includes(q));
     return catOk&&sOk;
   });
-  grid.innerHTML=filtered.map(i=>{
-    let ex=i.excerpt||"";ex=hl(ex,input.value.trim());
+  $("grid").innerHTML=filtered.map(i=>{
+    let ex=hl(i.excerpt||"",$("searchInput").value.trim());
     return`<article class="card"><h3 class="title">${i.title}</h3><div class="meta"><span class="badge">${i.category}</span></div><div class="excerpt">${ex}</div><div class="actions"><a class="btn primary" href="${i.file}">Apri</a><a class="btn secondary" href="#" onclick="setCat('${i.category.replace(/'/g,"\\'")}');return false">Categoria</a></div></article>`;
   }).join("");
 
-  // Corsi: cerca anche nel testo completo
-  const fc=corsiWithText.filter(c=>{
+  const fc=corsiData.filter(c=>{
     if(!q)return true;
     return c.title.toLowerCase().includes(q)||c.desc.toLowerCase().includes(q)||(c.text&&c.text.includes(q));
   });
-  corsiGrid.innerHTML=fc.map(c=>`<article class="corso-card"><div class="meta"><span class="badge corso-badge">📖 Corso</span></div><h4 style="margin-top:10px">${hl(c.title,input.value.trim())}</h4><p class="cdesc">${hl(c.desc,input.value.trim())}</p><div class="actions"><a class="btn primary" href="${c.file}">Apri corso</a></div></article>`).join("");
-  corsiSection.style.display=fc.length?"block":"none";
+  $("corsiGrid").innerHTML=fc.map(c=>`<article class="corso-card"><div class="meta"><span class="badge corso-badge">📖 Corso</span></div><h4 style="margin-top:10px">${hl(c.title,$("searchInput").value.trim())}</h4><p class="cdesc">${hl(c.desc,$("searchInput").value.trim())}</p><div class="actions"><a class="btn primary" href="${c.file}">Apri corso</a></div></article>`).join("");
+  $("corsiSection").style.display=fc.length?"block":"none";
 
-  counter.textContent=filtered.length+" ricette"+(fc.length?" + "+fc.length+" corsi":"");
-  empty.style.display=(filtered.length+fc.length===0)?"block":"none";
+  $("counter").textContent=filtered.length+" ricette"+(fc.length?" + "+fc.length+" corsi":"");
+  $("empty").style.display=(filtered.length+fc.length===0)?"block":"none";
 }
 
-// Scroll FAB
-window.addEventListener("scroll",()=>scrollFab.classList.toggle("visible",window.scrollY>400),{passive:true});
-scrollFab.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));
-logoutBtn.addEventListener("click",()=>{localStorage.removeItem("locoselli_access");location.reload()});
+window.addEventListener("scroll",()=>$("scrollFab").classList.toggle("visible",window.scrollY>400),{passive:true});
+$("scrollFab").onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
+$("logoutBtn").onclick=()=>{localStorage.removeItem("locoselli_access");location.reload()};
 
-/* ══════════ LOAD ══════════ */
 async function loadFiles(){
-  // Ricette: dalla lista hardcoded + fetch del contenuto per la ricerca
-  files=await Promise.all(ALL_FILES.map(async name=>{
+  // Carica ricette dalla lista hardcoded + fetch contenuto per ricerca
+  const results=[];
+  for(const name of ALL_FILES){
     let rawText="";
     try{
-      const res=await fetch(name);
-      if(res.ok){const h=await res.text();rawText=h.replace(/<script[\s\S]*?<\/script>/gi," ").replace(/<style[\s\S]*?<\/style>/gi," ").replace(/<[^>]+>/g," ").replace(/&nbsp;/g," ").replace(/&amp;/g,"&").replace(/\s+/g," ").trim().toLowerCase()}
+      const r=await fetch(name);
+      if(r.ok){const h=await r.text();rawText=h.replace(/<script[\s\S]*?<\/script>/gi," ").replace(/<style[\s\S]*?<\/style>/gi," ").replace(/<[^>]+>/g," ").replace(/&nbsp;/g," ").replace(/&amp;/g,"&").replace(/\s+/g," ").trim().toLowerCase()}
     }catch(e){}
     const title=name.replace(/\.html$/i,"").replace(/-/g," ").replace(/\bcoretto\b/i,"corretto").trim();
     const category=detectCategory(name);
-    return{file:name,title,category,excerpt:rawText?rawText.slice(0,260):"",text:rawText,keywords:(title+" "+category).toLowerCase()};
-  }));
-
-  // Corsi: carica testo dal corsi_index.json per ricerca nel contenuto
-  corsiWithText=CORSI.map(c=>({...c,text:""}));
-  try{
-    const res=await fetch("corsi_index.json");
-    if(res.ok){
-      const data=await res.json();
-      if(Array.isArray(data)){
-        corsiWithText=data.map(d=>({
-          file:d.file,title:d.title,desc:d.desc||"",text:d.text||""
-        }));
-      }
-    }
-  }catch(e){
-    // Fallback: usa la lista CORSI senza testo (ricerca solo per titolo/desc)
-    console.log("corsi_index.json non trovato, ricerca corsi solo per titolo");
+    results.push({file:name,title,category,excerpt:rawText?rawText.slice(0,260):"",text:rawText,keywords:(title+" "+category).toLowerCase()});
   }
+  files=results;
 
+  // Carica corsi con testo per ricerca
+  corsiData=CORSI.map(c=>({...c,text:""}));
+  try{
+    const r=await fetch("corsi_index.json");
+    if(r.ok){const ct=r.headers.get("content-type")||"";if(ct.includes("json")||ct.includes("octet")){const d=await r.json();if(Array.isArray(d)&&d.length)corsiData=d}}
+  }catch(e){}
+
+  $("loadingMsg").style.display="none";
   renderFeatured();renderCategories();renderChips();render();
 }
 
-function enterApp(){gate.style.display="none";app.style.display="block";loadFiles()}
+function enterApp(){$("gate").style.display="none";$("app").style.display="block";loadFiles()}
 function checkCode(){
-  if(codeInput.value===ACCESS_CODE){errorMsg.textContent="";localStorage.setItem("locoselli_access","ok");enterApp()}
-  else{errorMsg.textContent="Codice errato. Riprova.";codeInput.value="";codeInput.focus()}
+  if($("codeInput").value===ACCESS_CODE){$("errorMsg").textContent="";localStorage.setItem("locoselli_access","ok");enterApp()}
+  else{$("errorMsg").textContent="Codice errato. Riprova.";$("codeInput").value="";$("codeInput").focus()}
 }
-enterBtn.addEventListener("click",checkCode);
-codeInput.addEventListener("keydown",e=>{if(e.key==="Enter")checkCode()});
-input.addEventListener("input",render);
+$("enterBtn").onclick=checkCode;
+$("codeInput").onkeydown=e=>{if(e.key==="Enter")checkCode()};
+$("searchInput").oninput=render;
 </script>
 </body>
 </html>
