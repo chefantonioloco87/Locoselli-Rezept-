@@ -41,10 +41,7 @@
       border-radius:var(--radius);
     }
     .gate-card{width:min(560px,100%); padding:34px}
-    .logo{
-      width:72px;height:72px;border-radius:18px;background:#111;display:grid;place-items:center;
-      color:var(--gold);font-weight:800;font-size:26px;border:1px solid var(--line);margin-bottom:14px;
-    }
+    .logo-img{height:70px;display:block;margin:0 auto 14px auto}
     h1,h2,h3,p{margin:0}
     .gold{color:var(--gold2)}
     .muted{color:var(--muted)}
@@ -68,7 +65,7 @@
     }
     .topbar-inner{max-width:1240px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:14px;justify-content:space-between}
     .brand{display:flex;align-items:center;gap:12px}
-    .brand-mark{width:40px;height:40px;border-radius:12px;background:#111;display:grid;place-items:center;border:1px solid var(--line);color:var(--gold);font-weight:800}
+    .brand-logo{height:40px;display:block}
     .toolbar{display:flex;gap:10px;flex-wrap:wrap}
     .hero{
       padding:28px; display:grid; grid-template-columns:1.2fr .8fr; gap:18px; margin-top:22px;
@@ -136,9 +133,9 @@
 <body>
   <div id="gate" class="gate">
     <div class="gate-card">
-      <div class="logo">L</div>
+      <img src="logo.png" alt="Locoselli" class="logo-img">
       <h1>Locoselli <span class="gold">Archivio</span></h1>
-      <p class="muted" style="margin-top:10px">Ricette, basi, molecolare e corsi Damiano in un’unica home, come prima ma con la sezione corsi integrata.</p>
+      <p class="muted" style="margin-top:10px">Ricette, basi, molecolare e corsi Damiano in un’unica home.</p>
       <div style="margin-top:18px">
         <input id="codeInput" type="password" placeholder="Inserisci il codice di accesso" />
       </div>
@@ -153,7 +150,7 @@
     <div class="topbar">
       <div class="topbar-inner">
         <div class="brand">
-          <div class="brand-mark">L</div>
+          <img src="logo.png" alt="Locoselli" class="brand-logo">
           <div>
             <strong>Locoselli</strong><br/>
             <span class="muted" style="font-size:12px">Archivio ricette + corsi</span>
