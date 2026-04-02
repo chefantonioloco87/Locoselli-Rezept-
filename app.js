@@ -1,63 +1,79 @@
-/* ═══════════════════════════════════════════════
-   LOCOSELLI — app.js
-   Logica condivisa: auth, ricerca, preferiti, UI
-   ═══════════════════════════════════════════════ */
-
+/* LOCOSELLI — app.js */
 const ACCESS_CODE = "Loco0106R";
 
-/* ---------- Favourites (localStorage) ---------- */
 const Favs = {
   _key: "locoselli_favs",
-  _get() { try { return JSON.parse(localStorage.getItem(this._key) || "[]"); } catch { return []; } },
+  _get() {
+    try { return JSON.parse(localStorage.getItem(this._key) || "[]"); }
+    catch { return []; }
+  },
   list() { return this._get(); },
   has(file) { return this._get().includes(file); },
   toggle(file) {
     const favs = this._get();
     const i = favs.indexOf(file);
-    if (i >= 0) favs.splice(i, 1); else favs.push(file);
+    if (i >= 0) favs.splice(i, 1);
+    else favs.push(file);
     localStorage.setItem(this._key, JSON.stringify(favs));
-    return i < 0; // returns true if now favourited
+    return i < 0;
   }
 };
 
-/* ---------- State ---------- */
 let files = [];
 let activeCategory = "Tutte";
 let showFavsOnly = false;
 
-const categories = ["Tutte","Bassa temperatura","Dolci","Lievitati","Molecolare","Salato","Tecniche","Basi"];
+const categories = ["Tutte","Bassa temperatura","Dolci","Lievitati","Molecolare","Salato","Corsi","Tecniche","Basi"];
 const featuredNames = ["tiramisu","risotti","bassa-temperatura","inulina","isomalto","agar"];
-
 const catIcons = {
-  "Bassa temperatura": "🌡️",
+  "Bassa temperatura": "🔥",
   "Dolci": "🍰",
   "Lievitati": "🥐",
   "Molecolare": "🧪",
   "Salato": "🍽️",
-  "Tecniche": "📖",
-  "Basi": "📋"
+  "Corsi": "🎓",
+  "Tecniche": "🛠️",
+  "Basi": "📚"
 };
 
-/* ---------- DOM refs ---------- */
 const $ = id => document.getElementById(id);
-const gate        = $("gate");
-const app         = $("app");
-const codeInput   = $("codeInput");
-const errorMsg    = $("errorMsg");
-const enterBtn    = $("enterBtn");
-const grid        = $("grid");
-const empty       = $("empty");
-const counter     = $("counter");
-const chips       = $("chips");
-const input       = $("searchInput");
-const logoutBtn   = $("logoutBtn");
+const gate = $("gate");
+const app = $("app");
+const codeInput = $("codeInput");
+const errorMsg = $("errorMsg");
+const enterBtn = $("enterBtn");
+const grid = $("grid");
+const empty = $("empty");
+const counter = $("counter");
+const chips = $("chips");
+const input = $("searchInput");
+const logoutBtn = $("logoutBtn");
 const featuredGrid= $("featuredGrid");
-const catGrid     = $("catGrid");
-const loadingMsg  = $("loadingMsg");
-const scrollFab   = $("scrollFab");
+const catGrid = $("catGrid");
+const loadingMsg = $("loadingMsg");
+const scrollFab = $("scrollFab");
 const favFilterBtn= $("favFilterBtn");
 
-/* ---------- Rendering ---------- */
+function isCourseFile(item) {
+  const s = `${item.file || ""} ${item.title || ""}`.toLowerCase();
+  return /(corso|lezione|damiano)/.test(s);
+}
+
+function buildOpenLink(item, query) {
+  const q = (query || "").trim();
+  if (!q) return item.file;
+
+  if (isCourseFile(item) && item.text && item.text.toLowerCase().includes(q.toLowerCase())) {
+    const params = new URLSearchParams({
+      file: item.file,
+      q: q,
+      title: item.title || item.file
+    });
+    return `open-course-match.html?${params.toString()}`;
+  }
+
+  return item.file;
+}
 
 function renderFeatured() {
   const featured = [];
@@ -65,25 +81,26 @@ function renderFeatured() {
     const found = files.find(f => f.file.toLowerCase().includes(key));
     if (found && !featured.some(x => x.file === found.file)) featured.push(found);
   });
-  featuredGrid.innerHTML = featured.slice(0, 3).map((item, i) => `
-    <article class="featured-card fade-up" style="animation-delay:${i * .08}s">
-      <div class="featured-kicker">${item.category}</div>
+
+  if (!featuredGrid) return;
+  featuredGrid.innerHTML = featured.slice(0, 3).map(item => `
+    <article class="feature-card">
+      <span class="pill">${item.category}</span>
       <h4>${item.title}</h4>
       <p>${item.excerpt || "Apri subito questa ricetta premium dall'archivio Locoselli."}</p>
-      <div class="actions">
-        <a class="btn primary" href="${item.file}">Apri</a>
-      </div>
+      <a class="btn small" href="${item.file}">Apri</a>
     </article>
   `).join("");
 }
 
 function renderCategories() {
+  if (!catGrid) return;
   catGrid.innerHTML = categories.filter(c => c !== "Tutte").map(cat => `
-    <a class="cat-card" href="#" onclick="setCategory('${cat.replace(/'/g, "\\'")}'); return false;">
-      <span class="cat-icon">${catIcons[cat] || "📄"}</span>
+    <button class="cat-card" onclick="setCategory('${cat.replace(/'/g, "\\'")}')">
+      <span>${catIcons[cat] || "•"}</span>
       <strong>${cat}</strong>
-      <span>${files.filter(f => f.category === cat).length} ricette</span>
-    </a>
+      <small>${files.filter(f => f.category === cat).length} elementi</small>
+    </button>
   `).join("");
 }
 
@@ -95,13 +112,11 @@ function setCategory(cat) {
   render();
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
-// expose globally for onclick
 window.setCategory = setCategory;
 
 function renderChips() {
-  chips.innerHTML = categories.map(cat =>
-    `<button class="chip ${cat === activeCategory && !showFavsOnly ? "active" : ""}" data-cat="${cat}">${cat}</button>`
-  ).join("");
+  if (!chips) return;
+  chips.innerHTML = categories.map(cat => `${cat}` ).join("");
   Array.from(chips.querySelectorAll(".chip")).forEach(btn => {
     btn.addEventListener("click", () => {
       activeCategory = btn.dataset.cat;
@@ -120,10 +135,9 @@ function escapeRegExp(s) {
 function highlightText(text, query) {
   if (!query || !text) return text || "";
   const regex = new RegExp("(" + escapeRegExp(query) + ")", "gi");
-  return text.replace(regex, "<span class='search-hl'>$1</span>");
+  return text.replace(regex, "<mark>$1</mark>");
 }
 
-/* Smart excerpt: show context around the search term */
 function smartExcerpt(item, query) {
   if (!query || !item.text) return item.excerpt || "";
   const lower = item.text.toLowerCase();
@@ -136,54 +150,48 @@ function smartExcerpt(item, query) {
 }
 
 function card(item) {
-  const query = input.value.trim();
+  const query = input ? input.value.trim() : "";
   const excerpt = query ? smartExcerpt(item, query) : highlightText(item.excerpt || "", query);
   const isFav = Favs.has(item.file);
+  const openLink = buildOpenLink(item, query);
+
   return `
-    <article class="card fade-up">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-        <h3 class="title">${highlightText(item.title, query)}</h3>
-        <button class="fav-btn ${isFav ? "active" : ""}" onclick="toggleFav('${item.file}', this)" title="Preferiti">
-          ${isFav ? "★" : "☆"}
-        </button>
+    <article class="card">
+      <div class="card-top">
+        <span class="pill">${item.category}</span>
+        <button class="fav-btn ${isFav ? "active" : ""}" onclick="toggleFav('${item.file}', this)">${isFav ? "★" : "☆"}</button>
       </div>
-      <div class="meta">
-        <span class="badge">${item.category}</span>
-        <span class="badge">HTML</span>
-      </div>
-      <div class="excerpt">${excerpt}</div>
-      <div class="actions">
-        <a class="btn primary" href="${item.file}">Apri</a>
-        <a class="btn secondary" href="#" onclick="setCategory('${item.category.replace(/'/g, "\\'")}'); return false;">Categoria</a>
+      <h3>${highlightText(item.title, query)}</h3>
+      <p>${excerpt}</p>
+      <div class="card-actions">
+        <a class="btn small" href="${openLink}">Apri</a>
       </div>
     </article>
   `;
 }
 
 function render() {
-  const q = input.value.trim().toLowerCase();
+  const q = input ? input.value.trim().toLowerCase() : "";
   const filtered = files.filter(item => {
     const catOk = activeCategory === "Tutte" || item.category === activeCategory;
     const favOk = !showFavsOnly || Favs.has(item.file);
-    const searchOk = !q || item.keywords.includes(q) || (item.text && item.text.includes(q));
+    const searchOk = !q || item.keywords.includes(q) || (item.text && item.text.toLowerCase().includes(q));
     return catOk && favOk && searchOk;
   });
-  grid.innerHTML = filtered.map(card).join("");
-  counter.textContent = filtered.length + " ricette";
-  empty.style.display = filtered.length ? "none" : "block";
+
+  if (grid) grid.innerHTML = filtered.map(card).join("");
+  if (counter) counter.textContent = filtered.length + " ricette";
+  if (empty) empty.style.display = filtered.length ? "none" : "block";
 }
 
-/* ---------- Favourites toggle ---------- */
 function toggleFav(file, btn) {
   const now = Favs.toggle(file);
   btn.classList.toggle("active", now);
   btn.innerHTML = now ? "★" : "☆";
-  // If viewing favs only and we just unfavourited, re-render
   if (showFavsOnly && !now) render();
 }
 window.toggleFav = toggleFav;
 
-/* ---------- Fav filter button ---------- */
 if (favFilterBtn) {
   favFilterBtn.addEventListener("click", () => {
     showFavsOnly = !showFavsOnly;
@@ -194,17 +202,16 @@ if (favFilterBtn) {
   });
 }
 
-/* ---------- Scroll FAB ---------- */
 if (scrollFab) {
   window.addEventListener("scroll", () => {
     scrollFab.classList.toggle("visible", window.scrollY > 400);
   }, { passive: true });
+
   scrollFab.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 }
 
-/* ---------- Logout ---------- */
 if (logoutBtn) {
   logoutBtn.addEventListener("click", () => {
     localStorage.removeItem("locoselli_access");
@@ -212,15 +219,15 @@ if (logoutBtn) {
   });
 }
 
-/* ---------- Load files from search_index.json ---------- */
 function detectCategory(name) {
-  const n = name.toLowerCase();
+  const n = (name || "").toLowerCase();
+  if (/(corso|lezione|damiano)/.test(n)) return "Corsi";
   if (/(bassa-temperatura|bassa temperatura|cottura|sous)/.test(n)) return "Bassa temperatura";
   if (/(panettone|pandoro|brioches|baba|lievito|lievit)/.test(n)) return "Lievitati";
   if (/(tiramisu|tortini|dessert|panna|macaron|bigne|frolla|plumcake|cartellate|zabaglione|mignon|biscuit)/.test(n)) return "Dolci";
   if (/(agar|sferificazione|molecolare|glice|isomalto|inulina|konjac|carragen|sucro|maltodestrina|pectina|texture|spume|mousse|gelburger|destrosio|trealosio|neutral|flexifiber|mono-diglicer|mono diglicer)/.test(n)) return "Molecolare";
   if (/(risotti|ravioli|salse|salata|sfoglia|bistecche|vegetali|peperone)/.test(n)) return "Salato";
-  if (/(corso|lezione|prodotti|damiano|tecniche)/.test(n)) return "Tecniche";
+  if (/(prodotti|tecniche)/.test(n)) return "Tecniche";
   return "Basi";
 }
 
@@ -231,28 +238,14 @@ async function loadFiles() {
     files = data.map(item => ({
       file: item.file,
       title: item.title,
-      category: item.category,
+      category: item.category || detectCategory(item.file || item.title || ""),
       excerpt: item.excerpt || "",
       text: item.text || "",
-      keywords: (item.title + " " + item.category).toLowerCase()
+      keywords: `${item.title || ""} ${item.category || ""} ${item.file || ""}`.toLowerCase()
     }));
   } catch (err) {
     console.warn("search_index.json non disponibile, fallback API GitHub:", err);
-    try {
-      const repoRes = await fetch("https://api.github.com/repos/chefantonioloco87/app-ricette-Loco/contents");
-      const repoData = await repoRes.json();
-      const pages = repoData
-        .filter(f => f.name.endsWith(".html") && f.name !== "index.html" && f.name !== "test.html")
-        .sort((a, b) => a.name.localeCompare(b, "it"));
-      files = pages.map(f => {
-        const cleanTitle = f.name.replace(/\.html$/i, "").replace(/-/g, " ").replace(/\bcoretto\b/i, "corretto").trim();
-        const category = detectCategory(f.name);
-        return { file: f.name, title: cleanTitle, category, excerpt: "", text: "", keywords: (cleanTitle + " " + category).toLowerCase() };
-      });
-    } catch (e2) {
-      console.error("Impossibile caricare le ricette:", e2);
-      files = [];
-    }
+    files = [];
   }
 
   if (loadingMsg) loadingMsg.style.display = "none";
@@ -262,10 +255,9 @@ async function loadFiles() {
   render();
 }
 
-/* ---------- Auth ---------- */
 function enterApp() {
-  gate.style.display = "none";
-  app.style.display = "block";
+  if (gate) gate.style.display = "none";
+  if (app) app.style.display = "block";
   loadFiles();
 }
 
@@ -281,16 +273,16 @@ function checkCode() {
   }
 }
 
-enterBtn.addEventListener("click", checkCode);
-codeInput.addEventListener("keydown", e => { if (e.key === "Enter") checkCode(); });
-input.addEventListener("input", render);
+if (enterBtn) enterBtn.addEventListener("click", checkCode);
+if (codeInput) codeInput.addEventListener("keydown", e => {
+  if (e.key === "Enter") checkCode();
+});
+if (input) input.addEventListener("input", render);
 
-/* Auto-login */
 if (localStorage.getItem("locoselli_access") === "ok") {
   window.addEventListener("load", () => enterApp());
 }
 
-/* ---------- Service worker ---------- */
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker.register("sw.js").catch(err => console.log("SW registration failed:", err));

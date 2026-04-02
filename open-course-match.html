@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Risultato corso – Locoselli</title>
+  <style>
+    :root{
+      --bg:#0b0b0d; --card:#16161b; --text:#f5f5f7; --muted:#aaaab3;
+      --gold:#d7aa2b; --line:rgba(255,255,255,.08);
+    }
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+    .wrap{max-width:900px;margin:0 auto;padding:24px}
+    .box{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
+    h1{margin:0 0 10px;font-size:28px}
+    .muted{color:var(--muted)}
+    .btn{display:inline-block;margin-right:10px;margin-top:12px;padding:10px 14px;border-radius:10px;background:var(--gold);color:#000;text-decoration:none;font-weight:700}
+    .btn.secondary{background:transparent;color:var(--text);border:1px solid var(--line)}
+    .snippet{white-space:pre-wrap;line-height:1.6;margin-top:18px}
+    mark{background:#f0d178;color:#000;padding:0 .15em;border-radius:4px}
+    .label{display:inline-block;font-size:12px;color:#000;background:var(--gold);padding:5px 8px;border-radius:999px;font-weight:700}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="box">
+      <span class="label">Corsi Damiano</span>
+      <h1 id="title">Ricerca nel corso</h1>
+      <p class="muted" id="meta">Sto cercando il punto giusto…</p>
+      <div class="snippet" id="snippet"></div>
+      <a class="btn" id="openCourse" href="#">Apri corso completo</a>
+      <a class="btn secondary" href="index.html">Torna all’archivio</a>
+    </div>
+  </div>
+
+<script>
+function escapeHtml(s){
+  return s.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+function highlight(text, q){
+  if(!q) return escapeHtml(text);
+  const safe = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return escapeHtml(text).replace(new RegExp('(' + safe + ')', 'ig'), '<mark>$1</mark>');
+}
+function extractSnippet(text, q){
+  const clean = text.replace(/\s+/g, ' ').trim();
+  if(!q) return clean.slice(0, 1000);
+  const lower = clean.toLowerCase();
+  const idx = lower.indexOf(q.toLowerCase());
+  if(idx < 0) return clean.slice(0, 1000);
+  const start = Math.max(0, idx - 350);
+  const end = Math.min(clean.length, idx + q.length + 700);
+  return (start > 0 ? '…' : '') + clean.slice(start, end) + (end < clean.length ? '…' : '');
+}
+
+async function main(){
+  const params = new URLSearchParams(location.search);
+  const file = params.get('file');
+  const q = params.get('q') || '';
+  const title = params.get('title') || file || 'Risultato corso';
+
+  document.getElementById('title').textContent = title;
+  document.getElementById('meta').textContent = q
+    ? `Ti porto direttamente vicino a “${q}”, invece di aprire il corso dalla pagina iniziale.`
+    : 'Apro il corso.';
+
+  if(!file){
+    document.getElementById('snippet').textContent = 'Manca il file del corso.';
+    return;
+  }
+
+  document.getElementById('openCourse').href = file;
+
+  try{
+    const res = await fetch(file);
+    const html = await res.text();
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    const bodyText = (doc.body ? doc.body.innerText : '').trim();
+
+    const snippet = extractSnippet(bodyText, q);
+    document.getElementById('snippet').innerHTML = highlight(snippet, q);
+
+    if(q){
+      document.getElementById('openCourse').href = file + '#search-' + encodeURIComponent(q);
+      sessionStorage.setItem('locoselli_course_jump_file', file);
+      sessionStorage.setItem('locoselli_course_jump_query', q);
+    }
+  }catch(err){
+    document.getElementById('snippet').textContent = 'Non sono riuscito a leggere il corso. Aprilo con il bottone qui sopra.';
+  }
+}
+main();
+</script>
+</body>
+</html>
