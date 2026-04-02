@@ -1,41 +1,229 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
-<title>Locoselli</title>
-<style>
-body { background:#000; color:#fff; font-family:Arial; text-align:center; }
-.card {
-  background:#111;
-  color:#fff;
-  padding:15px 20px;
-  border-radius:10px;
-  text-decoration:none;
-  border:1px solid #d4af37;
-  transition:0.3s;
-  display:inline-block;
-  margin:10px;
-}
-.card:hover { background:#d4af37; color:#000; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Locoselli Archivio</title>
+  <meta name="theme-color" content="#0b0b0d" />
+  <style>
+    :root{
+      --bg:#0b0b0d;
+      --bg2:#141419;
+      --card:#17171d;
+      --card2:#1d1d24;
+      --line:rgba(255,255,255,.08);
+      --text:#f5f5f7;
+      --muted:#a7a7b3;
+      --gold:#d7aa2b;
+      --gold2:#f0d178;
+      --shadow:0 12px 40px rgba(0,0,0,.30);
+      --radius:20px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(215,170,43,.10), transparent 26%),
+        linear-gradient(180deg, #0b0b0d 0%, #0f1014 100%);
+      color:var(--text);
+    }
+    a{color:inherit}
+    .wrap{max-width:1240px;margin:0 auto;padding:24px}
+    .gate{
+      min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px;
+    }
+    .gate-card,.panel,.card,.feature,.cat,.hero{
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      border-radius:var(--radius);
+    }
+    .gate-card{width:min(560px,100%); padding:34px}
+    .logo{
+      width:72px;height:72px;border-radius:18px;background:#111;display:grid;place-items:center;
+      color:var(--gold);font-weight:800;font-size:26px;border:1px solid var(--line);margin-bottom:14px;
+    }
+    h1,h2,h3,p{margin:0}
+    .gold{color:var(--gold2)}
+    .muted{color:var(--muted)}
+    .gate-actions{display:flex;gap:12px;margin-top:18px}
+    input{
+      width:100%;background:#101116;border:1px solid var(--line);color:var(--text);
+      border-radius:14px;padding:14px 16px;font-size:16px;outline:none;
+    }
+    input:focus{border-color:rgba(215,170,43,.55);box-shadow:0 0 0 3px rgba(215,170,43,.12)}
+    button,.btn{
+      background:var(--gold);color:#000;border:none;border-radius:14px;padding:13px 16px;
+      font-weight:800;text-decoration:none;cursor:pointer;
+    }
+    .btn.secondary,button.secondary{
+      background:transparent;color:var(--text);border:1px solid var(--line);
+    }
+    .app{display:none}
+    .topbar{
+      position:sticky; top:0; z-index:50; backdrop-filter:blur(14px);
+      background:rgba(11,11,13,.70); border-bottom:1px solid var(--line);
+    }
+    .topbar-inner{max-width:1240px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:14px;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand-mark{width:40px;height:40px;border-radius:12px;background:#111;display:grid;place-items:center;border:1px solid var(--line);color:var(--gold);font-weight:800}
+    .toolbar{display:flex;gap:10px;flex-wrap:wrap}
+    .hero{
+      padding:28px; display:grid; grid-template-columns:1.2fr .8fr; gap:18px; margin-top:22px;
+    }
+    .hero h1{font-size:44px;line-height:1.02;letter-spacing:-.02em}
+    .hero p{margin-top:14px;color:var(--muted);font-size:17px;max-width:62ch}
+    .searchbar{display:flex;gap:12px;margin-top:18px}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .stat{padding:18px;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:18px}
+    .stat strong{display:block;font-size:28px;color:var(--gold2)}
+    .stat span{color:var(--muted);font-size:14px}
+    .section{margin-top:26px}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:14px}
+    .section-head h2{font-size:26px}
+    .features,.cats,.grid{display:grid;gap:14px}
+    .features{grid-template-columns:repeat(3,1fr)}
+    .cats{grid-template-columns:repeat(4,1fr)}
+    .grid{grid-template-columns:repeat(3,1fr)}
+    .feature,.cat,.card{padding:18px}
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      background:rgba(215,170,43,.13); color:var(--gold2);
+      border:1px solid rgba(215,170,43,.24);
+      border-radius:999px; padding:6px 10px; font-size:12px; font-weight:700;
+    }
+    .feature h3,.card h3{margin-top:12px;font-size:20px;line-height:1.2}
+    .feature p,.card p{margin-top:10px;color:var(--muted);line-height:1.55}
+    .cat{cursor:pointer;transition:.18s transform ease,.18s border-color ease}
+    .cat:hover,.card:hover,.feature:hover{transform:translateY(-2px);border-color:rgba(215,170,43,.35)}
+    .cat strong{display:block;margin-top:10px;font-size:17px}
+    .cat small{display:block;margin-top:6px;color:var(--muted)}
+    .chips{display:flex;gap:10px;flex-wrap:wrap}
+    .chip{
+      background:#111318;border:1px solid var(--line);border-radius:999px;padding:10px 14px;color:var(--text);cursor:pointer;
+    }
+    .chip.active,.chip:hover{border-color:rgba(215,170,43,.38); color:var(--gold2)}
+    .counter{color:var(--muted);font-size:14px}
+    .card-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .fav{
+      width:38px;height:38px;border-radius:12px;border:1px solid var(--line);display:grid;place-items:center;cursor:pointer;
+      background:#111318;color:#fff;
+    }
+    .fav.active{color:var(--gold2);border-color:rgba(215,170,43,.35)}
+    .card-actions{display:flex;gap:10px;margin-top:14px}
+    mark{background:#f0d178;color:#000;padding:0 .14em;border-radius:4px}
+    .empty{display:none;padding:24px;border:1px dashed var(--line);border-radius:18px;color:var(--muted);text-align:center}
+    .fab{
+      position:fixed;right:20px;bottom:20px;opacity:0;visibility:hidden;transition:.18s;
+    }
+    .fab.visible{opacity:1;visibility:visible}
+    @media (max-width:1024px){
+      .hero,.features,.grid{grid-template-columns:1fr 1fr}
+      .cats{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width:720px){
+      .hero,.features,.cats,.grid{grid-template-columns:1fr}
+      .searchbar,.gate-actions{flex-direction:column}
+      .hero h1{font-size:34px}
+      .stats{grid-template-columns:1fr}
+      .topbar-inner{padding:12px 16px}
+      .wrap{padding:16px}
+    }
+  </style>
 </head>
 <body>
+  <div id="gate" class="gate">
+    <div class="gate-card">
+      <div class="logo">L</div>
+      <h1>Locoselli <span class="gold">Archivio</span></h1>
+      <p class="muted" style="margin-top:10px">Ricette, basi, molecolare e corsi Damiano in un’unica home, come prima ma con la sezione corsi integrata.</p>
+      <div style="margin-top:18px">
+        <input id="codeInput" type="password" placeholder="Inserisci il codice di accesso" />
+      </div>
+      <div class="gate-actions">
+        <button id="enterBtn">Entra</button>
+      </div>
+      <p id="errorMsg" class="muted" style="margin-top:12px;color:#ff8c8c"></p>
+    </div>
+  </div>
 
-<h1 style="color:#d4af37;">Locoselli</h1>
+  <div id="app" class="app">
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <div class="brand-mark">L</div>
+          <div>
+            <strong>Locoselli</strong><br/>
+            <span class="muted" style="font-size:12px">Archivio ricette + corsi</span>
+          </div>
+        </div>
+        <div class="toolbar">
+          <button id="favFilterBtn" class="secondary">Preferiti</button>
+          <button id="logoutBtn" class="secondary">Esci</button>
+        </div>
+      </div>
+    </div>
 
-<section style="padding:40px;">
-  <h2 style="color:#d4af37;">Corsi Damiano</h2>
+    <div class="wrap">
+      <section class="hero">
+        <div>
+          <span class="pill">Premium archive</span>
+          <h1>Come prima.<br><span class="gold">Con i corsi Damiano dentro.</span></h1>
+          <p>Ricerca unica su ricette, tecniche, molecolare, lievitati e corsi. Scrivi un ingrediente, una tecnica o un titolo e apri subito la pagina giusta.</p>
+          <div class="searchbar">
+            <input id="searchInput" type="search" placeholder="Cerca: agar, tonno, inulina, Damiano, panettone..." />
+            <a href="#archivio" class="btn">Vai all’archivio</a>
+          </div>
+        </div>
+        <div class="panel" style="padding:18px">
+          <div class="stats">
+            <div class="stat"><strong id="statTotal">0</strong><span>Elementi totali</span></div>
+            <div class="stat"><strong id="statCourses">0</strong><span>Corsi</span></div>
+            <div class="stat"><strong id="statRecipes">0</strong><span>Ricette / schede</span></div>
+          </div>
+        </div>
+      </section>
 
-  <a href="corso-avanzato-lezione1-pate-a-choux.html" class="card">Lezione 1 – Pâte à choux</a>
-  <a href="corso-avanzato-lezione2-biscuit-moderni.html" class="card">Lezione 2 – Biscuit</a>
-  <a href="corso-avanzato-lezione3-mousse-bavaresi.html" class="card">Lezione 3 – Mousse</a>
-  <a href="corso-avanzato-lezione4-glasse-specchio.html" class="card">Lezione 4 – Glasse</a>
-  <a href="corso-avanzato-lezione5-cioccolato-avanzato.html" class="card">Lezione 5 – Cioccolato</a>
-  <a href="corso-avanzato-lezione6-zucchero-isomalto.html" class="card">Lezione 6 – Isomalto</a>
-  <a href="corso-avanzato-lezione7-dessert-al-piatto.html" class="card">Lezione 7 – Dessert</a>
-  <a href="corso-avanzato-lezione8-signature-dessert.html" class="card">Lezione 8 – Signature</a>
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <h2>In evidenza</h2>
+            <p class="muted" style="margin-top:6px">Una selezione veloce per partire.</p>
+          </div>
+        </div>
+        <div id="featuredGrid" class="features"></div>
+      </section>
 
-</section>
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <h2>Categorie</h2>
+            <p class="muted" style="margin-top:6px">Filtro rapido dell’archivio.</p>
+          </div>
+        </div>
+        <div id="catGrid" class="cats"></div>
+      </section>
 
+      <section id="archivio" class="section">
+        <div class="section-head">
+          <div>
+            <h2>Archivio completo</h2>
+            <p class="muted" style="margin-top:6px">Ricette e corsi nella stessa home.</p>
+          </div>
+          <div id="counter" class="counter">0 risultati</div>
+        </div>
+        <div id="chips" class="chips" style="margin-bottom:14px"></div>
+        <div id="loadingMsg" class="muted" style="margin-bottom:12px">Caricamento archivio…</div>
+        <div id="grid" class="grid"></div>
+        <div id="empty" class="empty">Nessun risultato trovato.</div>
+      </section>
+    </div>
+  </div>
+
+  <button id="scrollFab" class="btn fab">↑</button>
+
+  <script src="app.js"></script>
 </body>
 </html>
