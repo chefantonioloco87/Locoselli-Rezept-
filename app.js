@@ -1,27 +1,13 @@
 const ACCESS_CODE = "Loco0106R";
-
 const categories = ["Tutte","Bassa temperatura","Dolci","Lievitati","Molecolare","Salato","Corsi","Tecniche","Basi"];
-const catIcons = {
-  "Bassa temperatura":"🔥",
-  "Dolci":"🍰",
-  "Lievitati":"🥐",
-  "Molecolare":"🧪",
-  "Salato":"🍽️",
-  "Corsi":"🎓",
-  "Tecniche":"🛠️",
-  "Basi":"📚"
-};
-
+const catIcons = {"Bassa temperatura":"🔥","Dolci":"🍰","Lievitati":"🥐","Molecolare":"🧪","Salato":"🍽️","Corsi":"🎓","Tecniche":"🛠️","Basi":"📚"};
 let files = [];
 let activeCategory = "Tutte";
 let showFavsOnly = false;
 
 const Favs = {
   key:"locoselli_favs",
-  get(){
-    try { return JSON.parse(localStorage.getItem(this.key) || "[]"); }
-    catch(e){ return []; }
-  },
+  get(){ try { return JSON.parse(localStorage.getItem(this.key) || "[]"); } catch(e){ return []; } },
   has(file){ return this.get().includes(file); },
   toggle(file){
     const favs = this.get();
@@ -71,22 +57,12 @@ function normalizeItem(item, forcedCategory){
   const excerpt = item.excerpt || "";
   const text = item.text || "";
   const category = forcedCategory || item.category || detectCategory(file || title);
-  return {
-    file,
-    title,
-    excerpt,
-    text,
-    category,
-    keywords: `${title} ${category} ${file} ${excerpt}`.toLowerCase()
-  };
+  return { file, title, excerpt, text, category, keywords: `${title} ${category} ${file} ${excerpt} ${text}`.toLowerCase() };
 }
 
 function uniqByFile(arr){
   const map = new Map();
-  arr.forEach(item => {
-    if (!item.file) return;
-    if (!map.has(item.file)) map.set(item.file, item);
-  });
+  arr.forEach(item => { if (item.file && !map.has(item.file)) map.set(item.file, item); });
   return Array.from(map.values());
 }
 
@@ -105,7 +81,6 @@ async function loadFiles(){
 
     const mainItems = (mainData || []).map(item => normalizeItem(item));
     const courseItems = (corsiData || []).map(item => normalizeItem(item, "Corsi"));
-
     files = uniqByFile([...mainItems, ...courseItems]).sort((a,b) => a.title.localeCompare(b.title, "it"));
   }catch(err){
     console.warn("Errore caricamento indici, fallback API GitHub:", err);
@@ -121,74 +96,56 @@ async function loadFiles(){
       files = [];
     }
   }
-
-  loadingMsg.style.display = "none";
-  renderStats();
-  renderFeatured();
-  renderCategories();
-  renderChips();
-  render();
+  if (loadingMsg) loadingMsg.style.display = "none";
+  renderStats(); renderFeatured(); renderCategories(); renderChips(); render();
 }
 
 function renderStats(){
   const total = files.length;
   const courses = files.filter(f => f.category === "Corsi").length;
   const recipes = total - courses;
-  statTotal.textContent = total;
-  statCourses.textContent = courses;
-  statRecipes.textContent = recipes;
+  if (statTotal) statTotal.textContent = total;
+  if (statCourses) statCourses.textContent = courses;
+  if (statRecipes) statRecipes.textContent = recipes;
 }
 
 function renderFeatured(){
+  if (!featuredGrid) return;
   const picks = [
     files.find(f => /tiramisu/i.test(f.file)),
     files.find(f => /risotti/i.test(f.file)),
-    files.find(f => /corso-avanzato-lezione1/i.test(f.file))
+    files.find(f => /corso|damiano|lezione/i.test(f.file))
   ].filter(Boolean);
-
   featuredGrid.innerHTML = picks.map(item => `
     <article class="feature">
       <span class="pill">${item.category}</span>
       <h3>${item.title}</h3>
       <p>${item.excerpt || "Apri subito questa pagina dall’archivio Locoselli."}</p>
-      <div class="card-actions">
-        <a class="btn" href="${item.file}">Apri</a>
-      </div>
+      <div class="card-actions"><a class="btn" href="${item.file}">Apri</a></div>
     </article>
   `).join("");
 }
 
 function renderCategories(){
-  catGrid.innerHTML = categories
-    .filter(c => c !== "Tutte")
-    .map(cat => `
-      <div class="cat" onclick="setCategory('${cat.replace(/'/g, "\\'")}')">
-        <div class="pill">${catIcons[cat] || "•"} ${cat}</div>
-        <strong>${cat}</strong>
-        <small>${files.filter(f => f.category === cat).length} elementi</small>
-      </div>
-    `).join("");
+  if (!catGrid) return;
+  catGrid.innerHTML = categories.filter(c => c !== "Tutte").map(cat => `
+    <div class="cat" onclick="setCategory('${cat.replace(/'/g, "\\'")}')">
+      <div class="pill">${catIcons[cat] || "•"} ${cat}</div>
+      <strong>${cat}</strong>
+      <small>${files.filter(f => f.category === cat).length} elementi</small>
+    </div>
+  `).join("");
 }
 
 function renderChips(){
-  chips.innerHTML = categories.map(cat => `
-    <button class="chip ${activeCategory === cat ? "active" : ""}" data-cat="${cat}">
-      ${cat}
-    </button>
-  `).join("");
-
+  if (!chips) return;
+  chips.innerHTML = categories.map(cat => `<button class="chip ${activeCategory === cat ? "active" : ""}" data-cat="${cat}">${cat}</button>`).join("");
   Array.from(chips.querySelectorAll(".chip")).forEach(btn => {
-    btn.addEventListener("click", () => {
-      activeCategory = btn.dataset.cat;
-      renderChips();
-      render();
-    });
+    btn.addEventListener("click", () => { activeCategory = btn.dataset.cat; renderChips(); render(); });
   });
 }
 
-function escapeRegExp(s){
-  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
+function escapeRegExp(s){ return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
 
 function highlight(text, query){
   if (!query || !text) return text || "";
@@ -209,23 +166,21 @@ function smartExcerpt(item, query){
 }
 
 function filterFiles(){
-  const q = (searchInput.value || "").trim().toLowerCase();
-
+  const q = (searchInput?.value || "").trim().toLowerCase();
   return files.filter(item => {
     const catOk = activeCategory === "Tutte" || item.category === activeCategory;
     const favOk = !showFavsOnly || Favs.has(item.file);
-    const searchOk = !q || item.keywords.includes(q) || (item.text || "").toLowerCase().includes(q);
+    const searchOk = !q || item.keywords.includes(q);
     return catOk && favOk && searchOk;
   });
 }
 
 function render(){
-  const q = (searchInput.value || "").trim();
+  if (!grid) return;
+  const q = (searchInput?.value || "").trim();
   const filtered = filterFiles();
-
-  counter.textContent = filtered.length + " risultati";
-  empty.style.display = filtered.length ? "none" : "block";
-
+  if (counter) counter.textContent = filtered.length + " risultati";
+  if (empty) empty.style.display = filtered.length ? "none" : "block";
   grid.innerHTML = filtered.map(item => {
     const isFav = Favs.has(item.file);
     return `
@@ -236,9 +191,7 @@ function render(){
         </div>
         <h3>${highlight(item.title, q)}</h3>
         <p>${smartExcerpt(item, q) || "Apri questa pagina dall’archivio Locoselli."}</p>
-        <div class="card-actions">
-          <a class="btn" href="${item.file}">Apri</a>
-        </div>
+        <div class="card-actions"><a class="btn" href="${item.file}">Apri</a></div>
       </article>
     `;
   }).join("");
@@ -252,53 +205,29 @@ function toggleFav(file, btn){
 }
 window.toggleFav = toggleFav;
 
-function setCategory(cat){
-  activeCategory = cat;
-  renderChips();
-  render();
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
+function setCategory(cat){ activeCategory = cat; renderChips(); render(); window.scrollTo({ top: 0, behavior: "smooth" }); }
 window.setCategory = setCategory;
 
-function enterApp(){
-  gate.style.display = "none";
-  app.style.display = "block";
-  loadFiles();
-}
+function enterApp(){ if (gate) gate.style.display = "none"; if (app) app.style.display = "block"; loadFiles(); }
 
 function checkCode(){
-  if ((codeInput.value || "") === ACCESS_CODE){
+  if ((codeInput?.value || "") === ACCESS_CODE){
     localStorage.setItem("locoselli_access", "ok");
-    errorMsg.textContent = "";
+    if (errorMsg) errorMsg.textContent = "";
     enterApp();
-  }else{
-    errorMsg.textContent = "Codice errato. Riprova.";
-    codeInput.value = "";
-    codeInput.focus();
+  } else {
+    if (errorMsg) errorMsg.textContent = "Codice errato. Riprova.";
+    if (codeInput){ codeInput.value = ""; codeInput.focus(); }
   }
 }
 
-enterBtn.addEventListener("click", checkCode);
-codeInput.addEventListener("keydown", (e) => { if (e.key === "Enter") checkCode(); });
-searchInput.addEventListener("input", render);
-
-favFilterBtn.addEventListener("click", () => {
-  showFavsOnly = !showFavsOnly;
-  favFilterBtn.classList.toggle("active", showFavsOnly);
-  render();
-});
-
-logoutBtn.addEventListener("click", () => {
-  localStorage.removeItem("locoselli_access");
-  location.reload();
-});
-
-window.addEventListener("scroll", () => {
-  scrollFab.classList.toggle("visible", window.scrollY > 500);
-}, { passive:true });
-
-scrollFab.addEventListener("click", () => window.scrollTo({ top:0, behavior:"smooth" }));
-
-if (localStorage.getItem("locoselli_access") === "ok"){
-  window.addEventListener("load", enterApp);
+if (enterBtn) enterBtn.addEventListener("click", checkCode);
+if (codeInput) codeInput.addEventListener("keydown", (e) => { if (e.key === "Enter") checkCode(); });
+if (searchInput) searchInput.addEventListener("input", render);
+if (favFilterBtn) favFilterBtn.addEventListener("click", () => { showFavsOnly = !showFavsOnly; favFilterBtn.classList.toggle("active", showFavsOnly); render(); });
+if (logoutBtn) logoutBtn.addEventListener("click", () => { localStorage.removeItem("locoselli_access"); location.reload(); });
+if (scrollFab){
+  window.addEventListener("scroll", () => { scrollFab.classList.toggle("visible", window.scrollY > 500); }, { passive:true });
+  scrollFab.addEventListener("click", () => window.scrollTo({ top:0, behavior:"smooth" }));
 }
+if (localStorage.getItem("locoselli_access") === "ok"){ window.addEventListener("load", enterApp); }
