@@ -248,7 +248,7 @@ function hl(t,q){if(!q||!t)return t||"";return t.replace(new RegExp("("+esc(q)+"
 
 function renderFeatured(){
   const f=[];featuredNames.forEach(k=>{const x=files.find(r=>r.file.toLowerCase().includes(k));if(x&&!f.some(y=>y.file===x.file))f.push(x)});
-  $("featuredGrid").innerHTML=f.slice(0,3).map(i=>`<article class="featured-card"><div class="featured-kicker">${i.category}</div><h4>${i.title}</h4><p>${i.excerpt||"Apri questa ricetta premium."}</p><div class="actions"><a class="btn primary" href="${i.file}">Apri</a></div></article>`).join("");
+  $("featuredGrid").innerHTML=f.slice(0,3).map(i=>`<article class="featured-card"><div class="featured-kicker">${i.category}</div><h4>${i.title}</h4><p>${i.excerpt||"Apri questa ricetta premium."}</p><div class="actions"><a class="btn primary" href="${i.file}${q ? '?q='+encodeURIComponent(q) : ''}">Apri</a></div></article>`).join("");
 }
 function renderCategories(){
   $("catGrid").innerHTML=categories.filter(c=>c!=="Tutte").map(c=>`<a class="cat-card" href="#" onclick="setCat('${c.replace(/'/g,"\\'")}');return false"><span class="cat-icon">${catIcons[c]||"📄"}</span><strong>${c}</strong><span>${files.filter(f=>f.category===c).length} ricette</span></a>`).join("");
@@ -268,14 +268,14 @@ function render(){
   });
   $("grid").innerHTML=filtered.map(i=>{
     let ex=hl(i.excerpt||"",$("searchInput").value.trim());
-    return`<article class="card"><h3 class="title">${i.title}</h3><div class="meta"><span class="badge">${i.category}</span></div><div class="excerpt">${ex}</div><div class="actions"><a class="btn primary" href="${i.file}">Apri</a><a class="btn secondary" href="#" onclick="setCat('${i.category.replace(/'/g,"\\'")}');return false">Categoria</a></div></article>`;
+    return`<article class="card"><h3 class="title">${i.title}</h3><div class="meta"><span class="badge">${i.category}</span></div><div class="excerpt">${ex}</div><div class="actions"><a class="btn primary" href="${i.file}${q ? '?q='+encodeURIComponent(q) : ''}">Apri</a><a class="btn secondary" href="#" onclick="setCat('${i.category.replace(/'/g,"\\'")}');return false">Categoria</a></div></article>`;
   }).join("");
 
   const fc=corsiData.filter(c=>{
     if(!q)return true;
     return c.title.toLowerCase().includes(q)||c.desc.toLowerCase().includes(q)||(c.text&&c.text.includes(q));
   });
-  $("corsiGrid").innerHTML=fc.map(c=>`<article class="corso-card"><div class="meta"><span class="badge corso-badge">📖 Corso</span></div><h4 style="margin-top:10px">${hl(c.title,$("searchInput").value.trim())}</h4><p class="cdesc">${hl(c.desc,$("searchInput").value.trim())}</p><div class="actions"><a class="btn primary" href="${c.file}">Apri corso</a></div></article>`).join("");
+  $("corsiGrid").innerHTML=fc.map(c=>`<article class="corso-card"><div class="meta"><span class="badge corso-badge">📖 Corso</span></div><h4 style="margin-top:10px">${hl(c.title,$("searchInput").value.trim())}</h4><p class="cdesc">${hl(c.desc,$("searchInput").value.trim())}</p><div class="actions"><a class="btn primary" href="${c.file}${q ? '?q='+encodeURIComponent(q) : ''}">Apri corso</a></div></article>`).join("");
   $("corsiSection").style.display=fc.length?"block":"none";
 
   $("counter").textContent=filtered.length+" ricette"+(fc.length?" + "+fc.length+" corsi":"");
