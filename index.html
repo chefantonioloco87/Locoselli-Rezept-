@@ -7,16 +7,9 @@
   <meta name="theme-color" content="#0b0b0d" />
   <style>
     :root{
-      --bg:#0b0b0d;
-      --bg2:#121218;
-      --card:#17171d;
-      --line:rgba(255,255,255,.08);
-      --text:#f5f5f7;
-      --muted:#a7a7b3;
-      --gold:#d7aa2b;
-      --gold2:#f0d178;
-      --shadow:0 12px 40px rgba(0,0,0,.30);
-      --radius:20px;
+      --bg:#0b0b0d; --bg2:#121218; --card:#17171d; --line:rgba(255,255,255,.08);
+      --text:#f5f5f7; --muted:#a7a7b3; --gold:#d7aa2b; --gold2:#f0d178;
+      --shadow:0 12px 40px rgba(0,0,0,.30); --radius:20px;
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
@@ -79,21 +72,14 @@
     }
     .app{display:none}
     .topbar{
-      position:sticky;
-      top:0;
-      z-index:50;
+      position:sticky; top:0; z-index:50;
       backdrop-filter:blur(14px);
       background:rgba(11,11,13,.72);
       border-bottom:1px solid var(--line);
     }
     .topbar-inner{
-      max-width:1240px;
-      margin:0 auto;
-      padding:14px 24px;
-      display:flex;
-      align-items:center;
-      gap:14px;
-      justify-content:space-between;
+      max-width:1240px; margin:0 auto; padding:14px 24px;
+      display:flex; align-items:center; gap:14px; justify-content:space-between;
     }
     .brand{display:flex;align-items:center;gap:12px}
     .brand-logo{height:40px;display:block}
@@ -119,104 +105,62 @@
     .stat span{color:var(--muted);font-size:14px}
     .section{margin-top:26px}
     .section-head{
-      display:flex;
-      align-items:end;
-      justify-content:space-between;
-      gap:12px;
-      margin-bottom:14px;
+      display:flex; align-items:end; justify-content:space-between;
+      gap:12px; margin-bottom:14px;
     }
     .section-head h2{font-size:26px}
-    .features,.cats,.grid{display:grid;gap:14px}
+    .features,.cats,.grid,.course-grid{display:grid;gap:14px}
     .features{grid-template-columns:repeat(3,1fr)}
     .cats{grid-template-columns:repeat(4,1fr)}
     .grid{grid-template-columns:repeat(3,1fr)}
+    .course-grid{grid-template-columns:repeat(3,1fr)}
     .feature,.cat,.card{padding:18px}
     .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      background:rgba(215,170,43,.13);
-      color:var(--gold2);
+      display:inline-flex; align-items:center; gap:8px;
+      background:rgba(215,170,43,.13); color:var(--gold2);
       border:1px solid rgba(215,170,43,.24);
-      border-radius:999px;
-      padding:6px 10px;
-      font-size:12px;
-      font-weight:700;
+      border-radius:999px; padding:6px 10px; font-size:12px; font-weight:700;
     }
     .feature h3,.card h3{margin-top:12px;font-size:20px;line-height:1.2}
     .feature p,.card p{margin-top:10px;color:var(--muted);line-height:1.55}
     .cat{cursor:pointer;transition:.18s transform ease,.18s border-color ease}
     .cat:hover,.card:hover,.feature:hover{
-      transform:translateY(-2px);
-      border-color:rgba(215,170,43,.35);
+      transform:translateY(-2px); border-color:rgba(215,170,43,.35);
     }
     .cat strong{display:block;margin-top:10px;font-size:17px}
     .cat small{display:block;margin-top:6px;color:var(--muted)}
     .chips{display:flex;gap:10px;flex-wrap:wrap}
     .chip{
-      background:#111318;
-      border:1px solid var(--line);
-      border-radius:999px;
-      padding:10px 14px;
-      color:var(--text);
-      cursor:pointer;
+      background:#111318; border:1px solid var(--line); border-radius:999px;
+      padding:10px 14px; color:var(--text); cursor:pointer;
     }
-    .chip.active,.chip:hover{
-      border-color:rgba(215,170,43,.38);
-      color:var(--gold2);
-    }
+    .chip.active,.chip:hover{border-color:rgba(215,170,43,.38); color:var(--gold2)}
     .counter{color:var(--muted);font-size:14px}
     .card-top{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
     }
     .fav{
-      width:38px;
-      height:38px;
-      border-radius:12px;
-      border:1px solid var(--line);
-      display:grid;
-      place-items:center;
-      cursor:pointer;
-      background:#111318;
-      color:#fff;
+      width:38px; height:38px; border-radius:12px; border:1px solid var(--line);
+      display:grid; place-items:center; cursor:pointer; background:#111318; color:#fff;
     }
-    .fav.active{
-      color:var(--gold2);
-      border-color:rgba(215,170,43,.35);
-    }
+    .fav.active{color:var(--gold2); border-color:rgba(215,170,43,.35)}
     .card-actions{display:flex;gap:10px;margin-top:14px}
-    mark{
-      background:#f0d178;
-      color:#000;
-      padding:0 .14em;
-      border-radius:4px;
-    }
+    mark{background:#f0d178;color:#000;padding:0 .14em;border-radius:4px}
     .empty{
-      display:none;
-      padding:24px;
-      border:1px dashed var(--line);
-      border-radius:18px;
-      color:var(--muted);
-      text-align:center;
+      display:none; padding:24px; border:1px dashed var(--line);
+      border-radius:18px; color:var(--muted); text-align:center;
     }
     .fab{
-      position:fixed;
-      right:20px;
-      bottom:20px;
-      opacity:0;
-      visibility:hidden;
-      transition:.18s;
+      position:fixed; right:20px; bottom:20px;
+      opacity:0; visibility:hidden; transition:.18s;
     }
-    .fab.visible{opacity:1;visibility:visible}
+    .fab.visible{opacity:1; visibility:visible}
     @media (max-width:1024px){
-      .hero,.features,.grid{grid-template-columns:1fr 1fr}
+      .hero,.features,.grid,.course-grid{grid-template-columns:1fr 1fr}
       .cats{grid-template-columns:1fr 1fr}
     }
     @media (max-width:720px){
-      .hero,.features,.cats,.grid{grid-template-columns:1fr}
+      .hero,.features,.cats,.grid,.course-grid{grid-template-columns:1fr}
       .searchbar,.gate-actions{flex-direction:column}
       .hero h1{font-size:34px}
       .stats{grid-template-columns:1fr}
@@ -230,9 +174,9 @@
     <div class="gate-card">
       <img src="logo.png" alt="Locoselli" class="logo-img">
       <h1>Locoselli <span class="gold">Archivio</span></h1>
-      <p class="muted" style="margin-top:10px">Ricette, basi, molecolare e corsi Damiano in un’unica home.</p>
+      <p class="muted" style="margin-top:10px">495 ricette + corsi Damiano, in un’unica home.</p>
       <div style="margin-top:18px">
-        <input id="codeInput" type="password" placeholder="Inserisci il codice di accesso" />
+        <input id="codeInput" type="password" placeholder="Inserisci il codice di accesso">
       </div>
       <div class="gate-actions">
         <button id="enterBtn">Entra</button>
@@ -262,10 +206,10 @@
       <section class="hero">
         <div>
           <span class="pill">Premium archive</span>
-          <h1>Come prima.<br><span class="gold">Con i corsi Damiano dentro.</span></h1>
-          <p>Ricerca unica su ricette, tecniche, molecolare, lievitati e corsi. Scrivi un ingrediente, una tecnica o un titolo e apri subito la pagina giusta.</p>
+          <h1>495 ricette.<br><span class="gold">Corsi Damiano inclusi.</span></h1>
+          <p>Scrivi un ingrediente, una tecnica o un titolo. La ricerca mostra sia le ricette normali sia i corsi Damiano. Se clicchi un corso, vieni portato al punto giusto del termine cercato.</p>
           <div class="searchbar">
-            <input id="searchInput" type="search" placeholder="Cerca: agar, tonno, inulina, Damiano, panettone...">
+            <input id="searchInput" type="search" placeholder="Cerca: agar, garacal, tonno, Damiano, panettone...">
             <a href="#archivio" class="btn">Vai all’archivio</a>
           </div>
         </div>
@@ -281,11 +225,11 @@
       <section class="section">
         <div class="section-head">
           <div>
-            <h2>In evidenza</h2>
-            <p class="muted" style="margin-top:6px">Una selezione veloce per partire.</p>
+            <h2>Corsi Damiano</h2>
+            <p class="muted" style="margin-top:6px">Sezione dedicata, separata dalle ricette.</p>
           </div>
         </div>
-        <div id="featuredGrid" class="features"></div>
+        <div id="courseGrid" class="course-grid"></div>
       </section>
 
       <section class="section">
@@ -302,7 +246,7 @@
         <div class="section-head">
           <div>
             <h2>Archivio completo</h2>
-            <p class="muted" style="margin-top:6px">Ricette e corsi nella stessa home.</p>
+            <p class="muted" style="margin-top:6px">Ricette + corsi nella stessa ricerca.</p>
           </div>
           <div id="counter" class="counter">0 risultati</div>
         </div>
@@ -320,14 +264,8 @@
     const ACCESS_CODE = "Loco0106R";
     const categories = ["Tutte","Bassa temperatura","Dolci","Lievitati","Molecolare","Salato","Corsi","Tecniche","Basi"];
     const catIcons = {
-      "Bassa temperatura":"🔥",
-      "Dolci":"🍰",
-      "Lievitati":"🥐",
-      "Molecolare":"🧪",
-      "Salato":"🍽️",
-      "Corsi":"🎓",
-      "Tecniche":"🛠️",
-      "Basi":"📚"
+      "Bassa temperatura":"🔥","Dolci":"🍰","Lievitati":"🥐","Molecolare":"🧪",
+      "Salato":"🍽️","Corsi":"🎓","Tecniche":"🛠️","Basi":"📚"
     };
 
     let files = [];
@@ -363,7 +301,7 @@
     const counter = $("counter");
     const chips = $("chips");
     const catGrid = $("catGrid");
-    const featuredGrid = $("featuredGrid");
+    const courseGrid = $("courseGrid");
     const favFilterBtn = $("favFilterBtn");
     const logoutBtn = $("logoutBtn");
     const loadingMsg = $("loadingMsg");
@@ -386,7 +324,7 @@
 
     function normalizeItem(item, forcedCategory) {
       const file = item.file || "";
-      const title = item.title || file.replace(/\.html$/i, "").replace(/-/g, " ");
+      const title = item.title || file.replace(/\\.html$/i, "").replace(/-/g, " ");
       const excerpt = item.excerpt || "";
       const text = item.text || "";
       const category = forcedCategory || item.category || detectCategory(file || title);
@@ -408,91 +346,6 @@
       const res = await fetch(path);
       if (!res.ok) throw new Error(path + " " + res.status);
       return await res.json();
-    }
-
-    async function loadFiles() {
-      try {
-        const [mainData, corsiData] = await Promise.all([
-          loadJson("search_index.json"),
-          loadJson("corsi_index.json").catch(() => [])
-        ]);
-
-        const mainItems = (mainData || []).map(item => normalizeItem(item));
-        const courseItems = (corsiData || []).map(item => normalizeItem(item, "Corsi"));
-        files = uniqByFile([...mainItems, ...courseItems]).sort((a, b) => a.title.localeCompare(b.title, "it"));
-      } catch (err) {
-        console.warn("Errore caricamento indici, fallback API GitHub:", err);
-        try {
-          const repoRes = await fetch("https://api.github.com/repos/chefantonioloco87/Locoselli-Rezept-/contents");
-          const repoData = await repoRes.json();
-          files = repoData
-            .filter(f => f.name && f.name.endsWith(".html") && f.name !== "index.html")
-            .map(f => normalizeItem({ file: f.name, title: f.name.replace(/\.html$/i, "").replace(/-/g, " ") }))
-            .sort((a, b) => a.title.localeCompare(b.title, "it"));
-        } catch (e2) {
-          console.error("Impossibile caricare archivio:", e2);
-          files = [];
-        }
-      }
-      if (loadingMsg) loadingMsg.style.display = "none";
-      renderStats();
-      renderFeatured();
-      renderCategories();
-      renderChips();
-      render();
-    }
-
-    function renderStats() {
-      const total = files.length;
-      const courses = files.filter(f => f.category === "Corsi").length;
-      const recipes = total - courses;
-      if (statTotal) statTotal.textContent = total;
-      if (statCourses) statCourses.textContent = courses;
-      if (statRecipes) statRecipes.textContent = recipes;
-    }
-
-    function renderFeatured() {
-      if (!featuredGrid) return;
-      const picks = [
-        files.find(f => /tiramisu/i.test(f.file)),
-        files.find(f => /risotti/i.test(f.file)),
-        files.find(f => /corso|damiano|lezione/i.test(f.file))
-      ].filter(Boolean);
-
-      featuredGrid.innerHTML = picks.map(item => `
-        <article class="feature">
-          <span class="pill">${item.category}</span>
-          <h3>${item.title}</h3>
-          <p>${item.excerpt || "Apri subito questa pagina dall’archivio Locoselli."}</p>
-          <div class="card-actions"><a class="btn" href="${item.file}">Apri</a></div>
-        </article>
-      `).join("");
-    }
-
-    function renderCategories() {
-      if (!catGrid) return;
-      catGrid.innerHTML = categories.filter(c => c !== "Tutte").map(cat => `
-        <div class="cat" onclick="setCategory('${cat.replace(/'/g, "\\'")}')">
-          <div class="pill">${catIcons[cat] || "•"} ${cat}</div>
-          <strong>${cat}</strong>
-          <small>${files.filter(f => f.category === cat).length} elementi</small>
-        </div>
-      `).join("");
-    }
-
-    function renderChips() {
-      if (!chips) return;
-      chips.innerHTML = categories.map(cat => `
-        <button class="chip ${activeCategory === cat ? "active" : ""}" data-cat="${cat}">${cat}</button>
-      `).join("");
-
-      Array.from(chips.querySelectorAll(".chip")).forEach(btn => {
-        btn.addEventListener("click", () => {
-          activeCategory = btn.dataset.cat;
-          renderChips();
-          render();
-        });
-      });
     }
 
     function escapeRegExp(s) {
@@ -517,6 +370,95 @@
       return (start > 0 ? "…" : "") + highlight(hay.slice(start, end), query) + (end < hay.length ? "…" : "");
     }
 
+    function buildOpenLink(item, query) {
+      const q = (query || "").trim();
+      if (item.category === "Corsi" && q) {
+        return `open-course-match.html?file=${encodeURIComponent(item.file)}&q=${encodeURIComponent(q)}&title=${encodeURIComponent(item.title)}`;
+      }
+      return item.file;
+    }
+
+    async function loadFiles() {
+      try {
+        const [mainData, corsiData] = await Promise.all([
+          loadJson("search_index.json"),
+          loadJson("corsi_index.json").catch(() => [])
+        ]);
+
+        const mainItems = (mainData || []).map(item => normalizeItem(item));
+        const courseItems = (corsiData || []).map(item => normalizeItem(item, "Corsi"));
+        files = uniqByFile([...mainItems, ...courseItems]).sort((a, b) => a.title.localeCompare(b.title, "it"));
+      } catch (err) {
+        console.warn("Errore caricamento indici, fallback API GitHub:", err);
+        try {
+          const repoRes = await fetch("https://api.github.com/repos/chefantonioloco87/Locoselli-Rezept-/contents");
+          const repoData = await repoRes.json();
+          files = repoData
+            .filter(f => f.name && f.name.endsWith(".html") && f.name !== "index.html")
+            .map(f => normalizeItem({ file: f.name, title: f.name.replace(/\\.html$/i, "").replace(/-/g, " ") }))
+            .sort((a, b) => a.title.localeCompare(b.title, "it"));
+        } catch (e2) {
+          console.error("Impossibile caricare archivio:", e2);
+          files = [];
+        }
+      }
+
+      if (loadingMsg) loadingMsg.style.display = "none";
+      renderStats();
+      renderCourseSection();
+      renderCategories();
+      renderChips();
+      render();
+    }
+
+    function renderStats() {
+      const total = files.length;
+      const courses = files.filter(f => f.category === "Corsi").length;
+      const recipes = total - courses;
+      statTotal.textContent = total;
+      statCourses.textContent = courses;
+      statRecipes.textContent = recipes;
+    }
+
+    function renderCourseSection() {
+      if (!courseGrid) return;
+      const courseItems = files.filter(f => f.category === "Corsi").slice(0, 12);
+      courseGrid.innerHTML = courseItems.map(item => `
+        <article class="card">
+          <span class="pill">🎓 Corsi</span>
+          <h3>${item.title}</h3>
+          <p>${item.excerpt || "Apri il corso Damiano."}</p>
+          <div class="card-actions">
+            <a class="btn" href="${item.file}">Apri</a>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function renderCategories() {
+      catGrid.innerHTML = categories.filter(c => c !== "Tutte").map(cat => `
+        <div class="cat" onclick="setCategory('${cat.replace(/'/g, "\\'")}')">
+          <div class="pill">${catIcons[cat] || "•"} ${cat}</div>
+          <strong>${cat}</strong>
+          <small>${files.filter(f => f.category === cat).length} elementi</small>
+        </div>
+      `).join("");
+    }
+
+    function renderChips() {
+      chips.innerHTML = categories.map(cat => `
+        <button class="chip ${activeCategory === cat ? "active" : ""}" data-cat="${cat}">${cat}</button>
+      `).join("");
+
+      Array.from(chips.querySelectorAll(".chip")).forEach(btn => {
+        btn.addEventListener("click", () => {
+          activeCategory = btn.dataset.cat;
+          renderChips();
+          render();
+        });
+      });
+    }
+
     function filterFiles() {
       const q = (searchInput?.value || "").trim().toLowerCase();
       return files.filter(item => {
@@ -528,14 +470,14 @@
     }
 
     function render() {
-      if (!grid) return;
       const q = (searchInput?.value || "").trim();
       const filtered = filterFiles();
-      if (counter) counter.textContent = filtered.length + " risultati";
-      if (empty) empty.style.display = filtered.length ? "none" : "block";
+      counter.textContent = filtered.length + " risultati";
+      empty.style.display = filtered.length ? "none" : "block";
 
       grid.innerHTML = filtered.map(item => {
         const isFav = Favs.has(item.file);
+        const openLink = buildOpenLink(item, q);
         return `
           <article class="card">
             <div class="card-top">
@@ -544,7 +486,9 @@
             </div>
             <h3>${highlight(item.title, q)}</h3>
             <p>${smartExcerpt(item, q) || "Apri questa pagina dall’archivio Locoselli."}</p>
-            <div class="card-actions"><a class="btn" href="${item.file}">Apri</a></div>
+            <div class="card-actions">
+              <a class="btn" href="${openLink}">Apri</a>
+            </div>
           </article>
         `;
       }).join("");
@@ -567,43 +511,41 @@
     window.setCategory = setCategory;
 
     function enterApp() {
-      if (gate) gate.style.display = "none";
-      if (app) app.style.display = "block";
+      gate.style.display = "none";
+      app.style.display = "block";
       loadFiles();
     }
 
     function checkCode() {
       if ((codeInput?.value || "") === ACCESS_CODE) {
         localStorage.setItem("locoselli_access", "ok");
-        if (errorMsg) errorMsg.textContent = "";
+        errorMsg.textContent = "";
         enterApp();
       } else {
-        if (errorMsg) errorMsg.textContent = "Codice errato. Riprova.";
-        if (codeInput) {
-          codeInput.value = "";
-          codeInput.focus();
-        }
+        errorMsg.textContent = "Codice errato. Riprova.";
+        codeInput.value = "";
+        codeInput.focus();
       }
     }
 
-    if (enterBtn) enterBtn.addEventListener("click", checkCode);
-    if (codeInput) codeInput.addEventListener("keydown", e => { if (e.key === "Enter") checkCode(); });
-    if (searchInput) searchInput.addEventListener("input", render);
-    if (favFilterBtn) favFilterBtn.addEventListener("click", () => {
+    enterBtn.addEventListener("click", checkCode);
+    codeInput.addEventListener("keydown", e => { if (e.key === "Enter") checkCode(); });
+    searchInput.addEventListener("input", render);
+    favFilterBtn.addEventListener("click", () => {
       showFavsOnly = !showFavsOnly;
       favFilterBtn.classList.toggle("active", showFavsOnly);
       render();
     });
-    if (logoutBtn) logoutBtn.addEventListener("click", () => {
+    logoutBtn.addEventListener("click", () => {
       localStorage.removeItem("locoselli_access");
       location.reload();
     });
-    if (scrollFab) {
-      window.addEventListener("scroll", () => {
-        scrollFab.classList.toggle("visible", window.scrollY > 500);
-      }, { passive: true });
-      scrollFab.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
-    }
+
+    window.addEventListener("scroll", () => {
+      scrollFab.classList.toggle("visible", window.scrollY > 500);
+    }, { passive: true });
+
+    scrollFab.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
     if (localStorage.getItem("locoselli_access") === "ok") {
       window.addEventListener("load", enterApp);
