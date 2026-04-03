@@ -6,76 +6,35 @@
   <title>Locoselli Archivio</title>
   <meta name="theme-color" content="#0b0b0d" />
   <style>
-    :root{
-      --bg:#0b0b0d; --bg2:#141419; --card:#17171d; --line:rgba(255,255,255,.08);
-      --text:#f5f5f7; --muted:#a7a7b3; --gold:#d7aa2b; --gold2:#f0d178;
-      --shadow:0 12px 40px rgba(0,0,0,.30); --radius:20px;
-    }
-    *{box-sizing:border-box} html{scroll-behavior:smooth}
-    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-      background:radial-gradient(circle at top, rgba(215,170,43,.10), transparent 26%),linear-gradient(180deg,#0b0b0d 0%,#0f1014 100%);
-      color:var(--text)}
-    a{color:inherit;text-decoration:none}
-    .wrap{max-width:1240px;margin:0 auto;padding:24px}
+    :root{--bg:#0b0b0d;--card:#17171d;--line:rgba(255,255,255,.08);--text:#f5f5f7;--muted:#a7a7b3;--gold:#d7aa2b;--gold2:#f0d178;--shadow:0 12px 40px rgba(0,0,0,.30);--radius:20px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}
+    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:radial-gradient(circle at top, rgba(215,170,43,.10), transparent 26%),linear-gradient(180deg,#0b0b0d 0%,#0f1014 100%);color:var(--text)}
+    a{color:inherit;text-decoration:none}.wrap{max-width:1240px;margin:0 auto;padding:24px}
     .gate{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
-    .gate-card,.panel,.card,.feature,.cat,.hero{
-      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
-      border:1px solid var(--line); box-shadow:var(--shadow); border-radius:var(--radius)}
-    .gate-card{width:min(560px,100%);padding:34px;text-align:center}
-    .logo-img{height:72px;display:block;margin:0 auto 14px auto}
-    h1,h2,h3,p{margin:0}
-    .gold{color:var(--gold2)} .muted{color:var(--muted)}
+    .gate-card,.panel,.card,.feature,.cat,.hero{background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));border:1px solid var(--line);box-shadow:var(--shadow);border-radius:var(--radius)}
+    .gate-card{width:min(560px,100%);padding:34px;text-align:center}.logo-img{height:72px;display:block;margin:0 auto 14px auto}
+    h1,h2,h3,p{margin:0}.gold{color:var(--gold2)}.muted{color:var(--muted)}
     .gate-actions{display:flex;gap:12px;margin-top:18px;justify-content:center}
-    input{
-      width:100%;background:#101116;border:1px solid var(--line);color:var(--text);
-      border-radius:14px;padding:14px 16px;font-size:16px;outline:none}
+    input{width:100%;background:#101116;border:1px solid var(--line);color:var(--text);border-radius:14px;padding:14px 16px;font-size:16px;outline:none}
     input:focus{border-color:rgba(215,170,43,.55);box-shadow:0 0 0 3px rgba(215,170,43,.12)}
-    button,.btn{
-      background:var(--gold);color:#000;border:none;border-radius:14px;padding:13px 16px;
-      font-weight:800;cursor:pointer}
+    button,.btn{background:var(--gold);color:#000;border:none;border-radius:14px;padding:13px 16px;font-weight:800;cursor:pointer}
     button.secondary,.btn.secondary{background:transparent;color:var(--text);border:1px solid var(--line)}
-    .app{display:none}
-    .topbar{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(11,11,13,.70);border-bottom:1px solid var(--line)}
+    .app{display:none}.topbar{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(11,11,13,.70);border-bottom:1px solid var(--line)}
     .topbar-inner{max-width:1240px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:14px;justify-content:space-between}
-    .brand{display:flex;align-items:center;gap:12px}
-    .brand-logo{height:40px;display:block}
-    .toolbar{display:flex;gap:10px;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:12px}.brand-logo{height:40px;display:block}.toolbar{display:flex;gap:10px;flex-wrap:wrap}
     .hero{padding:28px;display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:22px}
-    .hero h1{font-size:44px;line-height:1.02;letter-spacing:-.02em}
-    .hero p{margin-top:14px;color:var(--muted);font-size:17px;max-width:62ch}
-    .searchbar{display:flex;gap:12px;margin-top:18px}
-    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-    .stat{padding:18px;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:18px}
-    .stat strong{display:block;font-size:28px;color:var(--gold2)}
-    .stat span{color:var(--muted);font-size:14px}
-    .section{margin-top:26px}
-    .section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:14px}
-    .section-head h2{font-size:26px}
-    .features,.cats,.grid{display:grid;gap:14px}
-    .features{grid-template-columns:repeat(3,1fr)}
-    .cats{grid-template-columns:repeat(4,1fr)}
-    .grid{grid-template-columns:repeat(3,1fr)}
-    .feature,.cat,.card{padding:18px}
-    .pill{display:inline-flex;align-items:center;gap:8px;background:rgba(215,170,43,.13);color:var(--gold2);
-      border:1px solid rgba(215,170,43,.24);border-radius:999px;padding:6px 10px;font-size:12px;font-weight:700}
-    .feature h3,.card h3{margin-top:12px;font-size:20px;line-height:1.2}
-    .feature p,.card p{margin-top:10px;color:var(--muted);line-height:1.55}
-    .cat{cursor:pointer;transition:.18s transform ease,.18s border-color ease}
-    .cat:hover,.card:hover,.feature:hover{transform:translateY(-2px);border-color:rgba(215,170,43,.35)}
-    .cat strong{display:block;margin-top:10px;font-size:17px}
-    .cat small{display:block;margin-top:6px;color:var(--muted)}
-    .chips{display:flex;gap:10px;flex-wrap:wrap}
-    .chip{background:#111318;border:1px solid var(--line);border-radius:999px;padding:10px 14px;color:var(--text);cursor:pointer}
-    .chip.active,.chip:hover{border-color:rgba(215,170,43,.38);color:var(--gold2)}
-    .counter{color:var(--muted);font-size:14px}
-    .card-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .fav{width:38px;height:38px;border-radius:12px;border:1px solid var(--line);display:grid;place-items:center;cursor:pointer;background:#111318;color:#fff}
-    .fav.active{color:var(--gold2);border-color:rgba(215,170,43,.35)}
-    .card-actions{display:flex;gap:10px;margin-top:14px}
-    mark{background:#f0d178;color:#000;padding:0 .14em;border-radius:4px}
-    .empty{display:none;padding:24px;border:1px dashed var(--line);border-radius:18px;color:var(--muted);text-align:center}
-    .fab{position:fixed;right:20px;bottom:20px;opacity:0;visibility:hidden;transition:.18s}
-    .fab.visible{opacity:1;visibility:visible}
+    .hero h1{font-size:44px;line-height:1.02;letter-spacing:-.02em}.hero p{margin-top:14px;color:var(--muted);font-size:17px;max-width:62ch}.searchbar{display:flex;gap:12px;margin-top:18px}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.stat{padding:18px;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:18px}.stat strong{display:block;font-size:28px;color:var(--gold2)}.stat span{color:var(--muted);font-size:14px}
+    .section{margin-top:26px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:14px}.section-head h2{font-size:26px}
+    .features,.cats,.grid{display:grid;gap:14px}.features{grid-template-columns:repeat(3,1fr)}.cats{grid-template-columns:repeat(4,1fr)}.grid{grid-template-columns:repeat(3,1fr)}
+    .feature,.cat,.card{padding:18px}.pill{display:inline-flex;align-items:center;gap:8px;background:rgba(215,170,43,.13);color:var(--gold2);border:1px solid rgba(215,170,43,.24);border-radius:999px;padding:6px 10px;font-size:12px;font-weight:700}
+    .feature h3,.card h3{margin-top:12px;font-size:20px;line-height:1.2}.feature p,.card p{margin-top:10px;color:var(--muted);line-height:1.55}
+    .cat{cursor:pointer;transition:.18s transform ease,.18s border-color ease}.cat:hover,.card:hover,.feature:hover{transform:translateY(-2px);border-color:rgba(215,170,43,.35)}.cat strong{display:block;margin-top:10px;font-size:17px}.cat small{display:block;margin-top:6px;color:var(--muted)}
+    .chips{display:flex;gap:10px;flex-wrap:wrap}.chip{background:#111318;border:1px solid var(--line);border-radius:999px;padding:10px 14px;color:var(--text);cursor:pointer}.chip.active,.chip:hover{border-color:rgba(215,170,43,.38);color:var(--gold2)}
+    .counter{color:var(--muted);font-size:14px}.card-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .fav{width:38px;height:38px;border-radius:12px;border:1px solid var(--line);display:grid;place-items:center;cursor:pointer;background:#111318;color:#fff}.fav.active{color:var(--gold2);border-color:rgba(215,170,43,.35)}
+    .card-actions{display:flex;gap:10px;margin-top:14px}mark{background:#f0d178;color:#000;padding:0 .14em;border-radius:4px}
+    .empty{display:none;padding:24px;border:1px dashed var(--line);border-radius:18px;color:var(--muted);text-align:center}.fab{position:fixed;right:20px;bottom:20px;opacity:0;visibility:hidden;transition:.18s}.fab.visible{opacity:1;visibility:visible}
     @media (max-width:1024px){.hero,.features,.grid{grid-template-columns:1fr 1fr}.cats{grid-template-columns:1fr 1fr}}
     @media (max-width:720px){.hero,.features,.cats,.grid{grid-template-columns:1fr}.searchbar,.gate-actions{flex-direction:column}.hero h1{font-size:34px}.stats{grid-template-columns:1fr}.topbar-inner{padding:12px 16px}.wrap{padding:16px}}
   </style>
@@ -91,7 +50,6 @@
       <p id="errorMsg" class="muted" style="margin-top:12px;color:#ff8c8c"></p>
     </div>
   </div>
-
   <div id="app" class="app">
     <div class="topbar">
       <div class="topbar-inner">
@@ -105,7 +63,6 @@
         </div>
       </div>
     </div>
-
     <div class="wrap">
       <section class="hero">
         <div>
@@ -125,17 +82,14 @@
           </div>
         </div>
       </section>
-
       <section class="section">
         <div class="section-head"><div><h2>In evidenza</h2><p class="muted" style="margin-top:6px">Una selezione veloce per partire.</p></div></div>
         <div id="featuredGrid" class="features"></div>
       </section>
-
       <section class="section">
         <div class="section-head"><div><h2>Categorie</h2><p class="muted" style="margin-top:6px">Filtro rapido dell’archivio.</p></div></div>
         <div id="catGrid" class="cats"></div>
       </section>
-
       <section id="archivio" class="section">
         <div class="section-head">
           <div><h2>Archivio completo</h2><p class="muted" style="margin-top:6px">Ricette e corsi nella stessa home.</p></div>
@@ -148,8 +102,34 @@
       </section>
     </div>
   </div>
-
   <button id="scrollFab" class="btn fab">↑</button>
-  <script src="app.js"></script>
+  <script>
+const ACCESS_CODE="Loco0106R";
+const categories=["Tutte","Bassa temperatura","Dolci","Lievitati","Molecolare","Salato","Corsi","Tecniche","Basi"];
+const catIcons={"Bassa temperatura":"🔥","Dolci":"🍰","Lievitati":"🥐","Molecolare":"🧪","Salato":"🍽️","Corsi":"🎓","Tecniche":"🛠️","Basi":"📚"};
+let files=[],activeCategory="Tutte",showFavsOnly=false;
+const Favs={key:"locoselli_favs",get(){try{return JSON.parse(localStorage.getItem(this.key)||"[]")}catch(e){return[]}},has(file){return this.get().includes(file)},toggle(file){const favs=this.get();const i=favs.indexOf(file);if(i>=0)favs.splice(i,1);else favs.push(file);localStorage.setItem(this.key,JSON.stringify(favs));return i<0;}};
+const $=id=>document.getElementById(id),gate=$("gate"),app=$("app"),codeInput=$("codeInput"),errorMsg=$("errorMsg"),enterBtn=$("enterBtn"),searchInput=$("searchInput"),grid=$("grid"),empty=$("empty"),counter=$("counter"),chips=$("chips"),catGrid=$("catGrid"),featuredGrid=$("featuredGrid"),favFilterBtn=$("favFilterBtn"),logoutBtn=$("logoutBtn"),loadingMsg=$("loadingMsg"),statTotal=$("statTotal"),statCourses=$("statCourses"),statRecipes=$("statRecipes"),scrollFab=$("scrollFab");
+function detectCategory(name){const n=(name||"").toLowerCase();if(/(corso|lezione|damiano)/.test(n))return"Corsi";if(/(bassa-temperatura|bassa temperatura|cottura|sous)/.test(n))return"Bassa temperatura";if(/(panettone|pandoro|brioches|baba|lievito|lievit)/.test(n))return"Lievitati";if(/(tiramisu|tortini|dessert|panna|macaron|bigne|frolla|plumcake|cartellate|zabaglione|mignon|biscuit)/.test(n))return"Dolci";if(/(agar|sferificazione|molecolare|glice|isomalto|inulina|konjac|carragen|sucro|maltodestrina|pectina|texture|spume|mousse|gelburger|destrosio|trealosio|neutral|flexifiber|mono-diglicer|mono diglicer)/.test(n))return"Molecolare";if(/(risotti|ravioli|salse|salata|sfoglia|bistecche|vegetali|peperone)/.test(n))return"Salato";if(/(prodotti|tecniche)/.test(n))return"Tecniche";return"Basi";}
+function normalizeItem(item,forcedCategory){const file=item.file||"",title=item.title||file.replace(/\.html$/i,"").replace(/-/g," "),excerpt=item.excerpt||"",text=item.text||"",category=forcedCategory||item.category||detectCategory(file||title);return{file,title,excerpt,text,category,keywords:`${title} ${category} ${file} ${excerpt} ${text}`.toLowerCase()}}
+function uniqByFile(arr){const map=new Map();arr.forEach(item=>{if(item.file&&!map.has(item.file))map.set(item.file,item)});return Array.from(map.values())}
+async function loadJson(path){const res=await fetch(path);if(!res.ok)throw new Error(path+" "+res.status);return await res.json()}
+async function loadFiles(){try{const [mainData,corsiData]=await Promise.all([loadJson("search_index.json"),loadJson("corsi_index.json").catch(()=>[])]);const mainItems=(mainData||[]).map(item=>normalizeItem(item));const courseItems=(corsiData||[]).map(item=>normalizeItem(item,"Corsi"));files=uniqByFile([...mainItems,...courseItems]).sort((a,b)=>a.title.localeCompare(b.title,"it"))}catch(err){console.warn("Errore caricamento indici, fallback API GitHub:",err);try{const repoRes=await fetch("https://api.github.com/repos/chefantonioloco87/Locoselli-Rezept-/contents");const repoData=await repoRes.json();files=repoData.filter(f=>f.name&&f.name.endsWith(".html")&&f.name!=="index.html").map(f=>normalizeItem({file:f.name,title:f.name.replace(/\.html$/i,"").replace(/-/g," ")})).sort((a,b)=>a.title.localeCompare(b.title,"it"))}catch(e2){console.error("Impossibile caricare archivio:",e2);files=[]}}if(loadingMsg)loadingMsg.style.display="none";renderStats();renderFeatured();renderCategories();renderChips();render()}
+function renderStats(){const total=files.length,courses=files.filter(f=>f.category==="Corsi").length,recipes=total-courses;if(statTotal)statTotal.textContent=total;if(statCourses)statCourses.textContent=courses;if(statRecipes)statRecipes.textContent=recipes}
+function renderFeatured(){if(!featuredGrid)return;const picks=[files.find(f=>/tiramisu/i.test(f.file)),files.find(f=>/risotti/i.test(f.file)),files.find(f=>/corso|damiano|lezione/i.test(f.file))].filter(Boolean);featuredGrid.innerHTML=picks.map(item=>`<article class="feature"><span class="pill">${item.category}</span><h3>${item.title}</h3><p>${item.excerpt||"Apri subito questa pagina dall’archivio Locoselli."}</p><div class="card-actions"><a class="btn" href="${item.file}">Apri</a></div></article>`).join("")}
+function renderCategories(){if(!catGrid)return;catGrid.innerHTML=categories.filter(c=>c!=="Tutte").map(cat=>`<div class="cat" onclick="setCategory('${cat.replace(/'/g,"\'")}')"><div class="pill">${catIcons[cat]||"•"} ${cat}</div><strong>${cat}</strong><small>${files.filter(f=>f.category===cat).length} elementi</small></div>`).join("")}
+function renderChips(){if(!chips)return;chips.innerHTML=categories.map(cat=>`<button class="chip ${activeCategory===cat?"active":""}" data-cat="${cat}">${cat}</button>`).join("");Array.from(chips.querySelectorAll(".chip")).forEach(btn=>{btn.addEventListener("click",()=>{activeCategory=btn.dataset.cat;renderChips();render()})})}
+function escapeRegExp(s){return s.replace(/[.*+?^${}()|[\]\]/g,"\$&")}
+function highlight(text,query){if(!query||!text)return text||"";const regex=new RegExp("("+escapeRegExp(query)+")","ig");return text.replace(regex,"<mark>$1</mark>")}
+function smartExcerpt(item,query){if(!query)return item.excerpt||"";const hay=`${item.excerpt||""} ${item.text||""}`.trim();if(!hay)return item.excerpt||"";const lower=hay.toLowerCase();const idx=lower.indexOf(query.toLowerCase());if(idx<0)return item.excerpt||"";const start=Math.max(0,idx-60),end=Math.min(hay.length,idx+query.length+140);return(start>0?"…":"")+highlight(hay.slice(start,end),query)+(end<hay.length?"…":"")}
+function filterFiles(){const q=(searchInput?.value||"").trim().toLowerCase();return files.filter(item=>{const catOk=activeCategory==="Tutte"||item.category===activeCategory;const favOk=!showFavsOnly||Favs.has(item.file);const searchOk=!q||item.keywords.includes(q);return catOk&&favOk&&searchOk})}
+function render(){if(!grid)return;const q=(searchInput?.value||"").trim();const filtered=filterFiles();if(counter)counter.textContent=filtered.length+" risultati";if(empty)empty.style.display=filtered.length?"none":"block";grid.innerHTML=filtered.map(item=>{const isFav=Favs.has(item.file);return`<article class="card"><div class="card-top"><span class="pill">${item.category}</span><button class="fav ${isFav?"active":""}" onclick="toggleFav('${item.file}', this)">${isFav?"★":"☆"}</button></div><h3>${highlight(item.title,q)}</h3><p>${smartExcerpt(item,q)||"Apri questa pagina dall’archivio Locoselli."}</p><div class="card-actions"><a class="btn" href="${item.file}">Apri</a></div></article>`}).join("")}
+function toggleFav(file,btn){const now=Favs.toggle(file);btn.classList.toggle("active",now);btn.innerHTML=now?"★":"☆";if(showFavsOnly&&!now)render()}window.toggleFav=toggleFav;
+function setCategory(cat){activeCategory=cat;renderChips();render();window.scrollTo({top:0,behavior:"smooth"})}window.setCategory=setCategory;
+function enterApp(){if(gate)gate.style.display="none";if(app)app.style.display="block";loadFiles()}
+function checkCode(){if((codeInput?.value||"")===ACCESS_CODE){localStorage.setItem("locoselli_access","ok");if(errorMsg)errorMsg.textContent="";enterApp()}else{if(errorMsg)errorMsg.textContent="Codice errato. Riprova.";if(codeInput){codeInput.value="";codeInput.focus()}}}
+if(enterBtn)enterBtn.addEventListener("click",checkCode);if(codeInput)codeInput.addEventListener("keydown",e=>{if(e.key==="Enter")checkCode()});if(searchInput)searchInput.addEventListener("input",render);if(favFilterBtn)favFilterBtn.addEventListener("click",()=>{showFavsOnly=!showFavsOnly;favFilterBtn.classList.toggle("active",showFavsOnly);render()});if(logoutBtn)logoutBtn.addEventListener("click",()=>{localStorage.removeItem("locoselli_access");location.reload()});if(scrollFab){window.addEventListener("scroll",()=>{scrollFab.classList.toggle("visible",window.scrollY>500)},{passive:true});scrollFab.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}))}
+if(localStorage.getItem("locoselli_access")==="ok"){window.addEventListener("load",enterApp)}
+  </script>
 </body>
 </html>
