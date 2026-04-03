@@ -6,7 +6,8 @@
 <title>Locoselli Archivio</title>
 <style>
 :root{--bg:#0b0b0d;--card:#17171d;--line:rgba(255,255,255,.08);--text:#f5f5f7;--muted:#a7a7b3;--gold:#d7aa2b;--gold2:#f0d178;--radius:20px}
-*{box-sizing:border-box} body{margin:0;background:linear-gradient(180deg,#0b0b0d 0%,#0f1014 100%);color:var(--text);font-family:Arial,sans-serif}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:linear-gradient(180deg,#0b0b0d 0%,#0f1014 100%);color:var(--text);font-family:Arial,sans-serif}
 .wrap{max-width:1240px;margin:0 auto;padding:24px}.gate{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
 .gate-card,.card,.hero,.panel,.cat{background:#17171d;border:1px solid var(--line);border-radius:var(--radius)}
 .gate-card{width:min(560px,100%);padding:34px;text-align:center}.logo-img{height:78px;display:block;margin:0 auto 16px auto}
@@ -51,7 +52,7 @@ mark{background:#f0d178;color:#000;padding:0 .14em;border-radius:4px}
       <div>
         <span class="pill">Premium archive</span>
         <h1 style="margin-top:12px">495 ricette.<br><span class="gold">Corsi Damiano visibili.</span></h1>
-        <p class="muted" style="margin-top:14px">Se cerchi un termine tipo agar o garacal, vedi anche i corsi. Se clicchi un corso, vai alla pagina del match.</p>
+        <p class="muted" style="margin-top:14px">Se cerchi un termine tipo agar o garacal, i corsi Damiano escono subito nei risultati.</p>
         <div style="margin-top:18px"><input id="searchInput" type="search" placeholder="Cerca: agar, garacal, tonno, Damiano..."></div>
       </div>
       <div class="panel" style="padding:18px">
@@ -103,15 +104,15 @@ function detectCategory(name){const n=(name||"").toLowerCase();if(/(corso|lezion
 function normalizeItem(item,forced){const file=item.file||"",title=item.title||file.replace(/\.html$/i,"").replace(/-/g," "),excerpt=item.excerpt||"",text=item.text||"",category=forced||item.category||detectCategory(file||title);return{file,title,excerpt,text,category,keywords:`${title} ${category} ${file} ${excerpt} ${text}`.toLowerCase()}}
 function uniqByFile(arr){const m=new Map();arr.forEach(i=>{if(i.file&&!m.has(i.file))m.set(i.file,i)});return Array.from(m.values())}
 async function loadJson(path){const r=await fetch(path);if(!r.ok)throw new Error(path+" "+r.status);return await r.json()}
-function escapeRegExp(s){return s.replace(/[.*+?^${}()|[\]\]/g,"\$&")}
+function escapeRegExp(s){return s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")}
 function highlight(t,q){if(!q||!t)return t||"";const re=new RegExp("("+escapeRegExp(q)+")","ig");return t.replace(re,"<mark>$1</mark>")}
 function smartExcerpt(item,q){if(!q)return item.excerpt||"";const hay=`${item.excerpt||""} ${item.text||""}`.trim();if(!hay)return item.excerpt||"";const lower=hay.toLowerCase();const idx=lower.indexOf(q.toLowerCase());if(idx<0)return item.excerpt||"";const start=Math.max(0,idx-60),end=Math.min(hay.length,idx+q.length+140);return(start>0?"…":"")+highlight(hay.slice(start,end),q)+(end<hay.length?"…":"")}
 function buildOpenLink(item,q){if(item.category==="Corsi"&&q)return`open-course-match.html?file=${encodeURIComponent(item.file)}&q=${encodeURIComponent(q)}&title=${encodeURIComponent(item.title)}`;return item.file}
 async function loadFiles(){try{const [mainData,corsiData]=await Promise.all([loadJson("search_index.json"),loadJson("corsi_index.json").catch(()=>[])]);files=uniqByFile([...(mainData||[]).map(x=>normalizeItem(x)),...(corsiData||[]).map(x=>normalizeItem(x,"Corsi"))]).sort((a,b)=>a.title.localeCompare(b.title,"it"))}catch(err){try{const rr=await fetch("https://api.github.com/repos/chefantonioloco87/Locoselli-Rezept-/contents");const dd=await rr.json();files=dd.filter(f=>f.name&&f.name.endsWith(".html")&&f.name!=="index.html"&&f.name!=="open-course-match.html").map(f=>normalizeItem({file:f.name,title:f.name.replace(/\.html$/i,"").replace(/-/g," ")})).sort((a,b)=>a.title.localeCompare(b.title,"it"))}catch(e){files=[]}}loadingMsg.style.display="none";renderStats();renderCategories();renderChips();render()}
 function renderStats(){const total=files.length,courses=Math.max(8,files.filter(f=>f.category==="Corsi").length),recipes=Math.max(0,total-courses);statTotal.textContent=total;statCourses.textContent=courses;statRecipes.textContent=recipes}
-function renderCategories(){catGrid.innerHTML=categories.filter(c=>c!=="Tutte").map(cat=>`<div class="cat" onclick="setCategory('${cat.replace(/'/g,"\'")}')"><div class="pill">${catIcons[cat]||"•"} ${cat}</div><h3>${cat}</h3><p>${files.filter(f=>f.category===cat).length} elementi</p></div>`).join("")}
+function renderCategories(){catGrid.innerHTML=categories.filter(c=>c!=="Tutte").map(cat=>`<div class="cat" onclick="setCategory('${cat.replace(/'/g,"\\'")}')"><div class="pill">${catIcons[cat]||"•"} ${cat}</div><h3>${cat}</h3><p>${files.filter(f=>f.category===cat).length} elementi</p></div>`).join("")}
 function renderChips(){chips.innerHTML=categories.map(cat=>`<button class="chip ${activeCategory===cat?"active":""}" data-cat="${cat}">${cat}</button>`).join("");Array.from(chips.querySelectorAll(".chip")).forEach(b=>b.addEventListener("click",()=>{activeCategory=b.dataset.cat;renderChips();render()}))}
-function filterFiles(){const q=(searchInput.value||"").trim().toLowerCase();return files.filter(item=>{const catOk=activeCategory==="Tutte"||item.category===activeCategory;const searchOk=!q||item.keywords.includes(q);return catOk&&searchOk})}
+function filterFiles(){const q=(searchInput.value||"").trim().toLowerCase();return files.filter(item=>{const catOk=activeCategory==="Tutte"||item.category===activeCategory;const searchOk=!q||item.keywords.includes(q)||item.category==="Corsi";return catOk&&searchOk})}
 function render(){const q=(searchInput.value||"").trim();const filtered=filterFiles();counter.textContent=filtered.length+" risultati";empty.style.display=filtered.length?"none":"block";grid.innerHTML=filtered.map(item=>`<article class="card"><div class="card-top"><span class="pill">${item.category}</span></div><h3>${highlight(item.title,q)}</h3><p>${smartExcerpt(item,q)||"Apri questa pagina dall’archivio Locoselli."}</p><div class="card-actions"><a class="btn" href="${buildOpenLink(item,q)}">Apri</a></div></article>`).join("")}
 function setCategory(cat){activeCategory=cat;renderChips();render()} window.setCategory=setCategory;
 function enterApp(){gate.style.display="none";app.style.display="block";loadFiles()}
