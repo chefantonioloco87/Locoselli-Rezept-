@@ -1,380 +1,122 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Locoselli Archivio</title>
-  <style>
-    :root{
-      --bg:#0b0b0d; --card:#17171d; --line:rgba(255,255,255,.08);
-      --text:#f5f5f7; --muted:#a7a7b3; --gold:#d7aa2b; --gold2:#f0d178;
-      --shadow:0 12px 40px rgba(0,0,0,.30); --radius:20px;
-    }
-    *{box-sizing:border-box} html{scroll-behavior:smooth}
-    body{
-      margin:0; color:var(--text);
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-      background:
-        radial-gradient(circle at top, rgba(215,170,43,.10), transparent 26%),
-        linear-gradient(180deg,#0b0b0d 0%,#0f1014 100%);
-    }
-    a{color:inherit;text-decoration:none}
-    .wrap{max-width:1240px;margin:0 auto;padding:24px}
-    .gate{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
-    .gate-card,.panel,.card,.cat,.hero{
-      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
-      border:1px solid var(--line); box-shadow:var(--shadow); border-radius:var(--radius);
-    }
-    .gate-card{width:min(560px,100%);padding:34px;text-align:center}
-    .logo-img{height:78px;display:block;margin:0 auto 16px auto}
-    h1,h2,h3,p{margin:0}
-    .gold{color:var(--gold2)} .muted{color:var(--muted)}
-    .gate-actions{display:flex;gap:12px;margin-top:18px;justify-content:center}
-    input{
-      width:100%; background:#101116; border:1px solid var(--line); color:var(--text);
-      border-radius:14px; padding:14px 16px; font-size:16px; outline:none;
-    }
-    input:focus{border-color:rgba(215,170,43,.55);box-shadow:0 0 0 3px rgba(215,170,43,.12)}
-    button,.btn{
-      background:var(--gold); color:#000; border:none; border-radius:14px;
-      padding:13px 16px; font-weight:800; cursor:pointer;
-    }
-    button.secondary,.btn.secondary{background:transparent;color:var(--text);border:1px solid var(--line)}
-    .app{display:none}
-    .topbar{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(11,11,13,.72);border-bottom:1px solid var(--line)}
-    .topbar-inner{max-width:1240px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:14px;justify-content:space-between}
-    .brand{display:flex;align-items:center;gap:12px}
-    .brand-logo{height:40px;display:block}
-    .toolbar{display:flex;gap:10px;flex-wrap:wrap}
-    .hero{padding:28px;display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:22px}
-    .hero h1{font-size:44px;line-height:1.02;letter-spacing:-.02em}
-    .hero p{margin-top:14px;color:var(--muted);font-size:17px;max-width:62ch}
-    .searchbar{display:flex;gap:12px;margin-top:18px}
-    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-    .stat{padding:18px;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:18px}
-    .stat strong{display:block;font-size:28px;color:var(--gold2)}
-    .stat span{color:var(--muted);font-size:14px}
-    .section{margin-top:26px}
-    .section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:14px}
-    .section-head h2{font-size:26px}
-    .grid,.course-grid,.cats{display:grid;gap:14px}
-    .grid{grid-template-columns:repeat(3,1fr)}
-    .course-grid{grid-template-columns:repeat(3,1fr)}
-    .cats{grid-template-columns:repeat(4,1fr)}
-    .card,.cat{padding:18px}
-    .pill{
-      display:inline-flex;align-items:center;gap:8px;
-      background:rgba(215,170,43,.13);color:var(--gold2);
-      border:1px solid rgba(215,170,43,.24);border-radius:999px;
-      padding:6px 10px;font-size:12px;font-weight:700;
-    }
-    .card h3,.cat h3{margin-top:12px;font-size:20px;line-height:1.2}
-    .card p{margin-top:10px;color:var(--muted);line-height:1.55}
-    .card:hover,.cat:hover{transform:translateY(-2px);border-color:rgba(215,170,43,.35)}
-    .cat{cursor:pointer;transition:.18s transform ease,.18s border-color ease}
-    .chipbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
-    .chip{background:#111318;border:1px solid var(--line);border-radius:999px;padding:10px 14px;color:var(--text);cursor:pointer}
-    .chip.active,.chip:hover{border-color:rgba(215,170,43,.38);color:var(--gold2)}
-    .counter{color:var(--muted);font-size:14px}
-    .card-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .fav{width:38px;height:38px;border-radius:12px;border:1px solid var(--line);display:grid;place-items:center;cursor:pointer;background:#111318;color:#fff}
-    .fav.active{color:var(--gold2);border-color:rgba(215,170,43,.35)}
-    .card-actions{display:flex;gap:10px;margin-top:14px}
-    mark{background:#f0d178;color:#000;padding:0 .14em;border-radius:4px}
-    .empty{display:none;padding:24px;border:1px dashed var(--line);border-radius:18px;color:var(--muted);text-align:center}
-    @media (max-width:1024px){.hero,.grid,.course-grid{grid-template-columns:1fr 1fr}.cats{grid-template-columns:1fr 1fr}}
-    @media (max-width:720px){.hero,.grid,.course-grid,.cats{grid-template-columns:1fr}.searchbar,.gate-actions{flex-direction:column}.hero h1{font-size:34px}.stats{grid-template-columns:1fr}.topbar-inner{padding:12px 16px}.wrap{padding:16px}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Locoselli Archivio</title>
+<style>
+:root{--bg:#0b0b0d;--card:#17171d;--line:rgba(255,255,255,.08);--text:#f5f5f7;--muted:#a7a7b3;--gold:#d7aa2b;--gold2:#f0d178;--radius:20px}
+*{box-sizing:border-box} body{margin:0;background:linear-gradient(180deg,#0b0b0d 0%,#0f1014 100%);color:var(--text);font-family:Arial,sans-serif}
+.wrap{max-width:1240px;margin:0 auto;padding:24px}.gate{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.gate-card,.card,.hero,.panel,.cat{background:#17171d;border:1px solid var(--line);border-radius:var(--radius)}
+.gate-card{width:min(560px,100%);padding:34px;text-align:center}.logo-img{height:78px;display:block;margin:0 auto 16px auto}
+.gold{color:var(--gold2)} .muted{color:var(--muted)} h1,h2,h3,p{margin:0}
+input{width:100%;background:#101116;border:1px solid var(--line);color:#fff;border-radius:14px;padding:14px 16px;font-size:16px}
+button,.btn{background:var(--gold);color:#000;border:none;border-radius:14px;padding:13px 16px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-block}
+.btn.secondary{background:transparent;color:#fff;border:1px solid var(--line)}
+.topbar{position:sticky;top:0;background:rgba(11,11,13,.72);border-bottom:1px solid var(--line)}
+.topbar-inner{max-width:1240px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}.brand{display:flex;align-items:center;gap:12px}.brand-logo{height:40px}
+.app{display:none}.hero{padding:28px;display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:22px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.stat{padding:18px;background:#111318;border:1px solid var(--line);border-radius:18px}.stat strong{display:block;font-size:28px;color:var(--gold2)}.stat span{color:var(--muted);font-size:14px}
+.section{margin-top:26px}.section-head{display:flex;justify-content:space-between;gap:12px;margin-bottom:14px}.grid,.course-grid,.cats{display:grid;gap:14px}.grid{grid-template-columns:repeat(3,1fr)}.course-grid{grid-template-columns:repeat(3,1fr)}.cats{grid-template-columns:repeat(4,1fr)}.card,.cat{padding:18px}
+.pill{display:inline-block;background:rgba(215,170,43,.13);color:var(--gold2);border:1px solid rgba(215,170,43,.24);border-radius:999px;padding:6px 10px;font-size:12px;font-weight:700}
+.card h3,.cat h3{margin-top:12px}.card p{margin-top:10px;color:var(--muted);line-height:1.55}.card-actions{display:flex;gap:10px;margin-top:14px}
+.chipbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}.chip{background:#111318;border:1px solid var(--line);border-radius:999px;padding:10px 14px;color:#fff;cursor:pointer}.chip.active{color:var(--gold2);border-color:rgba(215,170,43,.38)}
+.counter{color:var(--muted)}.empty{display:none;padding:24px;border:1px dashed var(--line);border-radius:18px;color:var(--muted);text-align:center}
+mark{background:#f0d178;color:#000;padding:0 .14em;border-radius:4px}
+@media(max-width:1024px){.hero,.grid,.course-grid{grid-template-columns:1fr 1fr}.cats{grid-template-columns:1fr 1fr}}
+@media(max-width:720px){.hero,.grid,.course-grid,.cats{grid-template-columns:1fr}.topbar-inner{padding:12px 16px}.wrap{padding:16px}}
+</style>
 </head>
 <body>
-  <div id="gate" class="gate">
-    <div class="gate-card">
-      <img src="logo.png" alt="Locoselli" class="logo-img">
-      <h1>Locoselli <span class="gold">Archivio</span></h1>
-      <p class="muted" style="margin-top:10px">495 ricette + corsi Damiano in un’unica home.</p>
-      <div style="margin-top:18px"><input id="codeInput" type="password" placeholder="Inserisci il codice di accesso"></div>
-      <div class="gate-actions"><button id="enterBtn">Entra</button></div>
-      <p id="errorMsg" class="muted" style="margin-top:12px;color:#ff8c8c"></p>
-    </div>
+<div id="gate" class="gate">
+  <div class="gate-card">
+    <img src="logo.png" alt="Locoselli" class="logo-img">
+    <h1>Locoselli <span class="gold">Archivio</span></h1>
+    <p class="muted" style="margin-top:10px">495 ricette + corsi Damiano in un’unica home.</p>
+    <div style="margin-top:18px"><input id="codeInput" type="password" placeholder="Inserisci il codice di accesso"></div>
+    <div style="margin-top:18px"><button id="enterBtn">Entra</button></div>
+    <p id="errorMsg" class="muted" style="margin-top:12px;color:#ff8c8c"></p>
   </div>
+</div>
 
-  <div id="app" class="app">
-    <div class="topbar">
-      <div class="topbar-inner">
-        <div class="brand">
-          <img src="logo.png" alt="Locoselli" class="brand-logo">
-          <div><strong>Locoselli</strong><br><span class="muted" style="font-size:12px">Archivio ricette + corsi</span></div>
-        </div>
-        <div class="toolbar">
-          <button id="favFilterBtn" class="secondary">Preferiti</button>
-          <button id="logoutBtn" class="secondary">Esci</button>
+<div id="app" class="app">
+  <div class="topbar"><div class="topbar-inner">
+    <div class="brand"><img src="logo.png" class="brand-logo"><div><strong>Locoselli</strong><br><span class="muted" style="font-size:12px">Archivio ricette + corsi</span></div></div>
+    <div><button id="logoutBtn" class="btn secondary">Esci</button></div>
+  </div></div>
+
+  <div class="wrap">
+    <section class="hero">
+      <div>
+        <span class="pill">Premium archive</span>
+        <h1 style="margin-top:12px">495 ricette.<br><span class="gold">Corsi Damiano visibili.</span></h1>
+        <p class="muted" style="margin-top:14px">Se cerchi un termine tipo agar o garacal, vedi anche i corsi. Se clicchi un corso, vai alla pagina del match.</p>
+        <div style="margin-top:18px"><input id="searchInput" type="search" placeholder="Cerca: agar, garacal, tonno, Damiano..."></div>
+      </div>
+      <div class="panel" style="padding:18px">
+        <div class="stats">
+          <div class="stat"><strong id="statTotal">0</strong><span>Elementi totali</span></div>
+          <div class="stat"><strong id="statCourses">8</strong><span>Corsi</span></div>
+          <div class="stat"><strong id="statRecipes">0</strong><span>Ricette / schede</span></div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="wrap">
-      <section class="hero">
-        <div>
-          <span class="pill">Premium archive</span>
-          <h1>495 ricette.<br><span class="gold">Corsi Damiano visibili.</span></h1>
-          <p>La sezione corsi qui sotto è fissa e visibile. La ricerca mostra sia le ricette sia i corsi.</p>
-          <div class="searchbar">
-            <input id="searchInput" type="search" placeholder="Cerca: agar, garacal, tonno, Damiano...">
-            <a href="#archivio" class="btn">Vai all’archivio</a>
-          </div>
-        </div>
-        <div class="panel" style="padding:18px">
-          <div class="stats">
-            <div class="stat"><strong id="statTotal">0</strong><span>Elementi totali</span></div>
-            <div class="stat"><strong id="statCourses">8</strong><span>Corsi</span></div>
-            <div class="stat"><strong id="statRecipes">0</strong><span>Ricette / schede</span></div>
-          </div>
-        </div>
-      </section>
+    <section class="section">
+      <div class="section-head"><div><h2>Corsi Damiano</h2><p class="muted" style="margin-top:6px">Sezione fissa, sempre visibile.</p></div></div>
+      <div class="course-grid">
+        <article class="card"><span class="pill">🎓 Corso</span><h3>Lezione 1 – Pâte à choux</h3><div class="card-actions"><a class="btn" href="corso-avanzato-lezione1-pate-a-choux.html">Apri</a></div></article>
+        <article class="card"><span class="pill">🎓 Corso</span><h3>Lezione 2 – Biscuit moderni</h3><div class="card-actions"><a class="btn" href="corso-avanzato-lezione2-biscuit-moderni.html">Apri</a></div></article>
+        <article class="card"><span class="pill">🎓 Corso</span><h3>Lezione 3 – Mousse e bavaresi</h3><div class="card-actions"><a class="btn" href="corso-avanzato-lezione3-mousse-bavaresi.html">Apri</a></div></article>
+        <article class="card"><span class="pill">🎓 Corso</span><h3>Lezione 4 – Glasse specchio</h3><div class="card-actions"><a class="btn" href="corso-avanzato-lezione4-glasse-specchio.html">Apri</a></div></article>
+        <article class="card"><span class="pill">🎓 Corso</span><h3>Lezione 5 – Cioccolato avanzato</h3><div class="card-actions"><a class="btn" href="corso-avanzato-lezione5-cioccolato-avanzato.html">Apri</a></div></article>
+        <article class="card"><span class="pill">🎓 Corso</span><h3>Lezione 6 – Zucchero e isomalto</h3><div class="card-actions"><a class="btn" href="corso-avanzato-lezione6-zucchero-isomalto.html">Apri</a></div></article>
+        <article class="card"><span class="pill">🎓 Corso</span><h3>Lezione 7 – Dessert al piatto</h3><div class="card-actions"><a class="btn" href="corso-avanzato-lezione7-dessert-al-piatto.html">Apri</a></div></article>
+        <article class="card"><span class="pill">🎓 Corso</span><h3>Lezione 8 – Signature dessert</h3><div class="card-actions"><a class="btn" href="corso-avanzato-lezione8-signature-dessert.html">Apri</a></div></article>
+      </div>
+    </section>
 
-      <section class="section">
-        <div class="section-head">
-          <div>
-            <h2>Corsi Damiano</h2>
-            <p class="muted" style="margin-top:6px">Sezione fissa, sempre visibile.</p>
-          </div>
-        </div>
-        <div class="course-grid">
-          <article class="card"><span class="pill">🎓 Corso</span><h3>Lezione 1 – Pâte à choux</h3><div class="card-actions"><a class="btn" href="corso-avanzato-lezione1-pate-a-choux.html">Apri</a></div></article>
-          <article class="card"><span class="pill">🎓 Corso</span><h3>Lezione 2 – Biscuit moderni</h3><div class="card-actions"><a class="btn" href="corso-avanzato-lezione2-biscuit-moderni.html">Apri</a></div></article>
-          <article class="card"><span class="pill">🎓 Corso</span><h3>Lezione 3 – Mousse e bavaresi</h3><div class="card-actions"><a class="btn" href="corso-avanzato-lezione3-mousse-bavaresi.html">Apri</a></div></article>
-          <article class="card"><span class="pill">🎓 Corso</span><h3>Lezione 4 – Glasse specchio</h3><div class="card-actions"><a class="btn" href="corso-avanzato-lezione4-glasse-specchio.html">Apri</a></div></article>
-          <article class="card"><span class="pill">🎓 Corso</span><h3>Lezione 5 – Cioccolato avanzato</h3><div class="card-actions"><a class="btn" href="corso-avanzato-lezione5-cioccolato-avanzato.html">Apri</a></div></article>
-          <article class="card"><span class="pill">🎓 Corso</span><h3>Lezione 6 – Zucchero e isomalto</h3><div class="card-actions"><a class="btn" href="corso-avanzato-lezione6-zucchero-isomalto.html">Apri</a></div></article>
-          <article class="card"><span class="pill">🎓 Corso</span><h3>Lezione 7 – Dessert al piatto</h3><div class="card-actions"><a class="btn" href="corso-avanzato-lezione7-dessert-al-piatto.html">Apri</a></div></article>
-          <article class="card"><span class="pill">🎓 Corso</span><h3>Lezione 8 – Signature dessert</h3><div class="card-actions"><a class="btn" href="corso-avanzato-lezione8-signature-dessert.html">Apri</a></div></article>
-        </div>
-      </section>
+    <section class="section">
+      <div class="section-head"><div><h2>Categorie</h2><p class="muted" style="margin-top:6px">Filtro rapido dell’archivio.</p></div></div>
+      <div id="catGrid" class="cats"></div>
+    </section>
 
-      <section class="section">
-        <div class="section-head">
-          <div>
-            <h2>Categorie</h2>
-            <p class="muted" style="margin-top:6px">Filtro rapido dell’archivio.</p>
-          </div>
-        </div>
-        <div id="catGrid" class="cats"></div>
-      </section>
-
-      <section id="archivio" class="section">
-        <div class="section-head">
-          <div>
-            <h2>Archivio completo</h2>
-            <p class="muted" style="margin-top:6px">Ricette e corsi nella stessa ricerca.</p>
-          </div>
-          <div id="counter" class="counter">0 risultati</div>
-        </div>
-        <div id="chips" class="chipbar"></div>
-        <div id="loadingMsg" class="muted" style="margin-bottom:12px">Caricamento archivio…</div>
-        <div id="grid" class="grid"></div>
-        <div id="empty" class="empty">Nessun risultato trovato.</div>
-      </section>
-    </div>
+    <section class="section">
+      <div class="section-head"><div><h2>Archivio completo</h2><p class="muted" style="margin-top:6px">Ricette e corsi nella stessa ricerca.</p></div><div id="counter" class="counter">0 risultati</div></div>
+      <div id="chips" class="chipbar"></div>
+      <div id="loadingMsg" class="muted" style="margin-bottom:12px">Caricamento archivio…</div>
+      <div id="grid" class="grid"></div>
+      <div id="empty" class="empty">Nessun risultato trovato.</div>
+    </section>
   </div>
+</div>
 
-  <script>
-    const ACCESS_CODE="Loco0106R";
-    const categories=["Tutte","Bassa temperatura","Dolci","Lievitati","Molecolare","Salato","Corsi","Tecniche","Basi"];
-    const catIcons={"Bassa temperatura":"🔥","Dolci":"🍰","Lievitati":"🥐","Molecolare":"🧪","Salato":"🍽️","Corsi":"🎓","Tecniche":"🛠️","Basi":"📚"};
-    let files=[],activeCategory="Tutte",showFavsOnly=false;
-
-    const Favs={
-      key:"locoselli_favs",
-      get(){try{return JSON.parse(localStorage.getItem(this.key)||"[]")}catch(e){return[]}},
-      has(file){return this.get().includes(file)},
-      toggle(file){
-        const favs=this.get();
-        const i=favs.indexOf(file);
-        if(i>=0) favs.splice(i,1); else favs.push(file);
-        localStorage.setItem(this.key,JSON.stringify(favs));
-        return i<0;
-      }
-    };
-
-    const $=id=>document.getElementById(id);
-    const gate=$("gate"),app=$("app"),codeInput=$("codeInput"),errorMsg=$("errorMsg"),enterBtn=$("enterBtn"),searchInput=$("searchInput"),grid=$("grid"),empty=$("empty"),counter=$("counter"),chips=$("chips"),catGrid=$("catGrid"),favFilterBtn=$("favFilterBtn"),logoutBtn=$("logoutBtn"),loadingMsg=$("loadingMsg"),statTotal=$("statTotal"),statCourses=$("statCourses"),statRecipes=$("statRecipes");
-
-    function detectCategory(name){
-      const n=(name||"").toLowerCase();
-      if(/(corso|lezione|damiano)/.test(n)) return "Corsi";
-      if(/(bassa-temperatura|bassa temperatura|cottura|sous)/.test(n)) return "Bassa temperatura";
-      if(/(panettone|pandoro|brioches|baba|lievito|lievit)/.test(n)) return "Lievitati";
-      if(/(tiramisu|tortini|dessert|panna|macaron|bigne|frolla|plumcake|cartellate|zabaglione|mignon|biscuit)/.test(n)) return "Dolci";
-      if(/(agar|sferificazione|molecolare|glice|isomalto|inulina|konjac|carragen|sucro|maltodestrina|pectina|texture|spume|mousse|gelburger|destrosio|trealosio|neutral|flexifiber|mono-diglicer|mono diglicer|garacal)/.test(n)) return "Molecolare";
-      if(/(risotti|ravioli|salse|salata|sfoglia|bistecche|vegetali|peperone)/.test(n)) return "Salato";
-      if(/(prodotti|tecniche)/.test(n)) return "Tecniche";
-      return "Basi";
-    }
-
-    function normalizeItem(item,forcedCategory){
-      const file=item.file||"";
-      const title=item.title||file.replace(/\.html$/i,"").replace(/-/g," ");
-      const excerpt=item.excerpt||"";
-      const text=item.text||"";
-      const category=forcedCategory||item.category||detectCategory(file||title);
-      return {file,title,excerpt,text,category,keywords:`${title} ${category} ${file} ${excerpt} ${text}`.toLowerCase()};
-    }
-
-    function uniqByFile(arr){
-      const map=new Map();
-      arr.forEach(item=>{if(item.file&&!map.has(item.file))map.set(item.file,item)});
-      return Array.from(map.values());
-    }
-
-    async function loadJson(path){
-      const res=await fetch(path);
-      if(!res.ok) throw new Error(path+" "+res.status);
-      return await res.json();
-    }
-
-    function escapeRegExp(s){return s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")}
-    function highlight(text,query){
-      if(!query||!text) return text||"";
-      const regex=new RegExp("("+escapeRegExp(query)+")","ig");
-      return text.replace(regex,"<mark>$1</mark>");
-    }
-    function smartExcerpt(item,query){
-      if(!query) return item.excerpt||"";
-      const hay=`${item.excerpt||""} ${item.text||""}`.trim();
-      if(!hay) return item.excerpt||"";
-      const lower=hay.toLowerCase();
-      const idx=lower.indexOf(query.toLowerCase());
-      if(idx<0) return item.excerpt||"";
-      const start=Math.max(0,idx-60),end=Math.min(hay.length,idx+query.length+140);
-      return (start>0?"…":"")+highlight(hay.slice(start,end),query)+(end<hay.length?"…":"");
-    }
-
-    function buildOpenLink(item,query){
-      const q=(query||"").trim();
-      if(item.category==="Corsi" && q){
-        return `open-course-match.html?file=${encodeURIComponent(item.file)}&q=${encodeURIComponent(q)}&title=${encodeURIComponent(item.title)}`;
-      }
-      return item.file;
-    }
-
-    async function loadFiles(){
-      try{
-        const [mainData,corsiData]=await Promise.all([
-          loadJson("search_index.json"),
-          loadJson("corsi_index.json").catch(()=>[])
-        ]);
-        const mainItems=(mainData||[]).map(item=>normalizeItem(item));
-        const courseItems=(corsiData||[]).map(item=>normalizeItem(item,"Corsi"));
-        files=uniqByFile([...mainItems,...courseItems]).sort((a,b)=>a.title.localeCompare(b.title,"it"));
-      }catch(err){
-        console.warn("Errore caricamento indici, fallback API GitHub:",err);
-        try{
-          const repoRes=await fetch("https://api.github.com/repos/chefantonioloco87/Locoselli-Rezept-/contents");
-          const repoData=await repoRes.json();
-          files=repoData.filter(f=>f.name&&f.name.endsWith(".html")&&f.name!=="index.html").map(f=>normalizeItem({file:f.name,title:f.name.replace(/\.html$/i,"").replace(/-/g," ")})).sort((a,b)=>a.title.localeCompare(b.title,"it"));
-        }catch(e2){
-          console.error("Impossibile caricare archivio:",e2);
-          files=[];
-        }
-      }
-      if(loadingMsg) loadingMsg.style.display="none";
-      renderStats(); renderCategories(); renderChips(); render();
-    }
-
-    function renderStats(){
-      const total=files.length;
-      const courses=Math.max(8, files.filter(f=>f.category==="Corsi").length);
-      const recipes=Math.max(0, total-courses);
-      statTotal.textContent=total;
-      statCourses.textContent=courses;
-      statRecipes.textContent=recipes;
-    }
-
-    function renderCategories(){
-      catGrid.innerHTML=categories.filter(c=>c!=="Tutte").map(cat=>`
-        <div class="cat" onclick="setCategory('${cat.replace(/'/g,"\\'")}')">
-          <div class="pill">${catIcons[cat]||"•"} ${cat}</div>
-          <h3>${cat}</h3>
-          <p>${files.filter(f=>f.category===cat).length} elementi</p>
-        </div>
-      `).join("");
-    }
-
-    function renderChips(){
-      chips.innerHTML=categories.map(cat=>`<button class="chip ${activeCategory===cat?"active":""}" data-cat="${cat}">${cat}</button>`).join("");
-      Array.from(chips.querySelectorAll(".chip")).forEach(btn=>{
-        btn.addEventListener("click",()=>{activeCategory=btn.dataset.cat;renderChips();render();});
-      });
-    }
-
-    function filterFiles(){
-      const q=(searchInput?.value||"").trim().toLowerCase();
-      return files.filter(item=>{
-        const catOk=activeCategory==="Tutte"||item.category===activeCategory;
-        const favOk=!showFavsOnly||Favs.has(item.file);
-        const searchOk=!q||item.keywords.includes(q);
-        return catOk&&favOk&&searchOk;
-      });
-    }
-
-    function render(){
-      const q=(searchInput?.value||"").trim();
-      const filtered=filterFiles();
-      counter.textContent=filtered.length+" risultati";
-      empty.style.display=filtered.length?"none":"block";
-      grid.innerHTML=filtered.map(item=>{
-        const isFav=Favs.has(item.file);
-        const openLink=buildOpenLink(item,q);
-        return `
-          <article class="card">
-            <div class="card-top">
-              <span class="pill">${item.category}</span>
-              <button class="fav ${isFav?"active":""}" onclick="toggleFav('${item.file}', this)">${isFav?"★":"☆"}</button>
-            </div>
-            <h3>${highlight(item.title,q)}</h3>
-            <p>${smartExcerpt(item,q)||"Apri questa pagina dall’archivio Locoselli."}</p>
-            <div class="card-actions"><a class="btn" href="${openLink}">Apri</a></div>
-          </article>
-        `;
-      }).join("");
-    }
-
-    function toggleFav(file,btn){
-      const now=Favs.toggle(file);
-      btn.classList.toggle("active",now);
-      btn.innerHTML=now?"★":"☆";
-      if(showFavsOnly&&!now) render();
-    }
-    window.toggleFav=toggleFav;
-
-    function setCategory(cat){
-      activeCategory=cat;
-      renderChips();
-      render();
-      window.scrollTo({top:0,behavior:"smooth"});
-    }
-    window.setCategory=setCategory;
-
-    function enterApp(){gate.style.display="none";app.style.display="block";loadFiles()}
-    function checkCode(){
-      if((codeInput?.value||"")===ACCESS_CODE){
-        localStorage.setItem("locoselli_access","ok");
-        errorMsg.textContent="";
-        enterApp();
-      }else{
-        errorMsg.textContent="Codice errato. Riprova.";
-        codeInput.value="";
-        codeInput.focus();
-      }
-    }
-
-    enterBtn.addEventListener("click",checkCode);
-    codeInput.addEventListener("keydown",e=>{if(e.key==="Enter") checkCode()});
-    searchInput.addEventListener("input",render);
-    favFilterBtn.addEventListener("click",()=>{showFavsOnly=!showFavsOnly;favFilterBtn.classList.toggle("active",showFavsOnly);render()});
-    logoutBtn.addEventListener("click",()=>{localStorage.removeItem("locoselli_access");location.reload()});
-
-    if(localStorage.getItem("locoselli_access")==="ok"){window.addEventListener("load",enterApp)}
-  </script>
+<script>
+const ACCESS_CODE="Loco0106R";
+const categories=["Tutte","Bassa temperatura","Dolci","Lievitati","Molecolare","Salato","Corsi","Tecniche","Basi"];
+const catIcons={"Bassa temperatura":"🔥","Dolci":"🍰","Lievitati":"🥐","Molecolare":"🧪","Salato":"🍽️","Corsi":"🎓","Tecniche":"🛠️","Basi":"📚"};
+let files=[],activeCategory="Tutte";
+const $=id=>document.getElementById(id);
+const gate=$("gate"),app=$("app"),codeInput=$("codeInput"),errorMsg=$("errorMsg"),enterBtn=$("enterBtn"),searchInput=$("searchInput"),grid=$("grid"),empty=$("empty"),counter=$("counter"),chips=$("chips"),catGrid=$("catGrid"),logoutBtn=$("logoutBtn"),loadingMsg=$("loadingMsg"),statTotal=$("statTotal"),statCourses=$("statCourses"),statRecipes=$("statRecipes");
+function detectCategory(name){const n=(name||"").toLowerCase();if(/(corso|lezione|damiano)/.test(n))return"Corsi";if(/(bassa-temperatura|bassa temperatura|cottura|sous)/.test(n))return"Bassa temperatura";if(/(panettone|pandoro|brioches|baba|lievito|lievit)/.test(n))return"Lievitati";if(/(tiramisu|tortini|dessert|panna|macaron|bigne|frolla|plumcake|cartellate|zabaglione|mignon|biscuit)/.test(n))return"Dolci";if(/(agar|garacal|sferificazione|molecolare|glice|isomalto|inulina|konjac|carragen|sucro|maltodestrina|pectina|texture|spume|mousse|gelburger|destrosio|trealosio|neutral|flexifiber|mono-diglicer|mono diglicer)/.test(n))return"Molecolare";if(/(risotti|ravioli|salse|salata|sfoglia|bistecche|vegetali|peperone)/.test(n))return"Salato";if(/(prodotti|tecniche)/.test(n))return"Tecniche";return"Basi";}
+function normalizeItem(item,forced){const file=item.file||"",title=item.title||file.replace(/\.html$/i,"").replace(/-/g," "),excerpt=item.excerpt||"",text=item.text||"",category=forced||item.category||detectCategory(file||title);return{file,title,excerpt,text,category,keywords:`${title} ${category} ${file} ${excerpt} ${text}`.toLowerCase()}}
+function uniqByFile(arr){const m=new Map();arr.forEach(i=>{if(i.file&&!m.has(i.file))m.set(i.file,i)});return Array.from(m.values())}
+async function loadJson(path){const r=await fetch(path);if(!r.ok)throw new Error(path+" "+r.status);return await r.json()}
+function escapeRegExp(s){return s.replace(/[.*+?^${}()|[\]\]/g,"\$&")}
+function highlight(t,q){if(!q||!t)return t||"";const re=new RegExp("("+escapeRegExp(q)+")","ig");return t.replace(re,"<mark>$1</mark>")}
+function smartExcerpt(item,q){if(!q)return item.excerpt||"";const hay=`${item.excerpt||""} ${item.text||""}`.trim();if(!hay)return item.excerpt||"";const lower=hay.toLowerCase();const idx=lower.indexOf(q.toLowerCase());if(idx<0)return item.excerpt||"";const start=Math.max(0,idx-60),end=Math.min(hay.length,idx+q.length+140);return(start>0?"…":"")+highlight(hay.slice(start,end),q)+(end<hay.length?"…":"")}
+function buildOpenLink(item,q){if(item.category==="Corsi"&&q)return`open-course-match.html?file=${encodeURIComponent(item.file)}&q=${encodeURIComponent(q)}&title=${encodeURIComponent(item.title)}`;return item.file}
+async function loadFiles(){try{const [mainData,corsiData]=await Promise.all([loadJson("search_index.json"),loadJson("corsi_index.json").catch(()=>[])]);files=uniqByFile([...(mainData||[]).map(x=>normalizeItem(x)),...(corsiData||[]).map(x=>normalizeItem(x,"Corsi"))]).sort((a,b)=>a.title.localeCompare(b.title,"it"))}catch(err){try{const rr=await fetch("https://api.github.com/repos/chefantonioloco87/Locoselli-Rezept-/contents");const dd=await rr.json();files=dd.filter(f=>f.name&&f.name.endsWith(".html")&&f.name!=="index.html"&&f.name!=="open-course-match.html").map(f=>normalizeItem({file:f.name,title:f.name.replace(/\.html$/i,"").replace(/-/g," ")})).sort((a,b)=>a.title.localeCompare(b.title,"it"))}catch(e){files=[]}}loadingMsg.style.display="none";renderStats();renderCategories();renderChips();render()}
+function renderStats(){const total=files.length,courses=Math.max(8,files.filter(f=>f.category==="Corsi").length),recipes=Math.max(0,total-courses);statTotal.textContent=total;statCourses.textContent=courses;statRecipes.textContent=recipes}
+function renderCategories(){catGrid.innerHTML=categories.filter(c=>c!=="Tutte").map(cat=>`<div class="cat" onclick="setCategory('${cat.replace(/'/g,"\'")}')"><div class="pill">${catIcons[cat]||"•"} ${cat}</div><h3>${cat}</h3><p>${files.filter(f=>f.category===cat).length} elementi</p></div>`).join("")}
+function renderChips(){chips.innerHTML=categories.map(cat=>`<button class="chip ${activeCategory===cat?"active":""}" data-cat="${cat}">${cat}</button>`).join("");Array.from(chips.querySelectorAll(".chip")).forEach(b=>b.addEventListener("click",()=>{activeCategory=b.dataset.cat;renderChips();render()}))}
+function filterFiles(){const q=(searchInput.value||"").trim().toLowerCase();return files.filter(item=>{const catOk=activeCategory==="Tutte"||item.category===activeCategory;const searchOk=!q||item.keywords.includes(q);return catOk&&searchOk})}
+function render(){const q=(searchInput.value||"").trim();const filtered=filterFiles();counter.textContent=filtered.length+" risultati";empty.style.display=filtered.length?"none":"block";grid.innerHTML=filtered.map(item=>`<article class="card"><div class="card-top"><span class="pill">${item.category}</span></div><h3>${highlight(item.title,q)}</h3><p>${smartExcerpt(item,q)||"Apri questa pagina dall’archivio Locoselli."}</p><div class="card-actions"><a class="btn" href="${buildOpenLink(item,q)}">Apri</a></div></article>`).join("")}
+function setCategory(cat){activeCategory=cat;renderChips();render()} window.setCategory=setCategory;
+function enterApp(){gate.style.display="none";app.style.display="block";loadFiles()}
+function checkCode(){if((codeInput.value||"")===ACCESS_CODE){localStorage.setItem("locoselli_access","ok");errorMsg.textContent="";enterApp()}else{errorMsg.textContent="Codice errato. Riprova.";codeInput.value="";codeInput.focus()}}
+enterBtn.addEventListener("click",checkCode);codeInput.addEventListener("keydown",e=>{if(e.key==="Enter")checkCode()});searchInput.addEventListener("input",render);logoutBtn.addEventListener("click",()=>{localStorage.removeItem("locoselli_access");location.reload()});if(localStorage.getItem("locoselli_access")==="ok")window.addEventListener("load",enterApp);
+</script>
 </body>
 </html>
