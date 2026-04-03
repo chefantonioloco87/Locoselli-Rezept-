@@ -4,169 +4,86 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Locoselli Archivio</title>
-  <meta name="theme-color" content="#0b0b0d" />
   <style>
     :root{
-      --bg:#0b0b0d; --bg2:#121218; --card:#17171d; --line:rgba(255,255,255,.08);
+      --bg:#0b0b0d; --card:#17171d; --line:rgba(255,255,255,.08);
       --text:#f5f5f7; --muted:#a7a7b3; --gold:#d7aa2b; --gold2:#f0d178;
       --shadow:0 12px 40px rgba(0,0,0,.30); --radius:20px;
     }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
     body{
-      margin:0;
+      margin:0; color:var(--text);
       font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-      color:var(--text);
       background:
         radial-gradient(circle at top, rgba(215,170,43,.10), transparent 26%),
         linear-gradient(180deg,#0b0b0d 0%,#0f1014 100%);
     }
     a{color:inherit;text-decoration:none}
     .wrap{max-width:1240px;margin:0 auto;padding:24px}
-    .gate{
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:24px;
-    }
-    .gate-card,.panel,.card,.feature,.cat,.hero{
+    .gate{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+    .gate-card,.panel,.card,.cat,.hero{
       background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
-      border:1px solid var(--line);
-      box-shadow:var(--shadow);
-      border-radius:var(--radius);
+      border:1px solid var(--line); box-shadow:var(--shadow); border-radius:var(--radius);
     }
     .gate-card{width:min(560px,100%);padding:34px;text-align:center}
     .logo-img{height:78px;display:block;margin:0 auto 16px auto}
     h1,h2,h3,p{margin:0}
-    .gold{color:var(--gold2)}
-    .muted{color:var(--muted)}
+    .gold{color:var(--gold2)} .muted{color:var(--muted)}
     .gate-actions{display:flex;gap:12px;margin-top:18px;justify-content:center}
     input{
-      width:100%;
-      background:#101116;
-      border:1px solid var(--line);
-      color:var(--text);
-      border-radius:14px;
-      padding:14px 16px;
-      font-size:16px;
-      outline:none;
+      width:100%; background:#101116; border:1px solid var(--line); color:var(--text);
+      border-radius:14px; padding:14px 16px; font-size:16px; outline:none;
     }
-    input:focus{
-      border-color:rgba(215,170,43,.55);
-      box-shadow:0 0 0 3px rgba(215,170,43,.12);
-    }
+    input:focus{border-color:rgba(215,170,43,.55);box-shadow:0 0 0 3px rgba(215,170,43,.12)}
     button,.btn{
-      background:var(--gold);
-      color:#000;
-      border:none;
-      border-radius:14px;
-      padding:13px 16px;
-      font-weight:800;
-      cursor:pointer;
+      background:var(--gold); color:#000; border:none; border-radius:14px;
+      padding:13px 16px; font-weight:800; cursor:pointer;
     }
-    button.secondary,.btn.secondary{
-      background:transparent;
-      color:var(--text);
-      border:1px solid var(--line);
-    }
+    button.secondary,.btn.secondary{background:transparent;color:var(--text);border:1px solid var(--line)}
     .app{display:none}
-    .topbar{
-      position:sticky; top:0; z-index:50;
-      backdrop-filter:blur(14px);
-      background:rgba(11,11,13,.72);
-      border-bottom:1px solid var(--line);
-    }
-    .topbar-inner{
-      max-width:1240px; margin:0 auto; padding:14px 24px;
-      display:flex; align-items:center; gap:14px; justify-content:space-between;
-    }
+    .topbar{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(11,11,13,.72);border-bottom:1px solid var(--line)}
+    .topbar-inner{max-width:1240px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:14px;justify-content:space-between}
     .brand{display:flex;align-items:center;gap:12px}
     .brand-logo{height:40px;display:block}
     .toolbar{display:flex;gap:10px;flex-wrap:wrap}
-    .hero{
-      padding:28px;
-      display:grid;
-      grid-template-columns:1.2fr .8fr;
-      gap:18px;
-      margin-top:22px;
-    }
+    .hero{padding:28px;display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:22px}
     .hero h1{font-size:44px;line-height:1.02;letter-spacing:-.02em}
     .hero p{margin-top:14px;color:var(--muted);font-size:17px;max-width:62ch}
     .searchbar{display:flex;gap:12px;margin-top:18px}
     .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-    .stat{
-      padding:18px;
-      background:rgba(255,255,255,.02);
-      border:1px solid var(--line);
-      border-radius:18px;
-    }
+    .stat{padding:18px;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:18px}
     .stat strong{display:block;font-size:28px;color:var(--gold2)}
     .stat span{color:var(--muted);font-size:14px}
     .section{margin-top:26px}
-    .section-head{
-      display:flex; align-items:end; justify-content:space-between;
-      gap:12px; margin-bottom:14px;
-    }
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:14px}
     .section-head h2{font-size:26px}
-    .features,.cats,.grid,.course-grid{display:grid;gap:14px}
-    .features{grid-template-columns:repeat(3,1fr)}
-    .cats{grid-template-columns:repeat(4,1fr)}
+    .grid,.course-grid,.cats{display:grid;gap:14px}
     .grid{grid-template-columns:repeat(3,1fr)}
     .course-grid{grid-template-columns:repeat(3,1fr)}
-    .feature,.cat,.card{padding:18px}
+    .cats{grid-template-columns:repeat(4,1fr)}
+    .card,.cat{padding:18px}
     .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      background:rgba(215,170,43,.13); color:var(--gold2);
-      border:1px solid rgba(215,170,43,.24);
-      border-radius:999px; padding:6px 10px; font-size:12px; font-weight:700;
+      display:inline-flex;align-items:center;gap:8px;
+      background:rgba(215,170,43,.13);color:var(--gold2);
+      border:1px solid rgba(215,170,43,.24);border-radius:999px;
+      padding:6px 10px;font-size:12px;font-weight:700;
     }
-    .feature h3,.card h3{margin-top:12px;font-size:20px;line-height:1.2}
-    .feature p,.card p{margin-top:10px;color:var(--muted);line-height:1.55}
+    .card h3,.cat h3{margin-top:12px;font-size:20px;line-height:1.2}
+    .card p{margin-top:10px;color:var(--muted);line-height:1.55}
+    .card:hover,.cat:hover{transform:translateY(-2px);border-color:rgba(215,170,43,.35)}
     .cat{cursor:pointer;transition:.18s transform ease,.18s border-color ease}
-    .cat:hover,.card:hover,.feature:hover{
-      transform:translateY(-2px); border-color:rgba(215,170,43,.35);
-    }
-    .cat strong{display:block;margin-top:10px;font-size:17px}
-    .cat small{display:block;margin-top:6px;color:var(--muted)}
-    .chips{display:flex;gap:10px;flex-wrap:wrap}
-    .chip{
-      background:#111318; border:1px solid var(--line); border-radius:999px;
-      padding:10px 14px; color:var(--text); cursor:pointer;
-    }
-    .chip.active,.chip:hover{border-color:rgba(215,170,43,.38); color:var(--gold2)}
+    .chipbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+    .chip{background:#111318;border:1px solid var(--line);border-radius:999px;padding:10px 14px;color:var(--text);cursor:pointer}
+    .chip.active,.chip:hover{border-color:rgba(215,170,43,.38);color:var(--gold2)}
     .counter{color:var(--muted);font-size:14px}
-    .card-top{
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-    }
-    .fav{
-      width:38px; height:38px; border-radius:12px; border:1px solid var(--line);
-      display:grid; place-items:center; cursor:pointer; background:#111318; color:#fff;
-    }
-    .fav.active{color:var(--gold2); border-color:rgba(215,170,43,.35)}
+    .card-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .fav{width:38px;height:38px;border-radius:12px;border:1px solid var(--line);display:grid;place-items:center;cursor:pointer;background:#111318;color:#fff}
+    .fav.active{color:var(--gold2);border-color:rgba(215,170,43,.35)}
     .card-actions{display:flex;gap:10px;margin-top:14px}
     mark{background:#f0d178;color:#000;padding:0 .14em;border-radius:4px}
-    .empty{
-      display:none; padding:24px; border:1px dashed var(--line);
-      border-radius:18px; color:var(--muted); text-align:center;
-    }
-    .fab{
-      position:fixed; right:20px; bottom:20px;
-      opacity:0; visibility:hidden; transition:.18s;
-    }
-    .fab.visible{opacity:1; visibility:visible}
-    @media (max-width:1024px){
-      .hero,.features,.grid,.course-grid{grid-template-columns:1fr 1fr}
-      .cats{grid-template-columns:1fr 1fr}
-    }
-    @media (max-width:720px){
-      .hero,.features,.cats,.grid,.course-grid{grid-template-columns:1fr}
-      .searchbar,.gate-actions{flex-direction:column}
-      .hero h1{font-size:34px}
-      .stats{grid-template-columns:1fr}
-      .topbar-inner{padding:12px 16px}
-      .wrap{padding:16px}
-    }
+    .empty{display:none;padding:24px;border:1px dashed var(--line);border-radius:18px;color:var(--muted);text-align:center}
+    @media (max-width:1024px){.hero,.grid,.course-grid{grid-template-columns:1fr 1fr}.cats{grid-template-columns:1fr 1fr}}
+    @media (max-width:720px){.hero,.grid,.course-grid,.cats{grid-template-columns:1fr}.searchbar,.gate-actions{flex-direction:column}.hero h1{font-size:34px}.stats{grid-template-columns:1fr}.topbar-inner{padding:12px 16px}.wrap{padding:16px}}
   </style>
 </head>
 <body>
@@ -174,13 +91,9 @@
     <div class="gate-card">
       <img src="logo.png" alt="Locoselli" class="logo-img">
       <h1>Locoselli <span class="gold">Archivio</span></h1>
-      <p class="muted" style="margin-top:10px">495 ricette + corsi Damiano, in un’unica home.</p>
-      <div style="margin-top:18px">
-        <input id="codeInput" type="password" placeholder="Inserisci il codice di accesso">
-      </div>
-      <div class="gate-actions">
-        <button id="enterBtn">Entra</button>
-      </div>
+      <p class="muted" style="margin-top:10px">495 ricette + corsi Damiano in un’unica home.</p>
+      <div style="margin-top:18px"><input id="codeInput" type="password" placeholder="Inserisci il codice di accesso"></div>
+      <div class="gate-actions"><button id="enterBtn">Entra</button></div>
       <p id="errorMsg" class="muted" style="margin-top:12px;color:#ff8c8c"></p>
     </div>
   </div>
@@ -190,10 +103,7 @@
       <div class="topbar-inner">
         <div class="brand">
           <img src="logo.png" alt="Locoselli" class="brand-logo">
-          <div>
-            <strong>Locoselli</strong><br>
-            <span class="muted" style="font-size:12px">Archivio ricette + corsi</span>
-          </div>
+          <div><strong>Locoselli</strong><br><span class="muted" style="font-size:12px">Archivio ricette + corsi</span></div>
         </div>
         <div class="toolbar">
           <button id="favFilterBtn" class="secondary">Preferiti</button>
@@ -206,17 +116,17 @@
       <section class="hero">
         <div>
           <span class="pill">Premium archive</span>
-          <h1>495 ricette.<br><span class="gold">Corsi Damiano inclusi.</span></h1>
-          <p>Scrivi un ingrediente, una tecnica o un titolo. La ricerca mostra sia le ricette normali sia i corsi Damiano. Se clicchi un corso, vieni portato al punto giusto del termine cercato.</p>
+          <h1>495 ricette.<br><span class="gold">Corsi Damiano visibili.</span></h1>
+          <p>La sezione corsi qui sotto è fissa e visibile. La ricerca mostra sia le ricette sia i corsi.</p>
           <div class="searchbar">
-            <input id="searchInput" type="search" placeholder="Cerca: agar, garacal, tonno, Damiano, panettone...">
+            <input id="searchInput" type="search" placeholder="Cerca: agar, garacal, tonno, Damiano...">
             <a href="#archivio" class="btn">Vai all’archivio</a>
           </div>
         </div>
         <div class="panel" style="padding:18px">
           <div class="stats">
             <div class="stat"><strong id="statTotal">0</strong><span>Elementi totali</span></div>
-            <div class="stat"><strong id="statCourses">0</strong><span>Corsi</span></div>
+            <div class="stat"><strong id="statCourses">8</strong><span>Corsi</span></div>
             <div class="stat"><strong id="statRecipes">0</strong><span>Ricette / schede</span></div>
           </div>
         </div>
@@ -226,10 +136,19 @@
         <div class="section-head">
           <div>
             <h2>Corsi Damiano</h2>
-            <p class="muted" style="margin-top:6px">Sezione dedicata, separata dalle ricette.</p>
+            <p class="muted" style="margin-top:6px">Sezione fissa, sempre visibile.</p>
           </div>
         </div>
-        <div id="courseGrid" class="course-grid"></div>
+        <div class="course-grid">
+          <article class="card"><span class="pill">🎓 Corso</span><h3>Lezione 1 – Pâte à choux</h3><div class="card-actions"><a class="btn" href="corso-avanzato-lezione1-pate-a-choux.html">Apri</a></div></article>
+          <article class="card"><span class="pill">🎓 Corso</span><h3>Lezione 2 – Biscuit moderni</h3><div class="card-actions"><a class="btn" href="corso-avanzato-lezione2-biscuit-moderni.html">Apri</a></div></article>
+          <article class="card"><span class="pill">🎓 Corso</span><h3>Lezione 3 – Mousse e bavaresi</h3><div class="card-actions"><a class="btn" href="corso-avanzato-lezione3-mousse-bavaresi.html">Apri</a></div></article>
+          <article class="card"><span class="pill">🎓 Corso</span><h3>Lezione 4 – Glasse specchio</h3><div class="card-actions"><a class="btn" href="corso-avanzato-lezione4-glasse-specchio.html">Apri</a></div></article>
+          <article class="card"><span class="pill">🎓 Corso</span><h3>Lezione 5 – Cioccolato avanzato</h3><div class="card-actions"><a class="btn" href="corso-avanzato-lezione5-cioccolato-avanzato.html">Apri</a></div></article>
+          <article class="card"><span class="pill">🎓 Corso</span><h3>Lezione 6 – Zucchero e isomalto</h3><div class="card-actions"><a class="btn" href="corso-avanzato-lezione6-zucchero-isomalto.html">Apri</a></div></article>
+          <article class="card"><span class="pill">🎓 Corso</span><h3>Lezione 7 – Dessert al piatto</h3><div class="card-actions"><a class="btn" href="corso-avanzato-lezione7-dessert-al-piatto.html">Apri</a></div></article>
+          <article class="card"><span class="pill">🎓 Corso</span><h3>Lezione 8 – Signature dessert</h3><div class="card-actions"><a class="btn" href="corso-avanzato-lezione8-signature-dessert.html">Apri</a></div></article>
+        </div>
       </section>
 
       <section class="section">
@@ -246,11 +165,11 @@
         <div class="section-head">
           <div>
             <h2>Archivio completo</h2>
-            <p class="muted" style="margin-top:6px">Ricette + corsi nella stessa ricerca.</p>
+            <p class="muted" style="margin-top:6px">Ricette e corsi nella stessa ricerca.</p>
           </div>
           <div id="counter" class="counter">0 risultati</div>
         </div>
-        <div id="chips" class="chips" style="margin-bottom:14px"></div>
+        <div id="chips" class="chipbar"></div>
         <div id="loadingMsg" class="muted" style="margin-bottom:12px">Caricamento archivio…</div>
         <div id="grid" class="grid"></div>
         <div id="empty" class="empty">Nessun risultato trovato.</div>
@@ -258,298 +177,204 @@
     </div>
   </div>
 
-  <button id="scrollFab" class="btn fab">↑</button>
-
   <script>
-    const ACCESS_CODE = "Loco0106R";
-    const categories = ["Tutte","Bassa temperatura","Dolci","Lievitati","Molecolare","Salato","Corsi","Tecniche","Basi"];
-    const catIcons = {
-      "Bassa temperatura":"🔥","Dolci":"🍰","Lievitati":"🥐","Molecolare":"🧪",
-      "Salato":"🍽️","Corsi":"🎓","Tecniche":"🛠️","Basi":"📚"
-    };
+    const ACCESS_CODE="Loco0106R";
+    const categories=["Tutte","Bassa temperatura","Dolci","Lievitati","Molecolare","Salato","Corsi","Tecniche","Basi"];
+    const catIcons={"Bassa temperatura":"🔥","Dolci":"🍰","Lievitati":"🥐","Molecolare":"🧪","Salato":"🍽️","Corsi":"🎓","Tecniche":"🛠️","Basi":"📚"};
+    let files=[],activeCategory="Tutte",showFavsOnly=false;
 
-    let files = [];
-    let activeCategory = "Tutte";
-    let showFavsOnly = false;
-
-    const Favs = {
-      key: "locoselli_favs",
-      get() {
-        try { return JSON.parse(localStorage.getItem(this.key) || "[]"); }
-        catch { return []; }
-      },
-      has(file) { return this.get().includes(file); },
-      toggle(file) {
-        const favs = this.get();
-        const i = favs.indexOf(file);
-        if (i >= 0) favs.splice(i, 1);
-        else favs.push(file);
-        localStorage.setItem(this.key, JSON.stringify(favs));
-        return i < 0;
+    const Favs={
+      key:"locoselli_favs",
+      get(){try{return JSON.parse(localStorage.getItem(this.key)||"[]")}catch(e){return[]}},
+      has(file){return this.get().includes(file)},
+      toggle(file){
+        const favs=this.get();
+        const i=favs.indexOf(file);
+        if(i>=0) favs.splice(i,1); else favs.push(file);
+        localStorage.setItem(this.key,JSON.stringify(favs));
+        return i<0;
       }
     };
 
-    const $ = (id) => document.getElementById(id);
-    const gate = $("gate");
-    const app = $("app");
-    const codeInput = $("codeInput");
-    const errorMsg = $("errorMsg");
-    const enterBtn = $("enterBtn");
-    const searchInput = $("searchInput");
-    const grid = $("grid");
-    const empty = $("empty");
-    const counter = $("counter");
-    const chips = $("chips");
-    const catGrid = $("catGrid");
-    const courseGrid = $("courseGrid");
-    const favFilterBtn = $("favFilterBtn");
-    const logoutBtn = $("logoutBtn");
-    const loadingMsg = $("loadingMsg");
-    const statTotal = $("statTotal");
-    const statCourses = $("statCourses");
-    const statRecipes = $("statRecipes");
-    const scrollFab = $("scrollFab");
+    const $=id=>document.getElementById(id);
+    const gate=$("gate"),app=$("app"),codeInput=$("codeInput"),errorMsg=$("errorMsg"),enterBtn=$("enterBtn"),searchInput=$("searchInput"),grid=$("grid"),empty=$("empty"),counter=$("counter"),chips=$("chips"),catGrid=$("catGrid"),favFilterBtn=$("favFilterBtn"),logoutBtn=$("logoutBtn"),loadingMsg=$("loadingMsg"),statTotal=$("statTotal"),statCourses=$("statCourses"),statRecipes=$("statRecipes");
 
-    function detectCategory(name) {
-      const n = (name || "").toLowerCase();
-      if (/(corso|lezione|damiano)/.test(n)) return "Corsi";
-      if (/(bassa-temperatura|bassa temperatura|cottura|sous)/.test(n)) return "Bassa temperatura";
-      if (/(panettone|pandoro|brioches|baba|lievito|lievit)/.test(n)) return "Lievitati";
-      if (/(tiramisu|tortini|dessert|panna|macaron|bigne|frolla|plumcake|cartellate|zabaglione|mignon|biscuit)/.test(n)) return "Dolci";
-      if (/(agar|sferificazione|molecolare|glice|isomalto|inulina|konjac|carragen|sucro|maltodestrina|pectina|texture|spume|mousse|gelburger|destrosio|trealosio|neutral|flexifiber|mono-diglicer|mono diglicer)/.test(n)) return "Molecolare";
-      if (/(risotti|ravioli|salse|salata|sfoglia|bistecche|vegetali|peperone)/.test(n)) return "Salato";
-      if (/(prodotti|tecniche)/.test(n)) return "Tecniche";
+    function detectCategory(name){
+      const n=(name||"").toLowerCase();
+      if(/(corso|lezione|damiano)/.test(n)) return "Corsi";
+      if(/(bassa-temperatura|bassa temperatura|cottura|sous)/.test(n)) return "Bassa temperatura";
+      if(/(panettone|pandoro|brioches|baba|lievito|lievit)/.test(n)) return "Lievitati";
+      if(/(tiramisu|tortini|dessert|panna|macaron|bigne|frolla|plumcake|cartellate|zabaglione|mignon|biscuit)/.test(n)) return "Dolci";
+      if(/(agar|sferificazione|molecolare|glice|isomalto|inulina|konjac|carragen|sucro|maltodestrina|pectina|texture|spume|mousse|gelburger|destrosio|trealosio|neutral|flexifiber|mono-diglicer|mono diglicer|garacal)/.test(n)) return "Molecolare";
+      if(/(risotti|ravioli|salse|salata|sfoglia|bistecche|vegetali|peperone)/.test(n)) return "Salato";
+      if(/(prodotti|tecniche)/.test(n)) return "Tecniche";
       return "Basi";
     }
 
-    function normalizeItem(item, forcedCategory) {
-      const file = item.file || "";
-      const title = item.title || file.replace(/\\.html$/i, "").replace(/-/g, " ");
-      const excerpt = item.excerpt || "";
-      const text = item.text || "";
-      const category = forcedCategory || item.category || detectCategory(file || title);
-      return {
-        file, title, excerpt, text, category,
-        keywords: `${title} ${category} ${file} ${excerpt} ${text}`.toLowerCase()
-      };
+    function normalizeItem(item,forcedCategory){
+      const file=item.file||"";
+      const title=item.title||file.replace(/\.html$/i,"").replace(/-/g," ");
+      const excerpt=item.excerpt||"";
+      const text=item.text||"";
+      const category=forcedCategory||item.category||detectCategory(file||title);
+      return {file,title,excerpt,text,category,keywords:`${title} ${category} ${file} ${excerpt} ${text}`.toLowerCase()};
     }
 
-    function uniqByFile(arr) {
-      const map = new Map();
-      arr.forEach(item => {
-        if (item.file && !map.has(item.file)) map.set(item.file, item);
-      });
+    function uniqByFile(arr){
+      const map=new Map();
+      arr.forEach(item=>{if(item.file&&!map.has(item.file))map.set(item.file,item)});
       return Array.from(map.values());
     }
 
-    async function loadJson(path) {
-      const res = await fetch(path);
-      if (!res.ok) throw new Error(path + " " + res.status);
+    async function loadJson(path){
+      const res=await fetch(path);
+      if(!res.ok) throw new Error(path+" "+res.status);
       return await res.json();
     }
 
-    function escapeRegExp(s) {
-      return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    function escapeRegExp(s){return s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")}
+    function highlight(text,query){
+      if(!query||!text) return text||"";
+      const regex=new RegExp("("+escapeRegExp(query)+")","ig");
+      return text.replace(regex,"<mark>$1</mark>");
+    }
+    function smartExcerpt(item,query){
+      if(!query) return item.excerpt||"";
+      const hay=`${item.excerpt||""} ${item.text||""}`.trim();
+      if(!hay) return item.excerpt||"";
+      const lower=hay.toLowerCase();
+      const idx=lower.indexOf(query.toLowerCase());
+      if(idx<0) return item.excerpt||"";
+      const start=Math.max(0,idx-60),end=Math.min(hay.length,idx+query.length+140);
+      return (start>0?"…":"")+highlight(hay.slice(start,end),query)+(end<hay.length?"…":"");
     }
 
-    function highlight(text, query) {
-      if (!query || !text) return text || "";
-      const regex = new RegExp("(" + escapeRegExp(query) + ")", "ig");
-      return text.replace(regex, "<mark>$1</mark>");
-    }
-
-    function smartExcerpt(item, query) {
-      if (!query) return item.excerpt || "";
-      const hay = `${item.excerpt || ""} ${item.text || ""}`.trim();
-      if (!hay) return item.excerpt || "";
-      const lower = hay.toLowerCase();
-      const idx = lower.indexOf(query.toLowerCase());
-      if (idx < 0) return item.excerpt || "";
-      const start = Math.max(0, idx - 60);
-      const end = Math.min(hay.length, idx + query.length + 140);
-      return (start > 0 ? "…" : "") + highlight(hay.slice(start, end), query) + (end < hay.length ? "…" : "");
-    }
-
-    function buildOpenLink(item, query) {
-      const q = (query || "").trim();
-      if (item.category === "Corsi" && q) {
+    function buildOpenLink(item,query){
+      const q=(query||"").trim();
+      if(item.category==="Corsi" && q){
         return `open-course-match.html?file=${encodeURIComponent(item.file)}&q=${encodeURIComponent(q)}&title=${encodeURIComponent(item.title)}`;
       }
       return item.file;
     }
 
-    async function loadFiles() {
-      try {
-        const [mainData, corsiData] = await Promise.all([
+    async function loadFiles(){
+      try{
+        const [mainData,corsiData]=await Promise.all([
           loadJson("search_index.json"),
-          loadJson("corsi_index.json").catch(() => [])
+          loadJson("corsi_index.json").catch(()=>[])
         ]);
-
-        const mainItems = (mainData || []).map(item => normalizeItem(item));
-        const courseItems = (corsiData || []).map(item => normalizeItem(item, "Corsi"));
-        files = uniqByFile([...mainItems, ...courseItems]).sort((a, b) => a.title.localeCompare(b.title, "it"));
-      } catch (err) {
-        console.warn("Errore caricamento indici, fallback API GitHub:", err);
-        try {
-          const repoRes = await fetch("https://api.github.com/repos/chefantonioloco87/Locoselli-Rezept-/contents");
-          const repoData = await repoRes.json();
-          files = repoData
-            .filter(f => f.name && f.name.endsWith(".html") && f.name !== "index.html")
-            .map(f => normalizeItem({ file: f.name, title: f.name.replace(/\\.html$/i, "").replace(/-/g, " ") }))
-            .sort((a, b) => a.title.localeCompare(b.title, "it"));
-        } catch (e2) {
-          console.error("Impossibile caricare archivio:", e2);
-          files = [];
+        const mainItems=(mainData||[]).map(item=>normalizeItem(item));
+        const courseItems=(corsiData||[]).map(item=>normalizeItem(item,"Corsi"));
+        files=uniqByFile([...mainItems,...courseItems]).sort((a,b)=>a.title.localeCompare(b.title,"it"));
+      }catch(err){
+        console.warn("Errore caricamento indici, fallback API GitHub:",err);
+        try{
+          const repoRes=await fetch("https://api.github.com/repos/chefantonioloco87/Locoselli-Rezept-/contents");
+          const repoData=await repoRes.json();
+          files=repoData.filter(f=>f.name&&f.name.endsWith(".html")&&f.name!=="index.html").map(f=>normalizeItem({file:f.name,title:f.name.replace(/\.html$/i,"").replace(/-/g," ")})).sort((a,b)=>a.title.localeCompare(b.title,"it"));
+        }catch(e2){
+          console.error("Impossibile caricare archivio:",e2);
+          files=[];
         }
       }
-
-      if (loadingMsg) loadingMsg.style.display = "none";
-      renderStats();
-      renderCourseSection();
-      renderCategories();
-      renderChips();
-      render();
+      if(loadingMsg) loadingMsg.style.display="none";
+      renderStats(); renderCategories(); renderChips(); render();
     }
 
-    function renderStats() {
-      const total = files.length;
-      const courses = files.filter(f => f.category === "Corsi").length;
-      const recipes = total - courses;
-      statTotal.textContent = total;
-      statCourses.textContent = courses;
-      statRecipes.textContent = recipes;
+    function renderStats(){
+      const total=files.length;
+      const courses=Math.max(8, files.filter(f=>f.category==="Corsi").length);
+      const recipes=Math.max(0, total-courses);
+      statTotal.textContent=total;
+      statCourses.textContent=courses;
+      statRecipes.textContent=recipes;
     }
 
-    function renderCourseSection() {
-      if (!courseGrid) return;
-      const courseItems = files.filter(f => f.category === "Corsi").slice(0, 12);
-      courseGrid.innerHTML = courseItems.map(item => `
-        <article class="card">
-          <span class="pill">🎓 Corsi</span>
-          <h3>${item.title}</h3>
-          <p>${item.excerpt || "Apri il corso Damiano."}</p>
-          <div class="card-actions">
-            <a class="btn" href="${item.file}">Apri</a>
-          </div>
-        </article>
-      `).join("");
-    }
-
-    function renderCategories() {
-      catGrid.innerHTML = categories.filter(c => c !== "Tutte").map(cat => `
-        <div class="cat" onclick="setCategory('${cat.replace(/'/g, "\\'")}')">
-          <div class="pill">${catIcons[cat] || "•"} ${cat}</div>
-          <strong>${cat}</strong>
-          <small>${files.filter(f => f.category === cat).length} elementi</small>
+    function renderCategories(){
+      catGrid.innerHTML=categories.filter(c=>c!=="Tutte").map(cat=>`
+        <div class="cat" onclick="setCategory('${cat.replace(/'/g,"\\'")}')">
+          <div class="pill">${catIcons[cat]||"•"} ${cat}</div>
+          <h3>${cat}</h3>
+          <p>${files.filter(f=>f.category===cat).length} elementi</p>
         </div>
       `).join("");
     }
 
-    function renderChips() {
-      chips.innerHTML = categories.map(cat => `
-        <button class="chip ${activeCategory === cat ? "active" : ""}" data-cat="${cat}">${cat}</button>
-      `).join("");
-
-      Array.from(chips.querySelectorAll(".chip")).forEach(btn => {
-        btn.addEventListener("click", () => {
-          activeCategory = btn.dataset.cat;
-          renderChips();
-          render();
-        });
+    function renderChips(){
+      chips.innerHTML=categories.map(cat=>`<button class="chip ${activeCategory===cat?"active":""}" data-cat="${cat}">${cat}</button>`).join("");
+      Array.from(chips.querySelectorAll(".chip")).forEach(btn=>{
+        btn.addEventListener("click",()=>{activeCategory=btn.dataset.cat;renderChips();render();});
       });
     }
 
-    function filterFiles() {
-      const q = (searchInput?.value || "").trim().toLowerCase();
-      return files.filter(item => {
-        const catOk = activeCategory === "Tutte" || item.category === activeCategory;
-        const favOk = !showFavsOnly || Favs.has(item.file);
-        const searchOk = !q || item.keywords.includes(q);
-        return catOk && favOk && searchOk;
+    function filterFiles(){
+      const q=(searchInput?.value||"").trim().toLowerCase();
+      return files.filter(item=>{
+        const catOk=activeCategory==="Tutte"||item.category===activeCategory;
+        const favOk=!showFavsOnly||Favs.has(item.file);
+        const searchOk=!q||item.keywords.includes(q);
+        return catOk&&favOk&&searchOk;
       });
     }
 
-    function render() {
-      const q = (searchInput?.value || "").trim();
-      const filtered = filterFiles();
-      counter.textContent = filtered.length + " risultati";
-      empty.style.display = filtered.length ? "none" : "block";
-
-      grid.innerHTML = filtered.map(item => {
-        const isFav = Favs.has(item.file);
-        const openLink = buildOpenLink(item, q);
+    function render(){
+      const q=(searchInput?.value||"").trim();
+      const filtered=filterFiles();
+      counter.textContent=filtered.length+" risultati";
+      empty.style.display=filtered.length?"none":"block";
+      grid.innerHTML=filtered.map(item=>{
+        const isFav=Favs.has(item.file);
+        const openLink=buildOpenLink(item,q);
         return `
           <article class="card">
             <div class="card-top">
               <span class="pill">${item.category}</span>
-              <button class="fav ${isFav ? "active" : ""}" onclick="toggleFav('${item.file}', this)">${isFav ? "★" : "☆"}</button>
+              <button class="fav ${isFav?"active":""}" onclick="toggleFav('${item.file}', this)">${isFav?"★":"☆"}</button>
             </div>
-            <h3>${highlight(item.title, q)}</h3>
-            <p>${smartExcerpt(item, q) || "Apri questa pagina dall’archivio Locoselli."}</p>
-            <div class="card-actions">
-              <a class="btn" href="${openLink}">Apri</a>
-            </div>
+            <h3>${highlight(item.title,q)}</h3>
+            <p>${smartExcerpt(item,q)||"Apri questa pagina dall’archivio Locoselli."}</p>
+            <div class="card-actions"><a class="btn" href="${openLink}">Apri</a></div>
           </article>
         `;
       }).join("");
     }
 
-    function toggleFav(file, btn) {
-      const now = Favs.toggle(file);
-      btn.classList.toggle("active", now);
-      btn.innerHTML = now ? "★" : "☆";
-      if (showFavsOnly && !now) render();
+    function toggleFav(file,btn){
+      const now=Favs.toggle(file);
+      btn.classList.toggle("active",now);
+      btn.innerHTML=now?"★":"☆";
+      if(showFavsOnly&&!now) render();
     }
-    window.toggleFav = toggleFav;
+    window.toggleFav=toggleFav;
 
-    function setCategory(cat) {
-      activeCategory = cat;
+    function setCategory(cat){
+      activeCategory=cat;
       renderChips();
       render();
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({top:0,behavior:"smooth"});
     }
-    window.setCategory = setCategory;
+    window.setCategory=setCategory;
 
-    function enterApp() {
-      gate.style.display = "none";
-      app.style.display = "block";
-      loadFiles();
-    }
-
-    function checkCode() {
-      if ((codeInput?.value || "") === ACCESS_CODE) {
-        localStorage.setItem("locoselli_access", "ok");
-        errorMsg.textContent = "";
+    function enterApp(){gate.style.display="none";app.style.display="block";loadFiles()}
+    function checkCode(){
+      if((codeInput?.value||"")===ACCESS_CODE){
+        localStorage.setItem("locoselli_access","ok");
+        errorMsg.textContent="";
         enterApp();
-      } else {
-        errorMsg.textContent = "Codice errato. Riprova.";
-        codeInput.value = "";
+      }else{
+        errorMsg.textContent="Codice errato. Riprova.";
+        codeInput.value="";
         codeInput.focus();
       }
     }
 
-    enterBtn.addEventListener("click", checkCode);
-    codeInput.addEventListener("keydown", e => { if (e.key === "Enter") checkCode(); });
-    searchInput.addEventListener("input", render);
-    favFilterBtn.addEventListener("click", () => {
-      showFavsOnly = !showFavsOnly;
-      favFilterBtn.classList.toggle("active", showFavsOnly);
-      render();
-    });
-    logoutBtn.addEventListener("click", () => {
-      localStorage.removeItem("locoselli_access");
-      location.reload();
-    });
+    enterBtn.addEventListener("click",checkCode);
+    codeInput.addEventListener("keydown",e=>{if(e.key==="Enter") checkCode()});
+    searchInput.addEventListener("input",render);
+    favFilterBtn.addEventListener("click",()=>{showFavsOnly=!showFavsOnly;favFilterBtn.classList.toggle("active",showFavsOnly);render()});
+    logoutBtn.addEventListener("click",()=>{localStorage.removeItem("locoselli_access");location.reload()});
 
-    window.addEventListener("scroll", () => {
-      scrollFab.classList.toggle("visible", window.scrollY > 500);
-    }, { passive: true });
-
-    scrollFab.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
-
-    if (localStorage.getItem("locoselli_access") === "ok") {
-      window.addEventListener("load", enterApp);
-    }
+    if(localStorage.getItem("locoselli_access")==="ok"){window.addEventListener("load",enterApp)}
   </script>
 </body>
 </html>

@@ -5,105 +5,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Risultato corso – Locoselli</title>
   <style>
-    :root{
-      --bg:#0b0b0d; --card:#17171d; --line:rgba(255,255,255,.08);
-      --text:#f5f5f7; --muted:#a7a7b3; --gold:#d7aa2b; --gold2:#f0d178;
-    }
-    body{
-      margin:0; background:linear-gradient(180deg,#0b0b0d 0%,#0f1014 100%);
-      color:var(--text); font-family:Arial,sans-serif;
-    }
+    body{margin:0;background:#0b0b0d;color:#fff;font-family:Arial,sans-serif}
     .wrap{max-width:900px;margin:0 auto;padding:24px}
-    .card{
-      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
-      border:1px solid var(--line); border-radius:20px; padding:24px;
-    }
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      background:rgba(215,170,43,.13); color:var(--gold2);
-      border:1px solid rgba(215,170,43,.24);
-      border-radius:999px; padding:6px 10px; font-size:12px; font-weight:700;
-    }
-    h1{margin:12px 0 0 0}
-    p{line-height:1.6}
-    .muted{color:var(--muted)}
-    .btn{
-      display:inline-block; margin-right:10px; margin-top:14px;
-      background:var(--gold); color:#000; border-radius:14px;
-      padding:12px 16px; font-weight:800; text-decoration:none;
-    }
-    .btn.secondary{
-      background:transparent; color:var(--text); border:1px solid var(--line);
-    }
-    .snippet{
-      margin-top:18px; white-space:pre-wrap; line-height:1.7;
-      background:#111318; border-radius:14px; padding:16px; border:1px solid var(--line);
-    }
+    .card{background:#17171d;border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:24px}
+    .btn{display:inline-block;margin-right:10px;margin-top:14px;background:#d7aa2b;color:#000;border-radius:14px;padding:12px 16px;font-weight:800;text-decoration:none}
+    .btn.secondary{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.08)}
+    .snippet{margin-top:18px;white-space:pre-wrap;line-height:1.7;background:#111318;border-radius:14px;padding:16px;border:1px solid rgba(255,255,255,.08)}
     mark{background:#f0d178;color:#000;padding:0 .14em;border-radius:4px}
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="card">
-      <span class="pill">🎓 Corsi Damiano</span>
       <h1 id="title">Caricamento…</h1>
-      <p id="meta" class="muted">Sto cercando il punto giusto.</p>
+      <p id="meta">Sto cercando il punto giusto.</p>
       <div id="snippet" class="snippet">Attendere…</div>
       <a id="openCourse" class="btn" href="#">Apri corso completo</a>
       <a class="btn secondary" href="index.html">Torna all’archivio</a>
     </div>
   </div>
-
   <script>
-    function escapeHtml(s){
-      return s.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+    function escapeHtml(s){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+    function escapeRegExp(s){return s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")}
+    function highlight(text,q){if(!q)return escapeHtml(text);const safe=escapeRegExp(q);return escapeHtml(text).replace(new RegExp("("+safe+")","ig"),"<mark>$1</mark>")}
+    function extractSnippet(text,q){
+      const clean=text.replace(/\s+/g," ").trim();
+      if(!q) return clean.slice(0,1200);
+      const lower=clean.toLowerCase();
+      const idx=lower.indexOf(q.toLowerCase());
+      if(idx<0) return clean.slice(0,1200);
+      const start=Math.max(0,idx-350),end=Math.min(clean.length,idx+q.length+900);
+      return (start>0?"…":"")+clean.slice(start,end)+(end<clean.length?"…":"");
     }
-    function escapeRegExp(s){
-      return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    }
-    function highlight(text, q){
-      if(!q) return escapeHtml(text);
-      const safe = escapeRegExp(q);
-      return escapeHtml(text).replace(new RegExp("(" + safe + ")", "ig"), "<mark>$1</mark>");
-    }
-    function extractSnippet(text, q){
-      const clean = text.replace(/\s+/g, " ").trim();
-      if(!q) return clean.slice(0, 1200);
-      const lower = clean.toLowerCase();
-      const idx = lower.indexOf(q.toLowerCase());
-      if(idx < 0) return clean.slice(0, 1200);
-      const start = Math.max(0, idx - 350);
-      const end = Math.min(clean.length, idx + q.length + 900);
-      return (start > 0 ? "…" : "") + clean.slice(start, end) + (end < clean.length ? "…" : "");
-    }
-
     async function main(){
-      const params = new URLSearchParams(location.search);
-      const file = params.get("file");
-      const q = params.get("q") || "";
-      const title = params.get("title") || file || "Risultato corso";
-
-      document.getElementById("title").textContent = title;
-      document.getElementById("meta").textContent = q
-        ? `Ti porto vicino a “${q}”, senza aprire il corso dalla prima riga.`
-        : "Apro il corso.";
-
-      if(!file){
-        document.getElementById("snippet").textContent = "Manca il file del corso.";
-        return;
-      }
-
-      document.getElementById("openCourse").href = file;
-
+      const params=new URLSearchParams(location.search);
+      const file=params.get("file"),q=params.get("q")||"",title=params.get("title")||file||"Risultato corso";
+      document.getElementById("title").textContent=title;
+      document.getElementById("meta").textContent=q?`Ti porto vicino a "${q}", senza aprire il corso dalla prima riga.`:"Apro il corso.";
+      if(!file){document.getElementById("snippet").textContent="Manca il file del corso.";return;}
+      document.getElementById("openCourse").href=file;
       try{
-        const res = await fetch(file);
-        const html = await res.text();
-        const doc = new DOMParser().parseFromString(html, "text/html");
-        const bodyText = (doc.body ? doc.body.innerText : "").trim();
-        const snippet = extractSnippet(bodyText, q);
-        document.getElementById("snippet").innerHTML = highlight(snippet, q);
+        const res=await fetch(file);
+        const html=await res.text();
+        const doc=new DOMParser().parseFromString(html,"text/html");
+        const bodyText=(doc.body?doc.body.innerText:"").trim();
+        const snippet=extractSnippet(bodyText,q);
+        document.getElementById("snippet").innerHTML=highlight(snippet,q);
       }catch(err){
-        document.getElementById("snippet").textContent = "Non sono riuscito a leggere il corso. Aprilo col bottone qui sopra.";
+        document.getElementById("snippet").textContent="Non sono riuscito a leggere il corso. Aprilo col bottone qui sopra.";
       }
     }
     main();
