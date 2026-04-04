@@ -6,430 +6,246 @@
   <title>Locoselli Archivio</title>
   <link rel="icon" href="logo.png">
   <link rel="apple-touch-icon" href="logo-apple.png">
-  <meta name="theme-color" content="#0b0b0d">
+  <meta name="theme-color" content="#090909">
   <style>
     :root{
-      --bg:#0b0b0d;
-      --panel:rgba(14,15,19,.86);
-      --panel-2:rgba(20,22,28,.88);
-      --line:rgba(255,255,255,.08);
-      --text:#f5f5f7;
-      --muted:#a7a7b3;
-      --gold:#d7aa2b;
-      --gold-2:#f0d178;
+      --bg:#090909;
+      --panel:#101010;
+      --panel2:#141414;
+      --gold:#b7923c;
+      --gold2:#d6b45c;
+      --line:rgba(183,146,60,.45);
+      --text:#f2eee7;
+      --muted:#bcae91;
+      --shadow:0 12px 34px rgba(0,0,0,.38);
       --radius:22px;
-      --shadow:0 16px 44px rgba(0,0,0,.36);
     }
     *{box-sizing:border-box}
-    html,body{height:100%}
     body{
       margin:0;
+      background:var(--bg);
       color:var(--text);
       font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-      background:
-        linear-gradient(180deg, rgba(8,8,10,.55), rgba(8,8,10,.82)),
-        url("background-locoselli.jpg") center center / cover no-repeat fixed;
     }
     a{text-decoration:none;color:inherit}
-    .app{
-      min-height:100vh;
-      display:grid;
-      grid-template-columns: 280px 1fr;
-      gap:18px;
-      padding:18px;
-      backdrop-filter: blur(3px);
+    .wrap{max-width:980px;margin:0 auto;padding:18px 18px 32px}
+    .topbar{
+      position:sticky;top:0;z-index:20;
+      background:rgba(9,9,9,.92);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(183,146,60,.18);
     }
-    .sidebar,.main{
-      background:var(--panel);
-      border:1px solid var(--line);
-      border-radius:28px;
-      box-shadow:var(--shadow);
+    .topbar-inner{
+      max-width:980px;margin:0 auto;padding:14px 18px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
     }
-    .sidebar{
-      padding:20px 18px;
-      position:sticky;
-      top:18px;
-      height:calc(100vh - 36px);
-      overflow:auto;
+    .brand{display:flex;align-items:center;gap:12px;min-width:0}
+    .brand img{width:34px;height:34px;object-fit:contain}
+    .brand-title{
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:22px;line-height:1;color:var(--gold2);white-space:nowrap
     }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      margin-bottom:18px;
-    }
-    .brand img{
-      width:58px;height:58px;object-fit:contain;border-radius:16px;
-      background:rgba(255,255,255,.03);padding:6px;border:1px solid var(--line);
-    }
-    .brand strong{
-      display:block;
-      font-size:21px;
-      letter-spacing:-.02em;
-    }
-    .brand span{display:block;color:var(--muted);font-size:13px;margin-top:2px}
-    .nav-title{
-      color:var(--gold-2);
-      font-size:12px;
-      text-transform:uppercase;
-      letter-spacing:.12em;
-      margin:18px 0 10px;
-    }
-    .nav-list{
-      display:grid;
-      gap:10px;
-    }
-    .nav-btn{
-      width:100%;
-      text-align:left;
-      background:rgba(255,255,255,.03);
-      border:1px solid var(--line);
-      color:var(--text);
-      border-radius:16px;
-      padding:12px 14px;
-      cursor:pointer;
-      font-weight:700;
-    }
-    .nav-btn:hover,.nav-btn.active{
-      border-color:rgba(215,170,43,.35);
-      color:var(--gold-2);
-      background:rgba(215,170,43,.08);
-    }
-    .legend{
-      margin-top:16px;
-      padding:14px;
-      border-radius:18px;
-      background:var(--panel-2);
-      border:1px solid var(--line);
-    }
-    .legend p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}
-    .main{
-      padding:20px;
-      display:grid;
-      grid-template-rows:auto auto 1fr;
-      gap:16px;
-      min-height:calc(100vh - 36px);
-    }
-    .hero{
-      text-align:center;
-      padding:12px 10px 4px;
-    }
-    .hero .logo-big{
-      width:94px;height:94px;object-fit:contain;display:block;margin:0 auto 12px;
-      border-radius:22px;background:rgba(255,255,255,.03);padding:8px;border:1px solid var(--line);
-    }
-    .hero h1{
-      margin:0;
-      font-size:42px;
-      letter-spacing:-.04em;
-      line-height:1.02;
-    }
-    .hero p{
-      margin:12px auto 0;
-      max-width:760px;
-      color:var(--muted);
-      font-size:16px;
-      line-height:1.6;
-    }
-    .gold{color:var(--gold-2)}
-    .toolbar{
-      display:grid;
-      grid-template-columns:1fr 220px;
-      gap:14px;
-      align-items:start;
+    .brand-sub{font-size:12px;color:var(--muted);margin-top:4px}
+    .hero-space{height:12px}
+    .search-box{
+      position:relative;
+      margin-top:10px;
     }
     .search{
       width:100%;
-      padding:16px 18px;
-      font-size:16px;
-      color:var(--text);
-      background:rgba(255,255,255,.04);
+      border-radius:24px;
       border:1px solid var(--line);
-      border-radius:18px;
+      background:#0f1013;
+      color:var(--text);
+      padding:18px 54px 18px 18px;
+      font-size:17px;
       outline:none;
+      box-shadow:var(--shadow);
     }
     .search:focus{
-      border-color:rgba(215,170,43,.4);
-      box-shadow:0 0 0 3px rgba(215,170,43,.10);
+      border-color:var(--gold2);
+      box-shadow:0 0 0 3px rgba(183,146,60,.12), var(--shadow);
     }
-    .stats{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:10px;
+    .search-icon{
+      position:absolute;right:18px;top:50%;transform:translateY(-50%);
+      color:var(--gold2);font-size:20px;pointer-events:none;
     }
-    .stat{
-      border:1px solid var(--line);
-      border-radius:18px;
-      padding:14px;
-      background:var(--panel-2);
-    }
-    .stat strong{
-      display:block;
-      font-size:24px;
-      color:var(--gold-2);
-      line-height:1;
-    }
-    .stat span{
-      display:block;
-      margin-top:6px;
-      font-size:12px;
+    .meta{
+      margin:14px 2px 0;
       color:var(--muted);
+      font-size:13px;
     }
-    .content{
-      display:grid;
-      grid-template-columns:380px 1fr;
-      gap:16px;
-      min-height:0;
+    .chips{
+      display:flex;gap:12px;overflow:auto;padding:14px 0 6px;scrollbar-width:none;
     }
-    .results,.reader{
+    .chips::-webkit-scrollbar{display:none}
+    .chip{
+      flex:0 0 auto;
       border:1px solid var(--line);
-      border-radius:24px;
-      background:var(--panel-2);
-      overflow:auto;
-      min-height:0;
-    }
-    .results{
-      padding:14px;
-    }
-    .results-head{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      align-items:center;
-      margin-bottom:12px;
-      position:sticky;
-      top:0;
-      background:var(--panel-2);
-      padding-bottom:8px;
-      z-index:2;
-    }
-    .results-head strong{font-size:18px}
-    .counter{color:var(--muted);font-size:13px}
-    .result-list{
-      display:grid;
-      gap:10px;
-    }
-    .result-card{
-      border:1px solid var(--line);
-      border-radius:18px;
-      padding:14px;
-      background:rgba(255,255,255,.025);
+      color:var(--text);
+      background:transparent;
+      border-radius:999px;
+      padding:12px 18px;
+      font-size:15px;
       cursor:pointer;
     }
-    .result-card.active,.result-card:hover{
-      border-color:rgba(215,170,43,.35);
-      background:rgba(215,170,43,.06);
+    .chip.active,.chip:hover{
+      background:rgba(183,146,60,.08);
+      color:var(--gold2);
     }
-    .tag{
-      display:inline-flex;
-      padding:5px 9px;
-      border-radius:999px;
-      font-size:11px;
-      font-weight:700;
-      color:var(--gold-2);
-      background:rgba(215,170,43,.10);
-      border:1px solid rgba(215,170,43,.22);
+    .section-title{
+      margin:18px 2px 12px;
+      color:var(--gold2);
+      font-size:14px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
     }
-    .result-card h3{
-      margin:10px 0 0;
-      font-size:17px;
-      line-height:1.25;
-      letter-spacing:-.01em;
-    }
-    .file{
-      margin-top:8px;
-      color:var(--muted);
-      font-size:12px;
-      word-break:break-word;
-    }
-    .snippet{
-      margin-top:10px;
-      color:#dddddf;
-      font-size:13px;
-      line-height:1.5;
-    }
-    .reader{
-      padding:20px 22px;
-    }
-    .reader-placeholder{
-      height:100%;
-      display:grid;
-      place-items:center;
-      text-align:center;
-      color:var(--muted);
-      padding:30px;
-    }
-    .reader-header{
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      align-items:flex-start;
+    .courses{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
       margin-bottom:18px;
-      border-bottom:1px solid var(--line);
-      padding-bottom:14px;
     }
-    .reader-header h2{
+    .course-card,.card{
+      background:linear-gradient(180deg, #121212, #101010);
+      border:1px solid rgba(183,146,60,.28);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+    }
+    .course-card{padding:16px}
+    .course-card h3{
+      margin:0;
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:20px;
+      line-height:1.15;
+      color:var(--text);
+    }
+    .course-card p{
       margin:10px 0 0;
-      font-size:30px;
-      line-height:1.05;
-      letter-spacing:-.03em;
-    }
-    .reader-body{
-      white-space:pre-wrap;
-      line-height:1.7;
-      font-size:15px;
-      color:#efeff2;
-    }
-    .reader-actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.45;
+      min-height:40px;
     }
     .btn{
-      border:none;
-      background:var(--gold);
-      color:#000;
-      border-radius:14px;
+      display:inline-flex;align-items:center;justify-content:center;
+      margin-top:14px;
       padding:10px 14px;
-      font-weight:800;
-      cursor:pointer;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
+      border-radius:12px;
+      background:rgba(183,146,60,.16);
+      color:var(--gold2);
+      font-weight:700;
+      font-size:14px;
+      border:1px solid rgba(183,146,60,.22);
     }
-    .btn.secondary{
-      background:transparent;
+    .list{display:grid;gap:16px}
+    .card{
+      padding:18px;
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:16px;
+      align-items:start;
+    }
+    .card h3{
+      margin:0;
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:26px;
+      line-height:1.15;
+      font-weight:500;
       color:var(--text);
-      border:1px solid var(--line);
+    }
+    .snippet{
+      margin-top:12px;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.55;
+    }
+    .tag{
+      align-self:start;
+      white-space:nowrap;
+      border-radius:12px;
+      padding:12px 14px;
+      background:rgba(183,146,60,.16);
+      color:var(--gold2);
+      border:1px solid rgba(183,146,60,.2);
+      font-weight:800;
+      font-size:14px;
+    }
+    .file{margin-top:10px;color:#8e846f;font-size:12px;word-break:break-word}
+    .empty{
+      border:1px dashed rgba(183,146,60,.28);
+      border-radius:22px;
+      padding:22px;
+      text-align:center;
+      color:var(--muted);
     }
     mark{
-      background:var(--gold-2);
+      background:rgba(214,180,92,.95);
       color:#000;
       padding:0 .14em;
       border-radius:4px;
     }
-    .loading,.empty{
-      color:var(--muted);
-      font-size:14px;
-      padding:8px 0;
-    }
-    @media (max-width:1100px){
-      .content{grid-template-columns:1fr}
-      .results{max-height:360px}
-    }
     @media (max-width:900px){
-      .app{grid-template-columns:1fr}
-      .sidebar{
-        position:static;
-        height:auto;
-      }
-      .toolbar{grid-template-columns:1fr}
+      .courses{grid-template-columns:1fr}
+      .card{grid-template-columns:1fr}
+      .card h3{font-size:22px}
     }
   </style>
 </head>
 <body>
-  <div class="app">
-    <aside class="sidebar">
+  <div class="topbar">
+    <div class="topbar-inner">
       <div class="brand">
         <img src="logo.png" alt="Locoselli logo">
         <div>
-          <strong>Locoselli</strong>
-          <span>Archivio ricette + corsi</span>
+          <div class="brand-title">Locoselli</div>
+          <div class="brand-sub">Archivio ricette + corsi</div>
         </div>
       </div>
+    </div>
+  </div>
 
-      <div class="nav-title">Menu</div>
-      <div class="nav-list">
-        <button class="nav-btn active" data-filter="all">Tutto</button>
-        <button class="nav-btn" data-filter="courses">Corsi</button>
-        <button class="nav-btn" data-filter="molecolare">Molecolare</button>
-        <button class="nav-btn" data-filter="lievitati">Lievitati</button>
-        <button class="nav-btn" data-filter="dolci">Dolci</button>
-        <button class="nav-btn" data-filter="salato">Salato</button>
-        <button class="nav-btn" data-filter="ricettari">Ricettari</button>
-      </div>
+  <div class="wrap">
+    <div class="hero-space"></div>
 
-      <div class="nav-title">Legenda</div>
-      <div class="legend">
-        <p><strong class="gold">Corsi</strong>: materiale formativo Damiano e corsi completi.</p>
-        <p style="margin-top:8px"><strong class="gold">Molecolare</strong>: agar, carragenine, sferificazione, texture, spume.</p>
-        <p style="margin-top:8px"><strong class="gold">Lievitati</strong>: panettone, pandoro, brioches, baba.</p>
-        <p style="margin-top:8px"><strong class="gold">Dolci</strong>: mousse, frolle, biscuit, dessert.</p>
-        <p style="margin-top:8px"><strong class="gold">Salato</strong>: ravioli, risotti, salse, contorni.</p>
-      </div>
-    </aside>
+    <div class="search-box">
+      <input id="search" class="search" placeholder="Cerca per ingrediente, nome, tecnica...">
+      <div class="search-icon">⌕</div>
+    </div>
 
-    <main class="main">
-      <section class="hero">
-        <img src="logo.png" alt="Locoselli" class="logo-big">
-        <h1>Locoselli <span class="gold">Reader App</span></h1>
-        <p>Centro pulito con logo e barra ricerca. A sinistra scegli la sezione. Quando apri un risultato, leggi solo la ricetta pulita, non tutta la pagina caotica.</p>
-      </section>
+    <div class="meta"><span id="totalCount">0</span> ricette totali</div>
 
-      <section class="toolbar">
-        <input id="search" class="search" placeholder="Cerca ingrediente o testo: agar, maltodestrina, panettone, mousse...">
-        <div class="stats">
-          <div class="stat"><strong id="statTotal">0</strong><span>File html</span></div>
-          <div class="stat"><strong id="statShown">0</strong><span>Risultati</span></div>
-        </div>
-      </section>
+    <div class="chips">
+      <button class="chip active" data-filter="all">Tutto</button>
+      <button class="chip" data-filter="agar">Agar &amp; Gel</button>
+      <button class="chip" data-filter="maltodestrina">Maltodestrina</button>
+      <button class="chip" data-filter="neutral">Neutral Glaze</button>
+      <button class="chip" data-filter="panettone">Panettoni &amp; Pandoro</button>
+      <button class="chip" data-filter="corsi">Corsi Damiano</button>
+      <button class="chip" data-filter="ricettario">Ricettari</button>
+    </div>
 
-      <section class="content">
-        <div class="results">
-          <div class="results-head">
-            <strong>Risultati</strong>
-            <span id="counter" class="counter">0 risultati</span>
-          </div>
-          <div id="loading" class="loading">Caricamento contenuti… la prima volta può metterci un po'.</div>
-          <div id="resultList" class="result-list"></div>
-          <div id="empty" class="empty" style="display:none">Nessun risultato trovato.</div>
-        </div>
+    <div class="section-title">Corsi Damiano</div>
+    <div class="courses" id="courses"></div>
 
-        <div class="reader" id="reader">
-          <div class="reader-placeholder">
-            <div>
-              <h2 style="margin-bottom:12px">Apri una ricetta</h2>
-              <p>Seleziona un risultato dalla colonna a sinistra per leggere la ricetta pulita qui al centro.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
+    <div class="section-title">Ricette</div>
+    <div class="list" id="list"></div>
+    <div class="empty" id="empty" style="display:none">Nessun risultato trovato.</div>
   </div>
 
 <script>
 let indexed = [];
 let currentFilter = "all";
-let activeName = "";
 
 const courseFiles = [
-  "corso-avanzato-lezione1-pate-a-choux.html",
-  "corso-avanzato-lezione2-biscuit-moderni.html",
-  "corso-avanzato-lezione3-mousse-bavaresi.html",
-  "corso-avanzato-lezione4-glasse-specchio.html",
-  "corso-avanzato-lezione5-cioccolato-avanzato.html",
-  "corso-avanzato-lezione6-zucchero-isomalto.html",
-  "corso-avanzato-lezione7-dessert-al-piatto.html",
-  "corso-avanzato-lezione8-signature-dessert.html",
-  "corso-damiano-ricettario-25.html",
-  "corso-germania-ver-01.html",
-  "corso-germania.html",
-  "corso-molecolare-avanzato-2023.html",
-  "corso-molecolare-base-ifa-2024-2025.html",
-  "corso-molecolare-settembre-2021.html",
-  "corso-pasticceria-creativa-scenografica.html",
-  "corso-pasticceria-ristorazione-molecolare.html"
+  ["corso-avanzato-lezione1-pate-a-choux.html","Corso Damiano","Lezioni avanzate di pasticceria e tecniche moderne."],
+  ["corso-molecolare-avanzato-2023.html","Corso Molecolare","Tecniche, texture e applicazioni di cucina molecolare."],
+  ["corso-pasticceria-ristorazione-molecolare.html","Corso Pasticceria","Pasticceria da ristorazione e pasticceria creativa."]
 ];
 
+const listEl = document.getElementById("list");
+const emptyEl = document.getElementById("empty");
+const totalCountEl = document.getElementById("totalCount");
 const searchEl = document.getElementById("search");
-const resultList = document.getElementById("resultList");
-const loading = document.getElementById("loading");
-const empty = document.getElementById("empty");
-const counter = document.getElementById("counter");
-const statTotal = document.getElementById("statTotal");
-const statShown = document.getElementById("statShown");
-const reader = document.getElementById("reader");
+const coursesEl = document.getElementById("courses");
 
 function prettyName(name){
   return name.replace(".html","").replace(/-/g," ");
@@ -437,99 +253,105 @@ function prettyName(name){
 
 function stripHtml(html){
   const doc = new DOMParser().parseFromString(html, "text/html");
-  return (doc.body ? doc.body.innerText : "").replace(/\s+/g, " ").trim();
+  return (doc.body ? doc.body.innerText : "").replace(/\s+/g," ").trim();
 }
 
 function escapeRegExp(str){
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-function highlight(text, q){
+function highlight(text,q){
   if(!q) return text;
   const safe = escapeRegExp(q);
-  return text.replace(new RegExp("(" + safe + ")", "ig"), "<mark>$1</mark>");
+  return text.replace(new RegExp("(" + safe + ")","ig"), "<mark>$1</mark>");
 }
 
-function getCategory(name){
-  const n = name.toLowerCase();
-  if (courseFiles.includes(name) || n.includes("corso") || n.includes("lezione")) return "courses";
-  if (/(agar|molecolare|glice|inulina|konjac|pectina|sferificazione|carragen|sucro|maltodestrina|texture|spume|neutral|isomalto|mono-diglicer)/.test(n)) return "molecolare";
-  if (/(panettone|pandoro|brioches|baba|lievito)/.test(n)) return "lievitati";
-  if (/(biscuit|frolla|mousse|tiramisu|plumcake|macaron|tortini|zabaglione|dolci|dessert)/.test(n)) return "dolci";
-  if (/(risotti|ravioli|salata|salse|contorni|peperone|sfoglia)/.test(n)) return "salato";
-  if (n.includes("ricettario")) return "ricettari";
-  return "ricettari";
-}
-
-function snippet(text, q){
-  if(!q) return "";
+function snippet(text,q){
+  if(!q){
+    return text.slice(0,160) + (text.length > 160 ? "…" : "");
+  }
   const lower = text.toLowerCase();
   const idx = lower.indexOf(q.toLowerCase());
-  if(idx < 0) return "";
-  const start = Math.max(0, idx - 110);
-  const end = Math.min(text.length, idx + q.length + 220);
-  const out = (start > 0 ? "…" : "") + text.slice(start, end) + (end < text.length ? "…" : "");
-  return highlight(out, q);
+  if(idx < 0){
+    return text.slice(0,160) + (text.length > 160 ? "…" : "");
+  }
+  const start = Math.max(0, idx - 70);
+  const end = Math.min(text.length, idx + q.length + 150);
+  const out = (start > 0 ? "…" : "") + text.slice(start,end) + (end < text.length ? "…" : "");
+  return highlight(out,q);
 }
 
-function getFiltered(){
-  const q = (searchEl.value || "").toLowerCase().trim();
+function getTag(item){
+  const n = item.name.toLowerCase();
+  if(n.includes("agar")) return "AGAR & GEL";
+  if(n.includes("maltodestrina")) return "MALTODESTRINA";
+  if(n.includes("neutral")) return "NEUTRAL GLAZE";
+  if(n.includes("panettone") || n.includes("pandoro")) return "PANETTONI";
+  if(n.includes("corso") || n.includes("lezione")) return "CORSI";
+  if(n.includes("ricettario")) return "RICETTARIO";
+  return "ALTRE RICETTE";
+}
+
+function filterItems(){
+  const q = searchEl.value.toLowerCase().trim();
   return indexed.filter(item => {
-    const filterOk = currentFilter === "all" || item.category === currentFilter;
-    const searchOk = !q || item.title.toLowerCase().includes(q) || item.text.toLowerCase().includes(q);
-    return filterOk && searchOk;
+    const inSearch = !q || item.title.toLowerCase().includes(q) || item.text.toLowerCase().includes(q);
+    let filterOk = true;
+
+    if(currentFilter === "agar"){
+      filterOk = item.name.toLowerCase().includes("agar") || item.text.toLowerCase().includes("agar");
+    }else if(currentFilter === "maltodestrina"){
+      filterOk = item.name.toLowerCase().includes("maltodestrina") || item.text.toLowerCase().includes("maltodestrina");
+    }else if(currentFilter === "neutral"){
+      filterOk = item.name.toLowerCase().includes("neutral") || item.text.toLowerCase().includes("neutral glaze");
+    }else if(currentFilter === "panettone"){
+      filterOk = /(panettone|pandoro)/i.test(item.name) || /(panettone|pandoro)/i.test(item.text);
+    }else if(currentFilter === "corsi"){
+      filterOk = /(corso|lezione)/i.test(item.name);
+    }else if(currentFilter === "ricettario"){
+      filterOk = /ricettario/i.test(item.name);
+    }
+
+    return inSearch && filterOk;
   });
 }
 
-function openReader(item){
-  activeName = item.name;
-  document.querySelectorAll(".result-card").forEach(el => {
-    el.classList.toggle("active", el.dataset.name === item.name);
-  });
-
-  const q = (searchEl.value || "").trim();
-  const text = item.text || "Contenuto non disponibile.";
-
-  reader.innerHTML = `
-    <div class="reader-header">
-      <div>
-        <span class="tag">${item.category === "courses" ? "🎓 Corso" : "📄 Ricetta"}</span>
-        <h2>${prettyName(item.name)}</h2>
-        <div class="file">${item.name}</div>
-      </div>
-      <div class="reader-actions">
-        ${item.category === "courses" && q ? `<a class="btn" href="open-course-match.html?file=${encodeURIComponent(item.name)}&q=${encodeURIComponent(q)}&title=${encodeURIComponent(prettyName(item.name))}">Vai al match</a>` : ""}
-        <a class="btn secondary" href="${item.name}" target="_blank">Apri file</a>
-      </div>
+function renderCourses(){
+  coursesEl.innerHTML = courseFiles.map(([file,title,desc]) => `
+    <div class="course-card">
+      <h3>${title}</h3>
+      <p>${desc}</p>
+      <a class="btn" href="${file}">Apri</a>
     </div>
-    <div class="reader-body">${highlight(text, q)}</div>
-  `;
+  `).join("");
 }
 
 function render(){
-  const filtered = getFiltered();
-  const q = (searchEl.value || "").trim();
+  const q = searchEl.value.trim();
+  const filtered = filterItems();
 
-  counter.textContent = filtered.length + " risultati";
-  statShown.textContent = filtered.length;
-  empty.style.display = filtered.length ? "none" : "block";
+  listEl.innerHTML = filtered.map(item => {
+    const isCourse = /(corso|lezione)/i.test(item.name);
+    let link = item.name;
+    if(isCourse && q){
+      link = "open-course-match.html?file=" + encodeURIComponent(item.name) + "&q=" + encodeURIComponent(q) + "&title=" + encodeURIComponent(item.title);
+    }
+    return `
+      <div class="card">
+        <div>
+          <h3>${highlight(item.title, q)}</h3>
+          <div class="snippet">${snippet(item.text || item.title, q)}</div>
+          <div class="file">${item.name}</div>
+        </div>
+        <div>
+          <div class="tag">${getTag(item)}</div>
+          <a class="btn" href="${link}" style="margin-top:12px">Apri</a>
+        </div>
+      </div>
+    `;
+  }).join("");
 
-  resultList.innerHTML = filtered.map(item => `
-    <div class="result-card ${activeName === item.name ? "active" : ""}" data-name="${item.name}">
-      <span class="tag">${item.category === "courses" ? "🎓 Corso" : "📄 Ricetta"}</span>
-      <h3>${prettyName(item.name)}</h3>
-      <div class="file">${item.name}</div>
-      ${q ? `<div class="snippet">${snippet(item.text || item.title, q)}</div>` : ""}
-    </div>
-  `).join("");
-
-  document.querySelectorAll(".result-card").forEach((card, idx) => {
-    card.addEventListener("click", () => openReader(filtered[idx]));
-  });
-
-  if(filtered.length && !filtered.find(x => x.name === activeName)){
-    openReader(filtered[0]);
-  }
+  emptyEl.style.display = filtered.length ? "none" : "block";
 }
 
 async function load(){
@@ -543,39 +365,37 @@ async function load(){
       f.name !== "open-course-match.html"
     );
 
-    const all = await Promise.all(files.map(async f => {
+    totalCountEl.textContent = files.length;
+
+    indexed = await Promise.all(files.map(async f => {
       try{
-        const r = await fetch(f.name);
-        const html = await r.text();
+        const page = await fetch(f.name);
+        const html = await page.text();
         return {
           name: f.name,
           title: prettyName(f.name),
-          text: stripHtml(html),
-          category: getCategory(f.name)
+          text: stripHtml(html)
         };
       }catch(e){
         return {
           name: f.name,
           title: prettyName(f.name),
-          text: "",
-          category: getCategory(f.name)
+          text: ""
         };
       }
     }));
 
-    indexed = all;
-    statTotal.textContent = indexed.length;
-    loading.style.display = "none";
+    renderCourses();
     render();
-  }catch(err){
-    loading.textContent = "Errore nel caricamento del repo.";
-    console.error(err);
+  }catch(e){
+    listEl.innerHTML = "<div class='empty' style='display:block'>Errore nel caricamento del repo.</div>";
+    console.error(e);
   }
 }
 
-document.querySelectorAll(".nav-btn").forEach(btn => {
+document.querySelectorAll(".chip").forEach(btn => {
   btn.addEventListener("click", () => {
-    document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".chip").forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
     currentFilter = btn.dataset.filter;
     render();
