@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Locoselli Archivio</title>
+  <meta name="theme-color" content="#0b0b0d">
+  <style>
+    :root{
+      --bg:#0b0b0d;
+      --bg2:#111117;
+      --card:#17171d;
+      --line:rgba(255,255,255,.08);
+      --text:#f5f5f7;
+      --muted:#a7a7b3;
+      --gold:#d7aa2b;
+      --gold2:#f0d178;
+      --radius:20px;
+      --shadow:0 10px 30px rgba(0,0,0,.28);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top, rgba(215,170,43,.10), transparent 28%),
+        linear-gradient(180deg,#0b0b0d 0%,#0f1014 100%);
+    }
+    a{text-decoration:none;color:inherit}
+    .wrap{max-width:1240px;margin:0 auto;padding:24px}
+    .topbar{
+      position:sticky;top:0;z-index:10;
+      backdrop-filter:blur(14px);
+      background:rgba(11,11,13,.72);
+      border-bottom:1px solid var(--line);
+    }
+    .topbar-inner{
+      max-width:1240px;margin:0 auto;padding:14px 24px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand-logo{height:44px;display:block}
+    .brand-text strong{display:block;font-size:18px}
+    .brand-text span{display:block;font-size:12px;color:var(--muted)}
+    .hero,.card,.panel,.course-card{
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+    .hero{
+      margin-top:22px;
+      padding:30px;
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:18px;
+    }
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:6px 10px;border-radius:999px;
+      background:rgba(215,170,43,.12);
+      color:var(--gold2);
+      border:1px solid rgba(215,170,43,.24);
+      font-size:12px;font-weight:700;
+    }
+    h1,h2,h3,p{margin:0}
+    .hero h1{
+      margin-top:14px;
+      font-size:46px;
+      line-height:1.02;
+      letter-spacing:-.03em;
+    }
+    .gold{color:var(--gold2)}
+    .muted{color:var(--muted)}
+    .hero p{margin-top:14px;font-size:17px;line-height:1.6;color:var(--muted)}
+    .search-wrap{margin-top:18px}
+    .search{
+      width:100%;
+      padding:15px 16px;
+      background:#101116;
+      border:1px solid var(--line);
+      border-radius:14px;
+      color:#fff;
+      font-size:16px;
+      outline:none;
+    }
+    .search:focus{
+      border-color:rgba(215,170,43,.5);
+      box-shadow:0 0 0 3px rgba(215,170,43,.12);
+    }
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .stat{
+      padding:18px;background:#111318;border:1px solid var(--line);border-radius:18px
+    }
+    .stat strong{display:block;font-size:30px;color:var(--gold2)}
+    .stat span{font-size:13px;color:var(--muted)}
+    .section{margin-top:28px}
+    .section-head{
+      display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:14px
+    }
+    .section-head h2{font-size:28px}
+    .course-grid,.grid{
+      display:grid;gap:14px;grid-template-columns:repeat(3,1fr)
+    }
+    .course-card,.card{padding:18px}
+    .course-card h3,.card h3{margin-top:12px;font-size:20px;line-height:1.25}
+    .course-card p,.card p{margin-top:10px;color:var(--muted);line-height:1.55}
+    .card-actions{display:flex;gap:10px;margin-top:14px}
+    .btn{
+      background:var(--gold);color:#000;padding:10px 14px;border-radius:12px;font-weight:800;
+      display:inline-block
+    }
+    .btn.secondary{
+      background:transparent;color:#fff;border:1px solid var(--line)
+    }
+    .counter{color:var(--muted);font-size:14px}
+    .empty{
+      display:none;padding:24px;border:1px dashed var(--line);border-radius:18px;color:var(--muted);text-align:center
+    }
+    .filename{
+      margin-top:8px;font-size:12px;color:var(--muted);word-break:break-word
+    }
+    .footer-note{
+      margin-top:28px;padding:16px 0;color:var(--muted);font-size:13px;text-align:center
+    }
+    @media(max-width:1024px){
+      .hero,.course-grid,.grid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:720px){
+      .hero,.course-grid,.grid{grid-template-columns:1fr}
+      .hero h1{font-size:36px}
+      .stats{grid-template-columns:1fr}
+      .wrap{padding:16px}
+      .topbar-inner{padding:12px 16px}
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <img src="logo.png" alt="Locoselli" class="brand-logo">
+        <div class="brand-text">
+          <strong>Locoselli</strong>
+          <span>Archivio ricette + corsi</span>
+        </div>
+      </div>
+      <a class="btn secondary" href="#archivio">Vai all’archivio</a>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <section class="hero">
+      <div>
+        <span class="pill">Archivio Locoselli</span>
+        <h1>Tutto in <span class="gold">un solo index</span>.</h1>
+        <p>Logo, ricerca, sezione corsi Damiano e lista ricette. Questa versione legge direttamente i file html del repo, così non devi caricare altri json o altri index.</p>
+        <div class="search-wrap">
+          <input id="search" class="search" placeholder="Cerca: agar, panettone, Damiano, mousse, ricettario...">
+        </div>
+      </div>
+      <div class="panel" style="padding:18px">
+        <div class="stats">
+          <div class="stat"><strong id="statTotal">0</strong><span>File html</span></div>
+          <div class="stat"><strong id="statCourses">8</strong><span>Corsi Damiano</span></div>
+          <div class="stat"><strong id="statRecipes">0</strong><span>Ricette / ricettari</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>Corsi Damiano</h2>
+          <p class="muted" style="margin-top:6px">Sezione fissa e sempre visibile.</p>
+        </div>
+      </div>
+      <div class="course-grid" id="courses"></div>
+    </section>
+
+    <section class="section" id="archivio">
+      <div class="section-head">
+        <div>
+          <h2>Archivio completo</h2>
+          <p class="muted" style="margin-top:6px">Ricette, corsi e ricettari letti direttamente dal repo.</p>
+        </div>
+        <div id="counter" class="counter">0 risultati</div>
+      </div>
+      <div id="loading" class="muted" style="margin-bottom:12px">Caricamento archivio…</div>
+      <div id="list" class="grid"></div>
+      <div id="empty" class="empty">Nessun risultato trovato.</div>
+    </section>
+
+    <div class="footer-note">Usa questo file come unico <strong>index.html</strong>.</div>
+  </div>
+
+<script>
+const courseFiles = [
+  "corso-avanzato-lezione1-pate-a-choux.html",
+  "corso-avanzato-lezione2-biscuit-moderni.html",
+  "corso-avanzato-lezione3-mousse-bavaresi.html",
+  "corso-avanzato-lezione4-glasse-specchio.html",
+  "corso-avanzato-lezione5-cioccolato-avanzato.html",
+  "corso-avanzato-lezione6-zucchero-isomalto.html",
+  "corso-avanzato-lezione7-dessert-al-piatto.html",
+  "corso-avanzato-lezione8-signature-dessert.html"
+];
+
+let files = [];
+
+function prettyName(name){
+  return name.replace(".html","").replace(/-/g," ");
+}
+
+function renderCourses(){
+  const box = document.getElementById("courses");
+  box.innerHTML = courseFiles.map(f => `
+    <article class="course-card">
+      <span class="pill">🎓 Corso</span>
+      <h3>${prettyName(f)}</h3>
+      <p>Corso Damiano sempre disponibile dalla home.</p>
+      <div class="card-actions">
+        <a class="btn" href="${f}">Apri</a>
+      </div>
+    </article>
+  `).join("");
+}
+
+function renderList(){
+  const q = document.getElementById("search").value.toLowerCase().trim();
+  const list = document.getElementById("list");
+  const empty = document.getElementById("empty");
+  const counter = document.getElementById("counter");
+
+  const filtered = files.filter(f => !q || f.name.toLowerCase().includes(q));
+  counter.textContent = filtered.length + " risultati";
+  empty.style.display = filtered.length ? "none" : "block";
+
+  list.innerHTML = filtered.map(f => {
+    const isCourse = courseFiles.includes(f.name) || f.name.includes("corso") || f.name.includes("lezione");
+    let link = f.name;
+
+    if(isCourse && q){
+      link = "open-course-match.html?file=" + encodeURIComponent(f.name) + "&q=" + encodeURIComponent(q) + "&title=" + encodeURIComponent(prettyName(f.name));
+    }
+
+    return `
+      <article class="card">
+        <span class="pill">${isCourse ? "🎓 Corso" : "📄 Ricetta"}</span>
+        <h3>${prettyName(f.name)}</h3>
+        <p>${isCourse ? "Corso o lezione Damiano." : "Pagina ricetta o ricettario del repo."}</p>
+        <div class="filename">${f.name}</div>
+        <div class="card-actions">
+          <a class="btn" href="${link}">Apri</a>
+        </div>
+      </article>
+    `;
+  }).join("");
+}
+
+async function loadRepo(){
+  const loading = document.getElementById("loading");
+  try{
+    const res = await fetch("https://api.github.com/repos/chefantonioloco87/Locoselli-Rezept-/contents");
+    const data = await res.json();
+    files = data.filter(f =>
+      f.name.endsWith(".html") &&
+      f.name !== "index.html" &&
+      f.name !== "open-course-match.html"
+    );
+
+    document.getElementById("statTotal").textContent = files.length;
+    const courseCount = files.filter(f => courseFiles.includes(f.name) || f.name.includes("corso") || f.name.includes("lezione")).length;
+    document.getElementById("statCourses").textContent = courseCount || 8;
+    document.getElementById("statRecipes").textContent = Math.max(0, files.length - courseCount);
+
+    loading.style.display = "none";
+    renderList();
+  }catch(err){
+    loading.textContent = "Errore nel caricamento del repo.";
+    console.error(err);
+  }
+}
+
+document.getElementById("search").addEventListener("input", renderList);
+
+renderCourses();
+loadRepo();
+</script>
+</body>
+</html>
