@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Locoselli</title>
+<title>Locoselli Archivio</title>
 <link rel="icon" href="logo.png">
 <link rel="apple-touch-icon" href="logo-apple.png">
 <style>
@@ -17,6 +17,9 @@ h1,h2{margin:0 0 15px 0}
 .card{background:#17171d;padding:14px;border-radius:12px}
 .btn{display:block;margin-top:10px;background:#d7aa2b;color:#000;padding:8px;border-radius:8px;text-align:center;font-weight:bold;text-decoration:none}
 .muted{color:#b8b8c0}
+.snippet{margin-top:10px;color:#ddd;line-height:1.45}
+.loading{color:#b8b8c0;margin-bottom:14px}
+mark{background:#f0d178;color:#000;padding:0 .14em;border-radius:4px}
 @media(min-width:700px){.grid{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
@@ -48,13 +51,41 @@ h1,h2{margin:0 0 15px 0}
 </div>
 
 <div class="section">
-<h2>🧪 Ricerca per ingrediente</h2>
+<h2>🧪 Ricerca dentro le ricette</h2>
+<div id="loading" class="loading">Caricamento contenuti… la prima volta può metterci un po'.</div>
 <div id="list" class="grid"></div>
 </div>
 </div>
 
 <script>
 let files = [];
+let indexed = [];
+
+function prettyName(name){
+  return name.replace(".html","").replace(/-/g," ");
+}
+
+function stripHtml(html){
+  const doc = new DOMParser().parseFromString(html, "text/html");
+  return (doc.body ? doc.body.innerText : "").replace(/\s+/g," ").trim();
+}
+
+function highlight(text, q){
+  if(!q) return text;
+  const safe = q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return text.replace(new RegExp("(" + safe + ")", "ig"), "<mark>$1</mark>");
+}
+
+function snippet(text, q){
+  if(!q) return "";
+  const lower = text.toLowerCase();
+  const idx = lower.indexOf(q.toLowerCase());
+  if(idx < 0) return "";
+  const start = Math.max(0, idx - 90);
+  const end = Math.min(text.length, idx + q.length + 180);
+  const out = (start > 0 ? "…" : "") + text.slice(start, end) + (end < text.length ? "…" : "");
+  return highlight(out, q);
+}
 
 async function load(){
   try{
@@ -63,35 +94,61 @@ async function load(){
 
     files = data.filter(f =>
       f.name.endsWith(".html") &&
-      !f.name.includes("corso") &&
       f.name !== "index.html" &&
       f.name !== "open-course-match.html"
     );
 
+    const promises = files.map(async f => {
+      try{
+        const r = await fetch(f.name);
+        const html = await r.text();
+        return {
+          name: f.name,
+          title: prettyName(f.name),
+          text: stripHtml(html)
+        };
+      }catch(e){
+        return {
+          name: f.name,
+          title: prettyName(f.name),
+          text: ""
+        };
+      }
+    });
+
+    indexed = await Promise.all(promises);
+    document.getElementById("loading").style.display = "none";
     render();
   }catch(e){
-    document.getElementById("list").innerHTML = "<div class='card'>Errore nel caricamento del repo.</div>";
+    document.getElementById("loading").textContent = "Errore nel caricamento del repo.";
     console.error(e);
   }
 }
 
-function prettyName(name){
-  return name.replace(".html","").replace(/-/g," ");
-}
-
 function render(){
-  const q = document.getElementById("search").value.toLowerCase();
+  const q = document.getElementById("search").value.toLowerCase().trim();
   const box = document.getElementById("list");
 
-  const filtered = files.filter(f => !q || f.name.toLowerCase().includes(q));
+  const filtered = indexed.filter(item => {
+    if(!q) return true;
+    return item.title.toLowerCase().includes(q) || item.text.toLowerCase().includes(q);
+  });
 
-  box.innerHTML = filtered.map(f => `
-    <div class="card">
-      <b>${prettyName(f.name)}</b>
-      <div class="muted">${f.name}</div>
-      <a class="btn" href="${f.name}">Apri</a>
-    </div>
-  `).join("");
+  box.innerHTML = filtered.map(item => {
+    const isCourse = item.name.includes("corso") || item.name.includes("lezione");
+    let link = item.name;
+    if(isCourse && q){
+      link = "open-course-match.html?file=" + encodeURIComponent(item.name) + "&q=" + encodeURIComponent(q) + "&title=" + encodeURIComponent(item.title);
+    }
+    return `
+      <div class="card">
+        <b>${item.title}</b>
+        <div class="muted">${item.name}</div>
+        ${q ? `<div class="snippet">${snippet(item.text || item.title, q)}</div>` : ""}
+        <a class="btn" href="${link}">Apri</a>
+      </div>
+    `;
+  }).join("");
 
   if(!filtered.length){
     box.innerHTML = "<div class='card'>Nessun risultato trovato.</div>";
