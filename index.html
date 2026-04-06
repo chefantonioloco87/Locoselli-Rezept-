@@ -1,409 +1,116 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Locoselli Archivio</title>
-  <link rel="icon" href="logo.png">
-  <link rel="apple-touch-icon" href="logo-apple.png">
-  <meta name="theme-color" content="#090909">
-  <style>
-    :root{
-      --bg:#090909;
-      --panel:#101010;
-      --panel2:#141414;
-      --gold:#b7923c;
-      --gold2:#d6b45c;
-      --line:rgba(183,146,60,.45);
-      --text:#f2eee7;
-      --muted:#bcae91;
-      --shadow:0 12px 34px rgba(0,0,0,.38);
-      --radius:22px;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      background:var(--bg);
-      color:var(--text);
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-    }
-    a{text-decoration:none;color:inherit}
-    .wrap{max-width:980px;margin:0 auto;padding:18px 18px 32px}
-    .topbar{
-      position:sticky;top:0;z-index:20;
-      background:rgba(9,9,9,.92);
-      backdrop-filter:blur(10px);
-      border-bottom:1px solid rgba(183,146,60,.18);
-    }
-    .topbar-inner{
-      max-width:980px;margin:0 auto;padding:14px 18px;
-      display:flex;align-items:center;justify-content:space-between;gap:12px;
-    }
-    .brand{display:flex;align-items:center;gap:12px;min-width:0}
-    .brand img{width:34px;height:34px;object-fit:contain}
-    .brand-title{
-      font-family:Georgia, "Times New Roman", serif;
-      font-size:22px;line-height:1;color:var(--gold2);white-space:nowrap
-    }
-    .brand-sub{font-size:12px;color:var(--muted);margin-top:4px}
-    .hero-space{height:12px}
-    .search-box{
-      position:relative;
-      margin-top:10px;
-    }
-    .search{
-      width:100%;
-      border-radius:24px;
-      border:1px solid var(--line);
-      background:#0f1013;
-      color:var(--text);
-      padding:18px 54px 18px 18px;
-      font-size:17px;
-      outline:none;
-      box-shadow:var(--shadow);
-    }
-    .search:focus{
-      border-color:var(--gold2);
-      box-shadow:0 0 0 3px rgba(183,146,60,.12), var(--shadow);
-    }
-    .search-icon{
-      position:absolute;right:18px;top:50%;transform:translateY(-50%);
-      color:var(--gold2);font-size:20px;pointer-events:none;
-    }
-    .meta{
-      margin:14px 2px 0;
-      color:var(--muted);
-      font-size:13px;
-    }
-    .chips{
-      display:flex;gap:12px;overflow:auto;padding:14px 0 6px;scrollbar-width:none;
-    }
-    .chips::-webkit-scrollbar{display:none}
-    .chip{
-      flex:0 0 auto;
-      border:1px solid var(--line);
-      color:var(--text);
-      background:transparent;
-      border-radius:999px;
-      padding:12px 18px;
-      font-size:15px;
-      cursor:pointer;
-    }
-    .chip.active,.chip:hover{
-      background:rgba(183,146,60,.08);
-      color:var(--gold2);
-    }
-    .section-title{
-      margin:18px 2px 12px;
-      color:var(--gold2);
-      font-size:14px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-    }
-    .courses{
-      display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
-      margin-bottom:18px;
-    }
-    .course-card,.card{
-      background:linear-gradient(180deg, #121212, #101010);
-      border:1px solid rgba(183,146,60,.28);
-      border-radius:24px;
-      box-shadow:var(--shadow);
-    }
-    .course-card{padding:16px}
-    .course-card h3{
-      margin:0;
-      font-family:Georgia, "Times New Roman", serif;
-      font-size:20px;
-      line-height:1.15;
-      color:var(--text);
-    }
-    .course-card p{
-      margin:10px 0 0;
-      color:var(--muted);
-      font-size:14px;
-      line-height:1.45;
-      min-height:40px;
-    }
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;
-      margin-top:14px;
-      padding:10px 14px;
-      border-radius:12px;
-      background:rgba(183,146,60,.16);
-      color:var(--gold2);
-      font-weight:700;
-      font-size:14px;
-      border:1px solid rgba(183,146,60,.22);
-    }
-    .list{display:grid;gap:16px}
-    .card{
-      padding:18px;
-      display:grid;
-      grid-template-columns:1fr auto;
-      gap:16px;
-      align-items:start;
-    }
-    .card h3{
-      margin:0;
-      font-family:Georgia, "Times New Roman", serif;
-      font-size:26px;
-      line-height:1.15;
-      font-weight:500;
-      color:var(--text);
-    }
-    .snippet{
-      margin-top:12px;
-      color:var(--muted);
-      font-size:16px;
-      line-height:1.55;
-    }
-    .tag{
-      align-self:start;
-      white-space:nowrap;
-      border-radius:12px;
-      padding:12px 14px;
-      background:rgba(183,146,60,.16);
-      color:var(--gold2);
-      border:1px solid rgba(183,146,60,.2);
-      font-weight:800;
-      font-size:14px;
-    }
-    .file{margin-top:10px;color:#8e846f;font-size:12px;word-break:break-word}
-    .empty{
-      border:1px dashed rgba(183,146,60,.28);
-      border-radius:22px;
-      padding:22px;
-      text-align:center;
-      color:var(--muted);
-    }
-    mark{
-      background:rgba(214,180,92,.95);
-      color:#000;
-      padding:0 .14em;
-      border-radius:4px;
-    }
-    @media (max-width:900px){
-      .courses{grid-template-columns:1fr}
-      .card{grid-template-columns:1fr}
-      .card h3{font-size:22px}
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Locoselli</title>
+<link rel="icon" href="logo.png">
+<link rel="apple-touch-icon" href="logo-apple.png">
+<style>
+body{margin:0;background:#0b0b0d;color:#f5f5f7;font-family:-apple-system}
+.wrap{max-width:1000px;margin:auto;padding:20px}
+.logo{width:90px;display:block;margin:20px auto}
+.search{width:100%;padding:16px;border-radius:20px;border:1px solid #d7aa2b;background:#121214;color:#fff;font-size:16px;margin-bottom:20px}
+.section{margin-top:30px}
+h2{color:#d7aa2b;margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px}
+.chip{padding:10px 16px;border-radius:999px;border:1px solid #d7aa2b;background:transparent;color:#fff;cursor:pointer}
+.chip.active,.chip:hover{background:#d7aa2b;color:#000}
+.list{display:grid;gap:16px}
+.card{background:#151518;border-radius:18px;padding:18px;border:1px solid rgba(215,170,43,.2)}
+.title{font-size:20px;margin-bottom:8px}
+.tag{font-size:12px;color:#d7aa2b;margin-bottom:6px}
+.btn{display:inline-block;margin-top:10px;padding:8px 12px;border-radius:10px;background:#d7aa2b;color:#000;font-weight:bold}
+</style>
 </head>
 <body>
-  <div class="topbar">
-    <div class="topbar-inner">
-      <div class="brand">
-        <img src="logo.png" alt="Locoselli logo">
-        <div>
-          <div class="brand-title">Locoselli</div>
-          <div class="brand-sub">Archivio ricette + corsi</div>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="wrap">
-    <div class="hero-space"></div>
+<div class="wrap">
+<img src="logo.png" class="logo">
 
-    <div class="search-box">
-      <input id="search" class="search" placeholder="Cerca per ingrediente, nome, tecnica...">
-      <div class="search-icon">⌕</div>
-    </div>
+<input id="search" class="search" placeholder="Cerca ingrediente o tecnica...">
 
-    <div class="meta"><span id="totalCount">0</span> ricette totali</div>
+<div class="section">
+<h2>🎓 Corsi</h2>
+<div class="list">
+<div class="card"><div class="title">Corso Damiano</div><a class="btn" href="corso-avanzato-lezione1-pate-a-choux.html">Apri</a></div>
+<div class="card"><div class="title">Corso Molecolare</div><a class="btn" href="corso-molecolare-avanzato-2023.html">Apri</a></div>
+</div>
+</div>
 
-    <div class="chips">
-      <button class="chip active" data-filter="all">Tutto</button>
-      <button class="chip" data-filter="agar">Agar &amp; Gel</button>
-      <button class="chip" data-filter="maltodestrina">Maltodestrina</button>
-      <button class="chip" data-filter="neutral">Neutral Glaze</button>
-      <button class="chip" data-filter="panettone">Panettoni &amp; Pandoro</button>
-      <button class="chip" data-filter="corsi">Corsi Damiano</button>
-      <button class="chip" data-filter="ricettario">Ricettari</button>
-    </div>
+<div class="section">
+<h2>🧪 Molecolare</h2>
+<div class="chips">
+<button class="chip active" onclick="setFilter('all', this)">Tutto</button>
+<button class="chip" onclick="setFilter('agar', this)">Agar</button>
+<button class="chip" onclick="setFilter('maltodestrina', this)">Maltodestrina</button>
+<button class="chip" onclick="setFilter('inulina', this)">Inulina</button>
+<button class="chip" onclick="setFilter('glice', this)">Glice</button>
+<button class="chip" onclick="setFilter('pectina', this)">Pectina</button>
+<button class="chip" onclick="setFilter('sferificazione', this)">Sferificazione</button>
+</div>
+</div>
 
-    <div class="section-title">Corsi Damiano</div>
-    <div class="courses" id="courses"></div>
+<div class="section">
+<h2>🍽️ Basi</h2>
+<div class="chips">
+<button class="chip" onclick="setFilter('bigne', this)">Bignè</button>
+<button class="chip" onclick="setFilter('tiramisu', this)">Tiramisù</button>
+<button class="chip" onclick="setFilter('mousse', this)">Mousse</button>
+<button class="chip" onclick="setFilter('frolla', this)">Frolla</button>
+<button class="chip" onclick="setFilter('panettone', this)">Panettone</button>
+</div>
+</div>
 
-    <div class="section-title">Ricette</div>
-    <div class="list" id="list"></div>
-    <div class="empty" id="empty" style="display:none">Nessun risultato trovato.</div>
-  </div>
+<div id="list" class="list"></div>
+
+</div>
 
 <script>
-let indexed = [];
-let currentFilter = "all";
+let files=[];
+let currentFilter="all";
 
-const courseFiles = [
-  ["corso-avanzato-lezione1-pate-a-choux.html","Corso Damiano","Lezioni avanzate di pasticceria e tecniche moderne."],
-  ["corso-molecolare-avanzato-2023.html","Corso Molecolare","Tecniche, texture e applicazioni di cucina molecolare."],
-  ["corso-pasticceria-ristorazione-molecolare.html","Corso Pasticceria","Pasticceria da ristorazione e pasticceria creativa."]
-];
+async function load(){
+const res=await fetch("https://api.github.com/repos/chefantonioloco87/Locoselli-Rezept-/contents");
+const data=await res.json();
 
-const listEl = document.getElementById("list");
-const emptyEl = document.getElementById("empty");
-const totalCountEl = document.getElementById("totalCount");
-const searchEl = document.getElementById("search");
-const coursesEl = document.getElementById("courses");
-
-function prettyName(name){
-  return name.replace(".html","").replace(/-/g," ");
+files=data.filter(f=>f.name.endsWith(".html") && f.name!=="index.html" && f.name!=="open-course-match.html");
+render();
 }
 
-function stripHtml(html){
-  const doc = new DOMParser().parseFromString(html, "text/html");
-  return (doc.body ? doc.body.innerText : "").replace(/\s+/g," ").trim();
+function pretty(name){
+return name.replace(".html","").replace(/-/g," ");
 }
 
-function escapeRegExp(str){
-  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
-
-function highlight(text,q){
-  if(!q) return text;
-  const safe = escapeRegExp(q);
-  return text.replace(new RegExp("(" + safe + ")","ig"), "<mark>$1</mark>");
-}
-
-function snippet(text,q){
-  if(!q){
-    return text.slice(0,160) + (text.length > 160 ? "…" : "");
-  }
-  const lower = text.toLowerCase();
-  const idx = lower.indexOf(q.toLowerCase());
-  if(idx < 0){
-    return text.slice(0,160) + (text.length > 160 ? "…" : "");
-  }
-  const start = Math.max(0, idx - 70);
-  const end = Math.min(text.length, idx + q.length + 150);
-  const out = (start > 0 ? "…" : "") + text.slice(start,end) + (end < text.length ? "…" : "");
-  return highlight(out,q);
-}
-
-function getTag(item){
-  const n = item.name.toLowerCase();
-  if(n.includes("agar")) return "AGAR & GEL";
-  if(n.includes("maltodestrina")) return "MALTODESTRINA";
-  if(n.includes("neutral")) return "NEUTRAL GLAZE";
-  if(n.includes("panettone") || n.includes("pandoro")) return "PANETTONI";
-  if(n.includes("corso") || n.includes("lezione")) return "CORSI";
-  if(n.includes("ricettario")) return "RICETTARIO";
-  return "ALTRE RICETTE";
-}
-
-function filterItems(){
-  const q = searchEl.value.toLowerCase().trim();
-  return indexed.filter(item => {
-    const inSearch = !q || item.title.toLowerCase().includes(q) || item.text.toLowerCase().includes(q);
-    let filterOk = true;
-
-    if(currentFilter === "agar"){
-      filterOk = item.name.toLowerCase().includes("agar") || item.text.toLowerCase().includes("agar");
-    }else if(currentFilter === "maltodestrina"){
-      filterOk = item.name.toLowerCase().includes("maltodestrina") || item.text.toLowerCase().includes("maltodestrina");
-    }else if(currentFilter === "neutral"){
-      filterOk = item.name.toLowerCase().includes("neutral") || item.text.toLowerCase().includes("neutral glaze");
-    }else if(currentFilter === "panettone"){
-      filterOk = /(panettone|pandoro)/i.test(item.name) || /(panettone|pandoro)/i.test(item.text);
-    }else if(currentFilter === "corsi"){
-      filterOk = /(corso|lezione)/i.test(item.name);
-    }else if(currentFilter === "ricettario"){
-      filterOk = /ricettario/i.test(item.name);
-    }
-
-    return inSearch && filterOk;
-  });
-}
-
-function renderCourses(){
-  coursesEl.innerHTML = courseFiles.map(([file,title,desc]) => `
-    <div class="course-card">
-      <h3>${title}</h3>
-      <p>${desc}</p>
-      <a class="btn" href="${file}">Apri</a>
-    </div>
-  `).join("");
+function setFilter(f,el){
+currentFilter=f;
+document.querySelectorAll(".chip").forEach(c=>c.classList.remove("active"));
+el.classList.add("active");
+render();
 }
 
 function render(){
-  const q = searchEl.value.trim();
-  const filtered = filterItems();
+const q=document.getElementById("search").value.toLowerCase();
+const box=document.getElementById("list");
 
-  listEl.innerHTML = filtered.map(item => {
-    const isCourse = /(corso|lezione)/i.test(item.name);
-    let link = item.name;
-    if(isCourse && q){
-      link = "open-course-match.html?file=" + encodeURIComponent(item.name) + "&q=" + encodeURIComponent(q) + "&title=" + encodeURIComponent(item.title);
-    }
-    return `
-      <div class="card">
-        <div>
-          <h3>${highlight(item.title, q)}</h3>
-          <div class="snippet">${snippet(item.text || item.title, q)}</div>
-          <div class="file">${item.name}</div>
-        </div>
-        <div>
-          <div class="tag">${getTag(item)}</div>
-          <a class="btn" href="${link}" style="margin-top:12px">Apri</a>
-        </div>
-      </div>
-    `;
-  }).join("");
-
-  emptyEl.style.display = filtered.length ? "none" : "block";
+box.innerHTML=files.filter(f=>{
+const name=f.name.toLowerCase();
+const searchOk=!q || name.includes(q);
+const filterOk=currentFilter==="all" || name.includes(currentFilter);
+return searchOk && filterOk;
+}).map(f=>`
+<div class="card">
+<div class="title">${pretty(f.name)}</div>
+<div class="tag">${f.name}</div>
+<a class="btn" href="${f.name}">Apri</a>
+</div>
+`).join("");
 }
 
-async function load(){
-  try{
-    const res = await fetch("https://api.github.com/repos/chefantonioloco87/Locoselli-Rezept-/contents");
-    const data = await res.json();
+document.getElementById("search").addEventListener("input",render);
 
-    const files = data.filter(f =>
-      f.name.endsWith(".html") &&
-      f.name !== "index.html" &&
-      f.name !== "open-course-match.html"
-    );
-
-    totalCountEl.textContent = files.length;
-
-    indexed = await Promise.all(files.map(async f => {
-      try{
-        const page = await fetch(f.name);
-        const html = await page.text();
-        return {
-          name: f.name,
-          title: prettyName(f.name),
-          text: stripHtml(html)
-        };
-      }catch(e){
-        return {
-          name: f.name,
-          title: prettyName(f.name),
-          text: ""
-        };
-      }
-    }));
-
-    renderCourses();
-    render();
-  }catch(e){
-    listEl.innerHTML = "<div class='empty' style='display:block'>Errore nel caricamento del repo.</div>";
-    console.error(e);
-  }
-}
-
-document.querySelectorAll(".chip").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".chip").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    currentFilter = btn.dataset.filter;
-    render();
-  });
-});
-
-searchEl.addEventListener("input", render);
 load();
 </script>
+
 </body>
 </html>
