@@ -3,114 +3,317 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Locoselli</title>
+<title>Locoselli Archivio</title>
 <link rel="icon" href="logo.png">
 <link rel="apple-touch-icon" href="logo-apple.png">
+<meta name="theme-color" content="#090909">
 <style>
-body{margin:0;background:#0b0b0d;color:#f5f5f7;font-family:-apple-system}
-.wrap{max-width:1000px;margin:auto;padding:20px}
-.logo{width:90px;display:block;margin:20px auto}
-.search{width:100%;padding:16px;border-radius:20px;border:1px solid #d7aa2b;background:#121214;color:#fff;font-size:16px;margin-bottom:20px}
-.section{margin-top:30px}
-h2{color:#d7aa2b;margin-bottom:12px}
-.chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px}
-.chip{padding:10px 16px;border-radius:999px;border:1px solid #d7aa2b;background:transparent;color:#fff;cursor:pointer}
-.chip.active,.chip:hover{background:#d7aa2b;color:#000}
+:root{
+  --bg:#090909; --panel:#101010; --panel2:#141414;
+  --gold:#b7923c; --gold2:#d6b45c; --line:rgba(183,146,60,.35);
+  --text:#f2eee7; --muted:#bcae91; --shadow:0 12px 34px rgba(0,0,0,.38);
+  --radius:22px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+a{text-decoration:none;color:inherit}
+.hidden{display:none!important}
+.wrap{max-width:980px;margin:0 auto;padding:18px 18px 32px}
+.topbar{
+  position:sticky;top:0;z-index:20;background:rgba(9,9,9,.92);
+  backdrop-filter:blur(10px);border-bottom:1px solid rgba(183,146,60,.18)
+}
+.topbar-inner{
+  max-width:980px;margin:0 auto;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px
+}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand img{width:34px;height:34px;object-fit:contain}
+.brand-title{font-family:Georgia, "Times New Roman", serif;font-size:22px;line-height:1;color:var(--gold2);white-space:nowrap}
+.brand-sub{font-size:12px;color:var(--muted);margin-top:4px}
+.codegate{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;
+}
+.codecard{
+  width:min(520px,100%);padding:30px;border-radius:28px;background:linear-gradient(180deg,#121212,#101010);
+  border:1px solid var(--line);box-shadow:var(--shadow);text-align:center
+}
+.codecard img{width:80px;height:80px;object-fit:contain;display:block;margin:0 auto 14px}
+.codecard h1{margin:0;font-family:Georgia, "Times New Roman", serif;font-size:36px;color:var(--gold2)}
+.codecard p{margin:12px 0 0;color:var(--muted);line-height:1.55}
+.input{
+  width:100%;margin-top:18px;padding:16px 18px;border-radius:18px;border:1px solid var(--line);
+  background:#0f1013;color:#fff;font-size:16px;outline:none
+}
+.input:focus{border-color:var(--gold2);box-shadow:0 0 0 3px rgba(183,146,60,.12)}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;margin-top:14px;padding:11px 16px;border-radius:14px;
+  background:rgba(183,146,60,.16);color:var(--gold2);font-weight:800;border:1px solid rgba(183,146,60,.24);cursor:pointer
+}
+.btn.secondary{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.12)}
+.search-box{position:relative;margin-top:12px}
+.search{
+  width:100%;border-radius:24px;border:1px solid var(--line);background:#0f1013;color:var(--text);
+  padding:18px 54px 18px 18px;font-size:17px;outline:none;box-shadow:var(--shadow)
+}
+.search:focus{border-color:var(--gold2);box-shadow:0 0 0 3px rgba(183,146,60,.12), var(--shadow)}
+.search-icon{position:absolute;right:18px;top:50%;transform:translateY(-50%);color:var(--gold2);font-size:20px;pointer-events:none}
+.meta{margin:14px 2px 0;color:var(--muted);font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 6px}
+.chip{
+  border:1px solid var(--line);color:var(--text);background:transparent;border-radius:999px;
+  padding:11px 16px;font-size:14px;cursor:pointer
+}
+.chip.active,.chip:hover{background:rgba(183,146,60,.08);color:var(--gold2)}
+.section-title{margin:18px 2px 12px;color:var(--gold2);font-size:14px;letter-spacing:.08em;text-transform:uppercase}
+.courses{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px}
+.course-card,.card{
+  background:linear-gradient(180deg,#121212,#101010);border:1px solid rgba(183,146,60,.28);border-radius:24px;box-shadow:var(--shadow)
+}
+.course-card{padding:16px}
+.course-card h3,.card h3{
+  margin:0;font-family:Georgia, "Times New Roman", serif;font-size:20px;line-height:1.15;color:var(--text)
+}
+.course-card p,.card p{margin:10px 0 0;color:var(--muted);font-size:14px;line-height:1.45}
 .list{display:grid;gap:16px}
-.card{background:#151518;border-radius:18px;padding:18px;border:1px solid rgba(215,170,43,.2)}
-.title{font-size:20px;margin-bottom:8px}
-.tag{font-size:12px;color:#d7aa2b;margin-bottom:6px}
-.btn{display:inline-block;margin-top:10px;padding:8px 12px;border-radius:10px;background:#d7aa2b;color:#000;font-weight:bold}
+.card{padding:18px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start}
+.snippet{margin-top:12px;color:var(--muted);font-size:16px;line-height:1.55}
+.tag{align-self:start;white-space:nowrap;border-radius:12px;padding:12px 14px;background:rgba(183,146,60,.16);color:var(--gold2);border:1px solid rgba(183,146,60,.2);font-weight:800;font-size:14px}
+.file{margin-top:10px;color:#8e846f;font-size:12px;word-break:break-word}
+.empty{border:1px dashed rgba(183,146,60,.28);border-radius:22px;padding:22px;text-align:center;color:var(--muted)}
+mark{background:rgba(214,180,92,.95);color:#000;padding:0 .14em;border-radius:4px}
+@media (max-width:900px){.courses{grid-template-columns:1fr}.card{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-
-<div class="wrap">
-<img src="logo.png" class="logo">
-
-<input id="search" class="search" placeholder="Cerca ingrediente o tecnica...">
-
-<div class="section">
-<h2>🎓 Corsi</h2>
-<div class="list">
-<div class="card"><div class="title">Corso Damiano</div><a class="btn" href="corso-avanzato-lezione1-pate-a-choux.html">Apri</a></div>
-<div class="card"><div class="title">Corso Molecolare</div><a class="btn" href="corso-molecolare-avanzato-2023.html">Apri</a></div>
-</div>
+<div id="gate" class="codegate">
+  <div class="codecard">
+    <img src="logo.png" alt="Locoselli">
+    <h1>Locoselli</h1>
+    <p>Archivio ricette e corsi. Inserisci il codice per entrare.</p>
+    <input id="codeInput" class="input" type="password" placeholder="Codice accesso">
+    <button id="enterBtn" class="btn">Entra</button>
+    <p id="errorMsg" style="color:#ff8c8c"></p>
+  </div>
 </div>
 
-<div class="section">
-<h2>🧪 Molecolare</h2>
-<div class="chips">
-<button class="chip active" onclick="setFilter('all', this)">Tutto</button>
-<button class="chip" onclick="setFilter('agar', this)">Agar</button>
-<button class="chip" onclick="setFilter('maltodestrina', this)">Maltodestrina</button>
-<button class="chip" onclick="setFilter('inulina', this)">Inulina</button>
-<button class="chip" onclick="setFilter('glice', this)">Glice</button>
-<button class="chip" onclick="setFilter('pectina', this)">Pectina</button>
-<button class="chip" onclick="setFilter('sferificazione', this)">Sferificazione</button>
-</div>
-</div>
+<div id="app" class="hidden">
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <img src="logo.png" alt="Locoselli logo">
+        <div>
+          <div class="brand-title">Locoselli</div>
+          <div class="brand-sub">Archivio ricette + corsi</div>
+        </div>
+      </div>
+      <button id="logoutBtn" class="btn secondary">Esci</button>
+    </div>
+  </div>
 
-<div class="section">
-<h2>🍽️ Basi</h2>
-<div class="chips">
-<button class="chip" onclick="setFilter('bigne', this)">Bignè</button>
-<button class="chip" onclick="setFilter('tiramisu', this)">Tiramisù</button>
-<button class="chip" onclick="setFilter('mousse', this)">Mousse</button>
-<button class="chip" onclick="setFilter('frolla', this)">Frolla</button>
-<button class="chip" onclick="setFilter('panettone', this)">Panettone</button>
-</div>
-</div>
+  <div class="wrap">
+    <div class="search-box">
+      <input id="search" class="search" placeholder="Cerca per ingrediente, nome, tecnica...">
+      <div class="search-icon">⌕</div>
+    </div>
 
-<div id="list" class="list"></div>
+    <div class="meta"><span id="totalCount">0</span> ricette totali • 9 corsi Damiano</div>
 
+    <div class="section-title">Molecolare</div>
+    <div class="chips" id="molecolareChips">
+      <button class="chip active" data-filter="all">Tutto</button>
+      <button class="chip" data-filter="agar">Agar</button>
+      <button class="chip" data-filter="maltodestrina">Maltodestrina</button>
+      <button class="chip" data-filter="inulina">Inulina</button>
+      <button class="chip" data-filter="glice">Glice</button>
+      <button class="chip" data-filter="pectina">Pectina</button>
+      <button class="chip" data-filter="sferificazione">Sferificazione</button>
+      <button class="chip" data-filter="corsi">Corsi</button>
+    </div>
+
+    <div class="section-title">Basi</div>
+    <div class="chips" id="basiChips">
+      <button class="chip" data-filter="bigne">Bignè</button>
+      <button class="chip" data-filter="tiramisu">Tiramisù</button>
+      <button class="chip" data-filter="mousse">Mousse</button>
+      <button class="chip" data-filter="frolla">Frolla</button>
+      <button class="chip" data-filter="panettone">Panettone</button>
+      <button class="chip" data-filter="pandoro">Pandoro</button>
+      <button class="chip" data-filter="biscuit">Biscuit</button>
+      <button class="chip" data-filter="pan-di-spagna">Pan di Spagna</button>
+    </div>
+
+    <div class="section-title">Corsi Damiano</div>
+    <div class="courses" id="courses"></div>
+
+    <div class="section-title">Ricette</div>
+    <div class="list" id="list"></div>
+    <div class="empty hidden" id="empty">Nessun risultato trovato.</div>
+  </div>
 </div>
 
 <script>
-let files=[];
-let currentFilter="all";
+const ACCESS_CODE = "Loco0106R";
+let indexed = [];
+let currentFilter = "all";
 
-async function load(){
-const res=await fetch("https://api.github.com/repos/chefantonioloco87/Locoselli-Rezept-/contents");
-const data=await res.json();
+const damianoCourses = [
+  ["corso-avanzato-lezione1-pate-a-choux.html","Lezione 1","Pâte à choux e basi collegate"],
+  ["corso-avanzato-lezione2-biscuit-moderni.html","Lezione 2","Biscuit moderni"],
+  ["corso-avanzato-lezione3-mousse-bavaresi.html","Lezione 3","Mousse e bavaresi"],
+  ["corso-avanzato-lezione4-glasse-specchio.html","Lezione 4","Glasse specchio"],
+  ["corso-avanzato-lezione5-cioccolato-avanzato.html","Lezione 5","Cioccolato avanzato"],
+  ["corso-avanzato-lezione6-zucchero-isomalto.html","Lezione 6","Zucchero e isomalto"],
+  ["corso-avanzato-lezione7-dessert-al-piatto.html","Lezione 7","Dessert al piatto"],
+  ["corso-avanzato-lezione8-signature-dessert.html","Lezione 8","Signature dessert"],
+  ["corso-damiano-ricettario-25.html","Ricettario Damiano","Raccolta Damiano 25"]
+];
 
-files=data.filter(f=>f.name.endsWith(".html") && f.name!=="index.html" && f.name!=="open-course-match.html");
-render();
+const listEl = document.getElementById("list");
+const emptyEl = document.getElementById("empty");
+const totalCountEl = document.getElementById("totalCount");
+const searchEl = document.getElementById("search");
+const coursesEl = document.getElementById("courses");
+const gateEl = document.getElementById("gate");
+const appEl = document.getElementById("app");
+const codeInput = document.getElementById("codeInput");
+const errorMsg = document.getElementById("errorMsg");
+
+function prettyName(name){ return name.replace(".html","").replace(/-/g," "); }
+function stripHtml(html){
+  const doc = new DOMParser().parseFromString(html, "text/html");
+  return (doc.body ? doc.body.innerText : "").replace(/\s+/g," ").trim();
 }
-
-function pretty(name){
-return name.replace(".html","").replace(/-/g," ");
+function escapeRegExp(str){ return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+function highlight(text,q){
+  if(!q) return text;
+  const safe = escapeRegExp(q);
+  return text.replace(new RegExp("(" + safe + ")","ig"), "<mark>$1</mark>");
 }
-
-function setFilter(f,el){
-currentFilter=f;
-document.querySelectorAll(".chip").forEach(c=>c.classList.remove("active"));
-el.classList.add("active");
-render();
+function snippet(text,q){
+  if(!text) return "";
+  if(!q){
+    return text.slice(0,160) + (text.length > 160 ? "…" : "");
+  }
+  const lower = text.toLowerCase();
+  const idx = lower.indexOf(q.toLowerCase());
+  if(idx < 0){ return text.slice(0,160) + (text.length > 160 ? "…" : ""); }
+  const start = Math.max(0, idx - 70);
+  const end = Math.min(text.length, idx + q.length + 150);
+  const out = (start > 0 ? "…" : "") + text.slice(start,end) + (end < text.length ? "…" : "");
+  return highlight(out,q);
 }
-
+function getTag(item){
+  const n = item.name.toLowerCase();
+  if(n.includes("agar")) return "AGAR";
+  if(n.includes("maltodestrina")) return "MALTODESTRINA";
+  if(n.includes("neutral")) return "NEUTRAL";
+  if(n.includes("panettone")) return "PANETTONE";
+  if(n.includes("pandoro")) return "PANDORO";
+  if(n.includes("corso") || n.includes("lezione")) return "CORSI";
+  if(n.includes("ricettario")) return "RICETTARIO";
+  return "RICETTA";
+}
+function filterItems(){
+  const q = searchEl.value.toLowerCase().trim();
+  return indexed.filter(item => {
+    const inSearch = !q || item.title.toLowerCase().includes(q) || item.text.toLowerCase().includes(q);
+    let filterOk = true;
+    if(currentFilter !== "all"){
+      filterOk = item.name.toLowerCase().includes(currentFilter) || item.text.toLowerCase().includes(currentFilter);
+      if(currentFilter === "corsi"){ filterOk = /(corso|lezione)/i.test(item.name); }
+    }
+    return inSearch && filterOk;
+  });
+}
+function renderCourses(){
+  coursesEl.innerHTML = damianoCourses.map(([file,title,desc]) => `
+    <div class="course-card">
+      <h3>${title}</h3>
+      <p>${desc}</p>
+      <a class="btn" href="${file}">Apri</a>
+    </div>
+  `).join("");
+}
 function render(){
-const q=document.getElementById("search").value.toLowerCase();
-const box=document.getElementById("list");
+  const q = searchEl.value.trim();
+  const filtered = filterItems();
 
-box.innerHTML=files.filter(f=>{
-const name=f.name.toLowerCase();
-const searchOk=!q || name.includes(q);
-const filterOk=currentFilter==="all" || name.includes(currentFilter);
-return searchOk && filterOk;
-}).map(f=>`
-<div class="card">
-<div class="title">${pretty(f.name)}</div>
-<div class="tag">${f.name}</div>
-<a class="btn" href="${f.name}">Apri</a>
-</div>
-`).join("");
+  listEl.innerHTML = filtered.map(item => {
+    const isCourse = /(corso|lezione)/i.test(item.name);
+    let link = item.name;
+    if(isCourse && q){
+      link = "open-course-match.html?file=" + encodeURIComponent(item.name) + "&q=" + encodeURIComponent(q) + "&title=" + encodeURIComponent(item.title);
+    }
+    return `
+      <div class="card">
+        <div>
+          <h3>${highlight(item.title, q)}</h3>
+          <div class="snippet">${snippet(item.text || item.title, q)}</div>
+          <div class="file">${item.name}</div>
+        </div>
+        <div>
+          <div class="tag">${getTag(item)}</div>
+          <a class="btn" href="${link}" style="margin-top:12px">Apri</a>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  emptyEl.classList.toggle("hidden", !!filtered.length);
 }
-
-document.getElementById("search").addEventListener("input",render);
-
-load();
+async function load(){
+  try{
+    const res = await fetch("https://api.github.com/repos/chefantonioloco87/Locoselli-Rezept-/contents");
+    const data = await res.json();
+    const files = data.filter(f => f.name.endsWith(".html") && f.name !== "index.html" && f.name !== "open-course-match.html");
+    totalCountEl.textContent = files.length;
+    indexed = await Promise.all(files.map(async f => {
+      try{
+        const page = await fetch(f.name);
+        const html = await page.text();
+        return { name:f.name, title:prettyName(f.name), text:stripHtml(html) };
+      }catch(e){
+        return { name:f.name, title:prettyName(f.name), text:"" };
+      }
+    }));
+    renderCourses();
+    render();
+  }catch(e){
+    listEl.innerHTML = "<div class='empty'>Errore nel caricamento del repo.</div>";
+  }
+}
+function activateChip(el){
+  document.querySelectorAll(".chip").forEach(b => b.classList.remove("active"));
+  el.classList.add("active");
+}
+document.querySelectorAll(".chip").forEach(btn => {
+  btn.addEventListener("click", () => {
+    currentFilter = btn.dataset.filter;
+    activateChip(btn);
+    render();
+  });
+});
+searchEl.addEventListener("input", render);
+document.getElementById("enterBtn").addEventListener("click", () => {
+  if((codeInput.value || "") === ACCESS_CODE){
+    localStorage.setItem("locoselli_access","ok");
+    gateEl.classList.add("hidden");
+    appEl.classList.remove("hidden");
+    load();
+  }else{
+    errorMsg.textContent = "Codice errato. Riprova.";
+  }
+});
+codeInput.addEventListener("keydown", e => { if(e.key === "Enter") document.getElementById("enterBtn").click(); });
+document.getElementById("logoutBtn").addEventListener("click", () => {
+  localStorage.removeItem("locoselli_access");
+  location.reload();
+});
+if(localStorage.getItem("locoselli_access") === "ok"){
+  gateEl.classList.add("hidden");
+  appEl.classList.remove("hidden");
+  load();
+}
 </script>
-
 </body>
 </html>
