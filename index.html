@@ -13,32 +13,24 @@
   --gold:#b7923c; --gold2:#d6b45c; --line:rgba(183,146,60,.35);
   --text:#f2eee7; --muted:#bcae91; --shadow:0 12px 34px rgba(0,0,0,.38);
   --radius:22px;
+  --sidebar-w:260px;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
 a{text-decoration:none;color:inherit}
+button{font-family:inherit}
 .hidden{display:none!important}
-.wrap{max-width:980px;margin:0 auto;padding:18px 18px 32px}
-.topbar{
-  position:sticky;top:0;z-index:20;background:rgba(9,9,9,.92);
-  backdrop-filter:blur(10px);border-bottom:1px solid rgba(183,146,60,.18)
-}
-.topbar-inner{
-  max-width:980px;margin:0 auto;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px
-}
-.brand{display:flex;align-items:center;gap:12px;min-width:0}
-.brand img{width:34px;height:34px;object-fit:contain}
-.brand-title{font-family:Georgia, "Times New Roman", serif;font-size:22px;line-height:1;color:var(--gold2);white-space:nowrap}
-.brand-sub{font-size:12px;color:var(--muted);margin-top:4px}
-.codegate{
-  min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;
-}
+
+/* ---------- GATE (login) ---------- */
+.codegate{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
 .codecard{
-  width:min(520px,100%);padding:30px;border-radius:28px;background:linear-gradient(180deg,#121212,#101010);
+  width:min(520px,100%);padding:30px;border-radius:28px;
+  background:linear-gradient(180deg,#121212,#101010);
   border:1px solid var(--line);box-shadow:var(--shadow);text-align:center
 }
-.codecard img{width:80px;height:80px;object-fit:contain;display:block;margin:0 auto 14px}
-.codecard h1{margin:0;font-family:Georgia, "Times New Roman", serif;font-size:36px;color:var(--gold2)}
+.codecard .logo-fallback,
+.codecard img{width:90px;height:90px;object-fit:contain;display:block;margin:0 auto 14px}
+.codecard h1{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:36px;color:var(--gold2)}
 .codecard p{margin:12px 0 0;color:var(--muted);line-height:1.55}
 .input{
   width:100%;margin-top:18px;padding:16px 18px;border-radius:18px;border:1px solid var(--line);
@@ -50,111 +42,210 @@ a{text-decoration:none;color:inherit}
   background:rgba(183,146,60,.16);color:var(--gold2);font-weight:800;border:1px solid rgba(183,146,60,.24);cursor:pointer
 }
 .btn.secondary{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.12)}
-.search-box{position:relative;margin-top:12px}
+.btn.full{width:100%}
+
+/* ---------- LAYOUT con SIDEBAR ---------- */
+.app-shell{display:flex;min-height:100vh}
+
+.sidebar{
+  width:var(--sidebar-w);flex-shrink:0;
+  background:linear-gradient(180deg,#0d0d0d,#0a0a0a);
+  border-right:1px solid rgba(183,146,60,.18);
+  padding:22px 16px;position:sticky;top:0;height:100vh;overflow-y:auto
+}
+.sidebar .brand{display:flex;align-items:center;gap:12px;padding:0 6px 16px;border-bottom:1px solid rgba(183,146,60,.15);margin-bottom:14px}
+.sidebar .brand img,
+.sidebar .brand .logo-fallback{width:42px;height:42px;object-fit:contain;flex-shrink:0}
+.sidebar .brand .brand-title{font-family:Georgia,"Times New Roman",serif;font-size:20px;color:var(--gold2);line-height:1}
+.sidebar .brand .brand-sub{font-size:11px;color:var(--muted);margin-top:4px}
+
+.nav-group{margin-top:14px}
+.nav-label{
+  font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold2);
+  padding:6px 10px;margin-bottom:4px;opacity:.85
+}
+.nav-item{
+  display:block;width:100%;text-align:left;padding:11px 12px;border-radius:12px;
+  background:transparent;border:1px solid transparent;color:var(--text);
+  font-size:14px;cursor:pointer;margin-bottom:3px
+}
+.nav-item:hover{background:rgba(183,146,60,.08)}
+.nav-item.active{
+  background:rgba(183,146,60,.16);border-color:rgba(183,146,60,.28);color:var(--gold2);font-weight:700
+}
+
+.sidebar .logout-wrap{margin-top:18px;padding-top:14px;border-top:1px solid rgba(183,146,60,.15)}
+
+/* ---------- MAIN ---------- */
+.main{flex:1;min-width:0;padding:22px 26px 40px;max-width:1100px}
+
+.main-top{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.menu-toggle{
+  display:none;background:rgba(183,146,60,.14);border:1px solid var(--line);color:var(--gold2);
+  width:42px;height:42px;border-radius:12px;font-size:20px;cursor:pointer;flex-shrink:0
+}
+.section-heading{
+  font-family:Georgia,"Times New Roman",serif;font-size:26px;color:var(--gold2);margin:0;flex:1;min-width:0
+}
+
+.search-box{position:relative;margin-bottom:8px}
 .search{
-  width:100%;border-radius:24px;border:1px solid var(--line);background:#0f1013;color:var(--text);
-  padding:18px 54px 18px 18px;font-size:17px;outline:none;box-shadow:var(--shadow)
+  width:100%;border-radius:20px;border:1px solid var(--line);background:#0f1013;color:var(--text);
+  padding:15px 50px 15px 18px;font-size:16px;outline:none;box-shadow:var(--shadow)
 }
-.search:focus{border-color:var(--gold2);box-shadow:0 0 0 3px rgba(183,146,60,.12), var(--shadow)}
-.search-icon{position:absolute;right:18px;top:50%;transform:translateY(-50%);color:var(--gold2);font-size:20px;pointer-events:none}
-.meta{margin:14px 2px 0;color:var(--muted);font-size:13px}
-.chips{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 6px}
-.chip{
-  border:1px solid var(--line);color:var(--text);background:transparent;border-radius:999px;
-  padding:11px 16px;font-size:14px;cursor:pointer
-}
-.chip.active,.chip:hover{background:rgba(183,146,60,.08);color:var(--gold2)}
-.section-title{margin:18px 2px 12px;color:var(--gold2);font-size:14px;letter-spacing:.08em;text-transform:uppercase}
-.courses{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px}
+.search:focus{border-color:var(--gold2);box-shadow:0 0 0 3px rgba(183,146,60,.12),var(--shadow)}
+.search-icon{position:absolute;right:16px;top:50%;transform:translateY(-50%);color:var(--gold2);font-size:20px;pointer-events:none}
+.meta{margin:14px 2px 18px;color:var(--muted);font-size:13px}
+
+/* ---------- CARDS ---------- */
+.courses{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
 .course-card,.card{
-  background:linear-gradient(180deg,#121212,#101010);border:1px solid rgba(183,146,60,.28);border-radius:24px;box-shadow:var(--shadow)
+  background:linear-gradient(180deg,#121212,#101010);
+  border:1px solid rgba(183,146,60,.28);border-radius:20px;box-shadow:var(--shadow);padding:18px
 }
-.course-card{padding:16px}
 .course-card h3,.card h3{
-  margin:0;font-family:Georgia, "Times New Roman", serif;font-size:20px;line-height:1.15;color:var(--text)
+  margin:0;font-family:Georgia,"Times New Roman",serif;font-size:19px;line-height:1.2;color:var(--text)
 }
 .course-card p,.card p{margin:10px 0 0;color:var(--muted);font-size:14px;line-height:1.45}
-.list{display:grid;gap:16px}
-.card{padding:18px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start}
-.snippet{margin-top:12px;color:var(--muted);font-size:16px;line-height:1.55}
-.tag{align-self:start;white-space:nowrap;border-radius:12px;padding:12px 14px;background:rgba(183,146,60,.16);color:var(--gold2);border:1px solid rgba(183,146,60,.2);font-weight:800;font-size:14px}
-.file{margin-top:10px;color:#8e846f;font-size:12px;word-break:break-word}
-.empty{border:1px dashed rgba(183,146,60,.28);border-radius:22px;padding:22px;text-align:center;color:var(--muted)}
+.list{display:grid;gap:14px}
+.card{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start}
+.snippet{margin-top:10px;color:var(--muted);font-size:15px;line-height:1.55}
+.tag{
+  align-self:start;white-space:nowrap;border-radius:12px;padding:10px 12px;
+  background:rgba(183,146,60,.16);color:var(--gold2);border:1px solid rgba(183,146,60,.2);font-weight:800;font-size:12px
+}
+.file{margin-top:10px;color:#8e846f;font-size:11px;word-break:break-word}
+.empty{border:1px dashed rgba(183,146,60,.28);border-radius:20px;padding:26px;text-align:center;color:var(--muted)}
+.loading{text-align:center;padding:30px;color:var(--muted)}
 mark{background:rgba(214,180,92,.95);color:#000;padding:0 .14em;border-radius:4px}
-@media (max-width:900px){.courses{grid-template-columns:1fr}.card{grid-template-columns:1fr}}
+
+/* logo fallback (lettera L) se l'immagine non carica */
+.logo-fallback{
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#b7923c,#d6b45c);
+  color:#0a0a0a;font-family:Georgia,"Times New Roman",serif;font-weight:800;
+  border-radius:50%
+}
+.codecard .logo-fallback{font-size:44px}
+.sidebar .logo-fallback{font-size:22px}
+
+/* ---------- MOBILE ---------- */
+.backdrop{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:30
+}
+@media (max-width:860px){
+  .menu-toggle{display:inline-flex;align-items:center;justify-content:center}
+  .sidebar{
+    position:fixed;top:0;left:0;height:100vh;z-index:40;
+    transform:translateX(-100%);transition:transform .25s ease;
+    box-shadow:8px 0 30px rgba(0,0,0,.5)
+  }
+  .sidebar.open{transform:translateX(0)}
+  .backdrop.open{display:block}
+  .main{padding:18px 16px 40px}
+  .courses{grid-template-columns:1fr}
+  .card{grid-template-columns:1fr}
+  .section-heading{font-size:22px}
+}
 </style>
 </head>
 <body>
+
+<!-- ======= GATE ======= -->
 <div id="gate" class="codegate">
   <div class="codecard">
-    <img src="logo.png" alt="Locoselli">
+    <img src="logo.png" alt="Locoselli" onerror="this.outerHTML='<div class=&quot;logo-fallback&quot;>L</div>'">
     <h1>Locoselli</h1>
-    <p>Archivio ricette e corsi. Inserisci il codice per entrare.</p>
+    <p>Archivio ricette e corsi.<br>Inserisci il codice per entrare.</p>
     <input id="codeInput" class="input" type="password" placeholder="Codice accesso">
-    <button id="enterBtn" class="btn">Entra</button>
+    <button id="enterBtn" class="btn full">Entra</button>
     <p id="errorMsg" style="color:#ff8c8c"></p>
   </div>
 </div>
 
+<!-- ======= APP ======= -->
 <div id="app" class="hidden">
-  <div class="topbar">
-    <div class="topbar-inner">
+  <div class="app-shell">
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="sidebar">
       <div class="brand">
-        <img src="logo.png" alt="Locoselli logo">
+        <img src="logo.png" alt="Locoselli logo" onerror="this.outerHTML='<div class=&quot;logo-fallback&quot;>L</div>'">
         <div>
           <div class="brand-title">Locoselli</div>
           <div class="brand-sub">Archivio ricette + corsi</div>
         </div>
       </div>
-      <button id="logoutBtn" class="btn secondary">Esci</button>
-    </div>
-  </div>
 
-  <div class="wrap">
-    <div class="search-box">
-      <input id="search" class="search" placeholder="Cerca per ingrediente, nome, tecnica...">
-      <div class="search-icon">⌕</div>
-    </div>
+      <div class="nav-group">
+        <div class="nav-label">Generale</div>
+        <button class="nav-item active" data-section="all">Tutte le ricette</button>
+        <button class="nav-item" data-section="courses">Corsi Damiano</button>
+      </div>
 
-    <div class="meta"><span id="totalCount">0</span> ricette totali • 9 corsi Damiano</div>
+      <div class="nav-group">
+        <div class="nav-label">Molecolare</div>
+        <button class="nav-item" data-section="filter" data-filter="agar">Agar</button>
+        <button class="nav-item" data-section="filter" data-filter="maltodestrina">Maltodestrina</button>
+        <button class="nav-item" data-section="filter" data-filter="inulina">Inulina</button>
+        <button class="nav-item" data-section="filter" data-filter="glice">Glice</button>
+        <button class="nav-item" data-section="filter" data-filter="pectina">Pectina</button>
+        <button class="nav-item" data-section="filter" data-filter="sferificazione">Sferificazione</button>
+      </div>
 
-    <div class="section-title">Molecolare</div>
-    <div class="chips" id="molecolareChips">
-      <button class="chip active" data-filter="all">Tutto</button>
-      <button class="chip" data-filter="agar">Agar</button>
-      <button class="chip" data-filter="maltodestrina">Maltodestrina</button>
-      <button class="chip" data-filter="inulina">Inulina</button>
-      <button class="chip" data-filter="glice">Glice</button>
-      <button class="chip" data-filter="pectina">Pectina</button>
-      <button class="chip" data-filter="sferificazione">Sferificazione</button>
-      <button class="chip" data-filter="corsi">Corsi</button>
-    </div>
+      <div class="nav-group">
+        <div class="nav-label">Basi</div>
+        <button class="nav-item" data-section="filter" data-filter="bigne">Bignè</button>
+        <button class="nav-item" data-section="filter" data-filter="tiramisu">Tiramisù</button>
+        <button class="nav-item" data-section="filter" data-filter="mousse">Mousse</button>
+        <button class="nav-item" data-section="filter" data-filter="frolla">Frolla</button>
+        <button class="nav-item" data-section="filter" data-filter="panettone">Panettone</button>
+        <button class="nav-item" data-section="filter" data-filter="pandoro">Pandoro</button>
+        <button class="nav-item" data-section="filter" data-filter="biscuit">Biscuit</button>
+        <button class="nav-item" data-section="filter" data-filter="pan-di-spagna">Pan di Spagna</button>
+      </div>
 
-    <div class="section-title">Basi</div>
-    <div class="chips" id="basiChips">
-      <button class="chip" data-filter="bigne">Bignè</button>
-      <button class="chip" data-filter="tiramisu">Tiramisù</button>
-      <button class="chip" data-filter="mousse">Mousse</button>
-      <button class="chip" data-filter="frolla">Frolla</button>
-      <button class="chip" data-filter="panettone">Panettone</button>
-      <button class="chip" data-filter="pandoro">Pandoro</button>
-      <button class="chip" data-filter="biscuit">Biscuit</button>
-      <button class="chip" data-filter="pan-di-spagna">Pan di Spagna</button>
-    </div>
+      <div class="logout-wrap">
+        <button id="logoutBtn" class="btn secondary full">Esci</button>
+      </div>
+    </aside>
 
-    <div class="section-title">Corsi Damiano</div>
-    <div class="courses" id="courses"></div>
+    <div id="backdrop" class="backdrop"></div>
 
-    <div class="section-title">Ricette</div>
-    <div class="list" id="list"></div>
-    <div class="empty hidden" id="empty">Nessun risultato trovato.</div>
+    <!-- MAIN -->
+    <main class="main">
+      <div class="main-top">
+        <button id="menuToggle" class="menu-toggle" aria-label="Apri menu">☰</button>
+        <h2 id="sectionHeading" class="section-heading">Tutte le ricette</h2>
+      </div>
+
+      <div class="search-box">
+        <input id="search" class="search" placeholder="Cerca per ingrediente, nome, tecnica...">
+        <div class="search-icon">⌕</div>
+      </div>
+
+      <div class="meta"><span id="totalCount">0</span> ricette totali • 9 corsi Damiano</div>
+
+      <!-- Sezione Corsi -->
+      <div id="coursesSection" class="hidden">
+        <div class="courses" id="courses"></div>
+      </div>
+
+      <!-- Sezione Ricette -->
+      <div id="recipesSection">
+        <div class="loading" id="loading">Caricamento ricette…</div>
+        <div class="list" id="list"></div>
+        <div class="empty hidden" id="empty">Nessun risultato trovato.</div>
+      </div>
+    </main>
   </div>
 </div>
 
 <script>
 const ACCESS_CODE = "Loco0106R";
 let indexed = [];
-let currentFilter = "all";
+let currentSection = "all";   // "all" | "courses" | "filter"
+let currentFilter = null;
 
 const damianoCourses = [
   ["corso-avanzato-lezione1-pate-a-choux.html","Lezione 1","Pâte à choux e basi collegate"],
@@ -170,13 +261,19 @@ const damianoCourses = [
 
 const listEl = document.getElementById("list");
 const emptyEl = document.getElementById("empty");
+const loadingEl = document.getElementById("loading");
 const totalCountEl = document.getElementById("totalCount");
 const searchEl = document.getElementById("search");
 const coursesEl = document.getElementById("courses");
+const coursesSection = document.getElementById("coursesSection");
+const recipesSection = document.getElementById("recipesSection");
+const sectionHeading = document.getElementById("sectionHeading");
 const gateEl = document.getElementById("gate");
 const appEl = document.getElementById("app");
 const codeInput = document.getElementById("codeInput");
 const errorMsg = document.getElementById("errorMsg");
+const sidebar = document.getElementById("sidebar");
+const backdrop = document.getElementById("backdrop");
 
 function prettyName(name){ return name.replace(".html","").replace(/-/g," "); }
 function stripHtml(html){
@@ -191,9 +288,7 @@ function highlight(text,q){
 }
 function snippet(text,q){
   if(!text) return "";
-  if(!q){
-    return text.slice(0,160) + (text.length > 160 ? "…" : "");
-  }
+  if(!q){ return text.slice(0,160) + (text.length > 160 ? "…" : ""); }
   const lower = text.toLowerCase();
   const idx = lower.indexOf(q.toLowerCase());
   if(idx < 0){ return text.slice(0,160) + (text.length > 160 ? "…" : ""); }
@@ -218,9 +313,8 @@ function filterItems(){
   return indexed.filter(item => {
     const inSearch = !q || item.title.toLowerCase().includes(q) || item.text.toLowerCase().includes(q);
     let filterOk = true;
-    if(currentFilter !== "all"){
+    if(currentSection === "filter" && currentFilter){
       filterOk = item.name.toLowerCase().includes(currentFilter) || item.text.toLowerCase().includes(currentFilter);
-      if(currentFilter === "corsi"){ filterOk = /(corso|lezione)/i.test(item.name); }
     }
     return inSearch && filterOk;
   });
@@ -234,7 +328,7 @@ function renderCourses(){
     </div>
   `).join("");
 }
-function render(){
+function renderRecipes(){
   const q = searchEl.value.trim();
   const filtered = filterItems();
 
@@ -259,7 +353,17 @@ function render(){
     `;
   }).join("");
 
-  emptyEl.classList.toggle("hidden", !!filtered.length);
+  emptyEl.classList.toggle("hidden", filtered.length > 0 || indexed.length === 0);
+}
+function render(){
+  if(currentSection === "courses"){
+    coursesSection.classList.remove("hidden");
+    recipesSection.classList.add("hidden");
+  }else{
+    coursesSection.classList.add("hidden");
+    recipesSection.classList.remove("hidden");
+    renderRecipes();
+  }
 }
 async function load(){
   try{
@@ -276,24 +380,55 @@ async function load(){
         return { name:f.name, title:prettyName(f.name), text:"" };
       }
     }));
+    loadingEl.classList.add("hidden");
     renderCourses();
     render();
   }catch(e){
+    loadingEl.classList.add("hidden");
     listEl.innerHTML = "<div class='empty'>Errore nel caricamento del repo.</div>";
   }
 }
-function activateChip(el){
-  document.querySelectorAll(".chip").forEach(b => b.classList.remove("active"));
-  el.classList.add("active");
-}
-document.querySelectorAll(".chip").forEach(btn => {
+
+/* ---- Navigazione sidebar ---- */
+document.querySelectorAll(".nav-item").forEach(btn => {
   btn.addEventListener("click", () => {
-    currentFilter = btn.dataset.filter;
-    activateChip(btn);
+    document.querySelectorAll(".nav-item").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const section = btn.dataset.section;
+    if(section === "all"){
+      currentSection = "all";
+      currentFilter = null;
+      sectionHeading.textContent = "Tutte le ricette";
+    }else if(section === "courses"){
+      currentSection = "courses";
+      currentFilter = null;
+      sectionHeading.textContent = "Corsi Damiano";
+    }else if(section === "filter"){
+      currentSection = "filter";
+      currentFilter = btn.dataset.filter;
+      sectionHeading.textContent = btn.textContent;
+    }
     render();
+    // chiudi sidebar su mobile
+    sidebar.classList.remove("open");
+    backdrop.classList.remove("open");
   });
 });
+
 searchEl.addEventListener("input", render);
+
+/* ---- Mobile menu ---- */
+document.getElementById("menuToggle").addEventListener("click", () => {
+  sidebar.classList.add("open");
+  backdrop.classList.add("open");
+});
+backdrop.addEventListener("click", () => {
+  sidebar.classList.remove("open");
+  backdrop.classList.remove("open");
+});
+
+/* ---- Login ---- */
 document.getElementById("enterBtn").addEventListener("click", () => {
   if((codeInput.value || "") === ACCESS_CODE){
     localStorage.setItem("locoselli_access","ok");
